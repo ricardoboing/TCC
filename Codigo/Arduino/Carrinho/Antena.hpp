@@ -1,18 +1,30 @@
+#ifndef ANTENA_HPP
+#define ANTENA_HPP
+
+#include "nRF24L01.h"
+#include "RF24.h"
+#include "RF24_config.h"
+#include <SPI.h>
 
 class Antena {
 private:
-	bool modoLeitura;
+	uint64_t endereco;
+	bool estaLigado;
+	
+	RF24 *antena;
 
 public:
-	Antena(int pinCE, int pinCSN);
+	Antena(uint8_t pinCE, uint8_t pinCSN);
 	~Antena();
-	void set_modo_leitura();
-	void set_modo_escrita();
+	
+	bool iniciar_modo_leitura();
+	bool ler(byte* dado);
 
-	bool modo_leitura();
-	bool modo_escrita();
-
+	void set_endereco(uint64_t endereco);
 	void ligar();
-	void desligar();
+
+	int disponiveis();
 
 };
+
+#endif

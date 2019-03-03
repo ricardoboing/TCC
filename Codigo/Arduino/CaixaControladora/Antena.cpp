@@ -23,7 +23,7 @@ bool Antena::iniciar_modo_escrita() {
 
 	return true;
 }
-void Antena::escrever(byte* dado) {
+bool Antena::escrever(byte* dado) {
 	if (!this->estaLigado) {
 		if (!this->iniciar_modo_escrita()) {
 			return false;

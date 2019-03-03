@@ -18,7 +18,7 @@ public:
 	~Antena();
 
 	bool iniciar_modo_escrita();
-	void escrever(byte* dado);
+	bool escrever(byte* dado);
 	
 	void set_endereco(uint64_t endereco);
 	void ligar();

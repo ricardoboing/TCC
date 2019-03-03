@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sistema Fog</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	<main>
+		<form>
+			<div>
+				<div>
+					<span>Carrinho</span>
+				</div>
+				<div>
+					<span>Velocidade:</span>
+					<input type="range" name="carrinho_velocidade">
+				</div>
+				<div>
+					<label for="direcao">Distância:</label>
+					<button type="button">Direita</button>
+					<button type="button">Parar</button>
+					<button type="button">Esquerda</button>
+					<span>metros</span>
+				</div>
+			</div>
+			<div>
+				<div>
+					<span>Som</span>
+				</div>
+				<div>
+					<label for="som_volume">Volume:</label>
+					<input type="range" name="som_tempo" id="som_volume">
+				</div>
+				<div>
+					<label for="som_arquivo">Arquivo:</label>
+					<input type="file" name="som_arquivo" id="som_arquivo">
+				</div>
+				<div>
+					<span>Tocar:</span>
+					<button type="button">Tocar</button>
+					<button type="button">Parar</button>
+				</div>
+			</div>
+			<div>
+				<a href="index.html">Controle Manual</a>
+				<a href="javascript: void(0);">Controle Programado</a>
+			</div>
+		</form>
+	</main>
+</body>
+</html>

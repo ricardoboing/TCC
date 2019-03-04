@@ -9,91 +9,133 @@
 		<header>
 			<span>Evento</span>
 		</header>
-		<main>
-			<form>
+		<main class="evento">
+			<section class="evento">
 				<div>
-					<label for="nome">Nome:</label>
-					<input type="text" name="nome" id="nome">
+					<div>
+						<label for="nome">Nome:</label>
+					</div>
+					<input type="text" name="nome" id="nome" placeholder="De manhã">
 				</div>
-				<div>
-					<label for="nome">Hora:</label>
-					<input type="text" name="nome" id="hora_hora">
-					<span>:</span>
-					<input type="text" name="nome" id="hora_minuto">
+				<div class="hora">
+					<div>
+						<label for="nome">Hora:</label>
+					</div>
+					<input type="number" name="nome" id="hora_hora" placeholder="00">
+					<div>
+						<span>:</span>
+					</div>
+					<input type="number" name="nome" id="hora_minuto" placeholder="00">
 				</div>
 				<div>
 					<ul>
 						<li>
-							<label for="dia_domingo">Domingo</label>
+							<div>
+								<label for="dia_domingo">Domingo</label>
+							</div>
 							<input type="checkbox" name="dia_domingo">
 						</li>
 						<li>
-							<label for="dia_segunda">Segunda</label>
+							<div>
+								<label for="dia_segunda">Segunda</label>
+							</div>
 							<input type="checkbox" name="dia_segunda">
 						</li>
 						<li>
-							<label for="dia_terca">Terça</label>
+							<div>
+								<label for="dia_terca">Terça</label>
+							</div>
 							<input type="checkbox" name="dia_terca">
 						</li>
 						<li>
-							<label for="dia_quarta">Quarta</label>
+							<div>
+								<label for="dia_quarta">Quarta</label>
+							</div>
 							<input type="checkbox" name="dia_quarta">
 						</li>
 						<li>
-							<label for="dia_quinta">Quinta</label>
+							<div>
+								<label for="dia_quinta">Quinta</label>
+							</div>
 							<input type="checkbox" name="dia_quinta">
 						</li>
 						<li>
-							<label for="dia_sexta">Sexta</label>
+							<div>
+								<label for="dia_sexta">Sexta</label>
+							</div>
 							<input type="checkbox" name="dia_sexta">
 						</li>
 						<li>
-							<label for="dia_sabado">Sabado</label>
+							<div>
+								<label for="dia_sabado">Sabado</label>
+							</div>
 							<input type="checkbox" name="dia_sabado">
 						</li>
 					</ul>
 				</div>
+			</section>
+			<section class="carrinho">
+				<div class="titulo">
+					<span>Carrinho</span>
+				</div>
 				<div>
 					<div>
-						<span>Carrinho</span>
+						<label>Velocidade:</label>
 					</div>
-					<div>
-						<span>Velocidade:</span>
-						<input type="range" name="carrinho_velocidade">
-					</div>
+					<input type="range" name="carrinho_velocidade">
+				</div>
+				<div class="distancia">
 					<div>
 						<label for="carrinho_distancia">Distância:</label>
-						<input type="number" name="carrinho_distancia" id="carrinho_distancia">
+					</div>
+					<input type="number" name="carrinho_distancia" id="carrinho_distancia" placeholder="0">
+					<div>
 						<span>metros</span>
 					</div>
 				</div>
+			</section>
+			<section class="som">
+				<div class="titulo">
+					<span>Som</span>
+				</div>
 				<div>
-					<div>
-						<span>Som</span>
-					</div>
 					<div>
 						<label for="som_tocar">Tocar:</label>
-						<input type="checkbox" name="som_tocar" id="som_tocar">
 					</div>
+					<input type="checkbox" name="som_tocar" id="som_tocar">
+				</div>
+				<div>
 					<div>
 						<label for="som_volume">Volume:</label>
-						<input type="range" name="som_tempo" id="som_volume">
 					</div>
+					<input type="range" name="som_tempo" id="som_volume">
+				</div>
+				<div class="tempo">
 					<div>
 						<label for="som_tempo">Tempo:</label>
-						<input type="number" name="som_tempo" id="som_tempo">
-						<span>segundos</span>
 					</div>
+					<input type="number" name="som_tempo" id="som_tempo" placeholder="0">
 					<div>
-						<label for="som_arquivo">Arquivo:</label>
-						<input type="file" name="som_arquivo" id="som_arquivo">
+						<span>segundos</span>
 					</div>
 				</div>
 				<div>
-					<button type="button">Cancelar</button>
-					<button type="submit">Salvar</button>
+					<div>
+						<label for="som_arquivo">Arquivo:</label>
+					</div>
+					<input type="file" name="som_arquivo" id="som_arquivo">
 				</div>
-			</form>
+			</section>
+			<section class="menu">
+				<ul>
+					<li>
+						<a href="javascript: void(0);">Salvar</a>
+					</li>
+					<li>
+						<a href="index.html">Cancelar</a>
+					</li>
+				</ul>
+			</section>
 		</main>
 	</div>
 </body>

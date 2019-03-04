@@ -17,6 +17,52 @@ input[type='file'],
 input[type='range'] {
 	width: 286px;
 }
+input[type='number'] {
+	width: 80px;
+}
+input[type='number'],
+input[type='text'] {
+	height: 20px;
+	padding: 3px 5px;
+	border-width: 2px;
+}
+
+/* ----------- Input[range] ----------- */
+input[type='range'] {
+	-webkit-appearance: none;
+	background-color: blue;
+	margin: 10px 0;
+	border-radius: 5px;
+	height: 7px;
+	cursor: pointer;
+}
+input[type=range]:focus {
+	outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+	width: 10px;
+	height: 23px;
+	border: 1px solid #2497E3;
+	background-color: #A1D0FF;
+	-webkit-appearance: none;
+	box-shadow: 0px 0px 0px #000000;
+}
+input[type=range]::-ms-thumb {
+	width: 10px;
+	height: 23px;
+	border: 1px solid #2497E3;
+	background-color: #A1D0FF;
+	-webkit-appearance: none;
+	box-shadow: 0px 0px 0px #000000;
+}
+input[type=range]::-moz-range-thumb {
+	width: 10px;
+	height: 23px;
+	border: 1px solid #2497E3;
+	background-color: #A1D0FF;
+	-webkit-appearance: none;
+	box-shadow: 0px 0px 0px #000000;
+}
 
 /* ----------- Button ----------- */
 button {
@@ -102,13 +148,26 @@ header span {
 main {
 	width: 468px;
 	min-height: 732px;
+	padding-bottom: 60px;
 	float: left;
 	border: 1px blue solid;
 	position: relative;
 }
 main section {
+	width: 422px;
+	float: left;
+	padding: 0px 23px;
+	margin-top: 20px;
+}
+main div {
 	width: 100%;
 	float: left;
+	margin-top: 15px;
+}
+main section div div {
+	width: auto;
+	display: table;
+	margin: 0px;
 }
 main div.titulo {
 	width: 100%;
@@ -118,18 +177,26 @@ main div.titulo {
 	padding-bottom: 5px;
 }
 main label {
-	width: 30%;
-	float: left;
+	width: 130px;
+	height: 27px;
+	display: table-cell;
+	vertical-align: middle;
 }
 main button {
-	width: 90px;
+	width: 91px;
 	float: left;
-	margin-right: 8px;
+	margin-right: 5px;
 	font-size: 14px;
 }
-main section {
-	width: 422px;
-	padding: 0px 23px;
+main section input {
+	float: left;
+}
+main section input[type='rangee'] {
+	height: 27px;
+}
+main section input[type='file'] {
+	height: 25px;
+	padding-top: 2px;
 }
 main section.menu {
 	width: 100%;
@@ -150,18 +217,11 @@ main section.menu a {
 	background-color: blue;
 }
 
-
-/* ----------- Main.Index ----------- */
-main.index div {
-	width: 100%;
-	float: left;
-	margin-top: 15px;
-}
-
 /* ----------- Main.Listar_Evento ----------- */
 main.listar_evento section {
 	width: 100%;
 	padding: 0px;
+	margin: 0px;
 }
 main.listar_evento section table {
 	width: 100%;
@@ -203,4 +263,40 @@ main.listar_evento section table ul li {
 }
 main.listar_evento section table td.nome ul li span {
 	font-size: 14px;
+}
+
+/* ----------- Main.Evento ----------- */
+
+main.evento section.evento ul,
+main.evento section.evento li {
+	width: 100%;
+	float: left;
+}
+
+main.evento section div.hora span {
+	width: 25px;
+	text-align: center;
+}
+main.evento section div.tempo span,
+main.evento section div.distancia span {
+	margin-left: 10px;
+}
+
+
+main.evento section div div span {
+	float: none;
+	display: table-cell;
+	vertical-align: middle;
+}
+main.evento section div div span,
+main.evento section input[type='checkbox'] {
+	height: 27px;
+}
+
+
+
+main.evento section.som input[type='number'],
+main.evento section.carrinho input[type='number'] {
+	vertical-align: bottom;
+	margin-right: 10px;
 }

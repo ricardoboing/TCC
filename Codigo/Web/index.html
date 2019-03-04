@@ -5,47 +5,59 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<main>
-		<form>
-			<div>
+	<div class="centralizado">
+		<header>
+			<span>Controle Manual</span>
+		</header>
+		<main class="index">
+			<section class="carrinho">
 				<div>
-					<span>Carrinho</span>
+					<div class="titulo">
+						<span>Carrinho</span>
+					</div>
+					<div>
+						<label>Velocidade:</label>
+						<input type="range" name="carrinho_velocidade">
+					</div>
+					<div>
+						<label for="direcao">Direção:</label>
+						<button type="button" class="green">Direita</button>
+						<button type="button" class="black">Parar</button>
+						<button type="button" class="green">Esquerda</button>
+					</div>
 				</div>
+			</section>
+			<section class="som">
 				<div>
-					<span>Velocidade:</span>
-					<input type="range" name="carrinho_velocidade">
+					<div class="titulo">
+						<span>Som</span>
+					</div>
+					<div>
+						<label for="som_volume">Volume:</label>
+						<input type="range" name="som_tempo" id="som_volume">
+					</div>
+					<div>
+						<label for="som_arquivo">Arquivo:</label>
+						<input type="file" name="som_arquivo" id="som_arquivo">
+					</div>
+					<div>
+						<label>Tocar:</label>
+						<button type="button" class="green">Tocar</button>
+						<button type="button" class="black">Parar</button>
+					</div>
 				</div>
-				<div>
-					<label for="direcao">Distância:</label>
-					<button type="button">Direita</button>
-					<button type="button">Parar</button>
-					<button type="button">Esquerda</button>
-					<span>metros</span>
-				</div>
-			</div>
-			<div>
-				<div>
-					<span>Som</span>
-				</div>
-				<div>
-					<label for="som_volume">Volume:</label>
-					<input type="range" name="som_tempo" id="som_volume">
-				</div>
-				<div>
-					<label for="som_arquivo">Arquivo:</label>
-					<input type="file" name="som_arquivo" id="som_arquivo">
-				</div>
-				<div>
-					<span>Tocar:</span>
-					<button type="button">Tocar</button>
-					<button type="button">Parar</button>
-				</div>
-			</div>
-			<div>
-				<a href="index.html">Controle Manual</a>
-				<a href="javascript: void(0);">Controle Programado</a>
-			</div>
-		</form>
-	</main>
+			</section>
+			<section class="menu">
+				<ul>
+					<li>
+						<a href="index.html">Controle Manual</a>
+					</li>
+					<li>
+						<a href="javascript: void(0);">Controle Programado</a>
+					</li>
+				</ul>
+			</section>
+		</main>
+	</div>
 </body>
 </html>

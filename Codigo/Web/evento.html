@@ -5,91 +5,96 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<main>
-		<form>
-			<div>
-				<label for="nome">Nome:</label>
-				<input type="text" name="nome" id="nome">
-			</div>
-			<div>
-				<label for="nome">Hora:</label>
-				<input type="text" name="nome" id="hora_hora">
-				<span>:</span>
-				<input type="text" name="nome" id="hora_minuto">
-			</div>
-			<div>
-				<ul>
-					<li>
-						<label for="dia_domingo">Domingo</label>
-						<input type="checkbox" name="dia_domingo">
-					</li>
-					<li>
-						<label for="dia_segunda">Segunda</label>
-						<input type="checkbox" name="dia_segunda">
-					</li>
-					<li>
-						<label for="dia_terca">Terça</label>
-						<input type="checkbox" name="dia_terca">
-					</li>
-					<li>
-						<label for="dia_quarta">Quarta</label>
-						<input type="checkbox" name="dia_quarta">
-					</li>
-					<li>
-						<label for="dia_quinta">Quinta</label>
-						<input type="checkbox" name="dia_quinta">
-					</li>
-					<li>
-						<label for="dia_sexta">Sexta</label>
-						<input type="checkbox" name="dia_sexta">
-					</li>
-					<li>
-						<label for="dia_sabado">Sabado</label>
-						<input type="checkbox" name="dia_sabado">
-					</li>
-				</ul>
-			</div>
-			<div>
+	<div class="centralizado">
+		<header>
+			<span>Evento</span>
+		</header>
+		<main>
+			<form>
 				<div>
-					<span>Carrinho</span>
+					<label for="nome">Nome:</label>
+					<input type="text" name="nome" id="nome">
 				</div>
 				<div>
-					<span>Velocidade:</span>
-					<input type="range" name="carrinho_velocidade">
+					<label for="nome">Hora:</label>
+					<input type="text" name="nome" id="hora_hora">
+					<span>:</span>
+					<input type="text" name="nome" id="hora_minuto">
 				</div>
 				<div>
-					<label for="carrinho_distancia">Distância:</label>
-					<input type="number" name="carrinho_distancia" id="carrinho_distancia">
-					<span>metros</span>
+					<ul>
+						<li>
+							<label for="dia_domingo">Domingo</label>
+							<input type="checkbox" name="dia_domingo">
+						</li>
+						<li>
+							<label for="dia_segunda">Segunda</label>
+							<input type="checkbox" name="dia_segunda">
+						</li>
+						<li>
+							<label for="dia_terca">Terça</label>
+							<input type="checkbox" name="dia_terca">
+						</li>
+						<li>
+							<label for="dia_quarta">Quarta</label>
+							<input type="checkbox" name="dia_quarta">
+						</li>
+						<li>
+							<label for="dia_quinta">Quinta</label>
+							<input type="checkbox" name="dia_quinta">
+						</li>
+						<li>
+							<label for="dia_sexta">Sexta</label>
+							<input type="checkbox" name="dia_sexta">
+						</li>
+						<li>
+							<label for="dia_sabado">Sabado</label>
+							<input type="checkbox" name="dia_sabado">
+						</li>
+					</ul>
 				</div>
-			</div>
-			<div>
 				<div>
-					<span>Som</span>
+					<div>
+						<span>Carrinho</span>
+					</div>
+					<div>
+						<span>Velocidade:</span>
+						<input type="range" name="carrinho_velocidade">
+					</div>
+					<div>
+						<label for="carrinho_distancia">Distância:</label>
+						<input type="number" name="carrinho_distancia" id="carrinho_distancia">
+						<span>metros</span>
+					</div>
 				</div>
 				<div>
-					<label for="som_tocar">Tocar:</label>
-					<input type="checkbox" name="som_tocar" id="som_tocar">
+					<div>
+						<span>Som</span>
+					</div>
+					<div>
+						<label for="som_tocar">Tocar:</label>
+						<input type="checkbox" name="som_tocar" id="som_tocar">
+					</div>
+					<div>
+						<label for="som_volume">Volume:</label>
+						<input type="range" name="som_tempo" id="som_volume">
+					</div>
+					<div>
+						<label for="som_tempo">Tempo:</label>
+						<input type="number" name="som_tempo" id="som_tempo">
+						<span>segundos</span>
+					</div>
+					<div>
+						<label for="som_arquivo">Arquivo:</label>
+						<input type="file" name="som_arquivo" id="som_arquivo">
+					</div>
 				</div>
 				<div>
-					<label for="som_volume">Volume:</label>
-					<input type="range" name="som_tempo" id="som_volume">
+					<button type="button">Cancelar</button>
+					<button type="submit">Salvar</button>
 				</div>
-				<div>
-					<label for="som_tempo">Tempo:</label>
-					<input type="number" name="som_tempo" id="som_tempo">
-					<span>segundos</span>
-				</div>
-				<div>
-					<label for="som_arquivo">Arquivo:</label>
-					<input type="file" name="som_arquivo" id="som_arquivo">
-				</div>
-			</div>
-			<div>
-				<button type="button">Cancelar</button>
-				<button type="submit">Salvar</button>
-			</div>
-		</form>
-	</main>
+			</form>
+		</main>
+	</div>
 </body>
 </html>

@@ -12,11 +12,51 @@ div.centralizado {
 	margin: auto;
 	padding: 0px 5px;
 }
-/* ----------- Input ----------- */
-input[type='file'],
-input[type='range'] {
-	width: 286px;
+
+/* ----------- Button ----------- */
+button {
+	padding: 7px 14px;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 3px;
+	cursor: pointer;
+	outline: none;
+	font-size: 14px;
 }
+button.green {
+	color: white;
+	background-color: rgb(40, 170, 70);
+	background-image: -webkit-linear-gradient(top, rgb(40, 170, 70), rgb(10, 140, 30));
+	background-image: -moz-linear-gradient(top, rgb(40, 170, 70), rgb(10, 140, 30));
+    background-image: -o-linear-gradient(top, rgb(40, 170, 70), rgb(10, 140, 30));
+	border-color: rgb(0, 130, 20);
+	text-shadow: 1px 1px black;
+}
+button.green:hover {
+	background-color: rgb(20, 160, 60);
+	background-image: -webkit-linear-gradient(top, rgb(20, 160, 60), rgb(0, 130, 30));
+	background-image: -moz-linear-gradient(top, rgb(20, 160, 60), rgb(0, 130, 30));
+    background-image: -o-linear-gradient(top, rgb(20, 160, 60), rgb(0, 130, 30));
+	border-color: rgb(20, 100, 20);
+}
+button.black {
+	color: white;
+	background-color: rgb(40, 40, 40);
+	background-image: -webkit-linear-gradient(top, rgb(50, 50, 50), rgb(0, 0, 0));
+	background-image: -moz-linear-gradient(top, rgb(50, 50, 50), rgb(0, 0, 0));
+    background-image: -o-linear-gradient(top, rgb(50, 50, 50), rgb(0, 0, 0));
+	border-color: rgb(10,10,10);
+	text-shadow: 1px 1px black;
+}
+button.black:hover {
+	background-color: rgb(0, 106, 194);
+	background-image: -webkit-linear-gradient(top, rgb(30, 30, 30), rgb(0, 0, 0));
+	background-image: -moz-linear-gradient(top, rgb(30, 30, 30), rgb(0, 0, 0));
+    background-image: -o-linear-gradient(top, rgb(30, 30, 30), rgb(0, 0, 0));
+	border-color: rgb(10,10,10);
+}
+
+/* ----------- Input ----------- */
 input[type='number'] {
 	width: 80px;
 }
@@ -25,6 +65,13 @@ input[type='text'] {
 	height: 20px;
 	padding: 3px 5px;
 	border-width: 2px;
+}
+input[type='file'],
+input[type='range'] {
+	width: 286px;
+}
+input[type='file']:disabled {
+	color: rgb(130, 130, 130);
 }
 
 /* ----------- Input[range] ----------- */
@@ -38,6 +85,14 @@ input[type='range'] {
 }
 input[type=range]:focus {
 	outline: none;
+}
+input[type='range']:disabled {
+	-webkit-appearance: none;
+	background-color: rgb(225, 225, 225);
+	margin: 10px 0;
+	border-radius: 5px;
+	height: 7px;
+	cursor: pointer;
 }
 input[type=range]::-webkit-slider-thumb {
 	width: 10px;
@@ -63,71 +118,17 @@ input[type=range]::-moz-range-thumb {
 	-webkit-appearance: none;
 	box-shadow: 0px 0px 0px #000000;
 }
-
-/* ----------- Button ----------- */
-button {
-	padding: 7px 14px;
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 3px;
-	cursor: pointer;
-	outline: none;
+input[type=range]:disabled::-webkit-slider-thumb {
+	background-color: rgb(225, 225, 225);
+	border-color: rgb(190,190,190);
 }
-button[type="submit"],
-button.active,
-button.green {
-	color: white;
-	background-color: rgb(40, 170, 70);
-	background-image: -webkit-linear-gradient(top, rgb(40, 170, 70), rgb(10, 140, 30));
-	background-image: -moz-linear-gradient(top, rgb(40, 170, 70), rgb(10, 140, 30));
-    background-image: -o-linear-gradient(top, rgb(40, 170, 70), rgb(10, 140, 30));
-	border-color: rgb(0, 130, 20);
-	text-shadow: 1px 1px black;
+input[type=range]:disabled::-ms-thumb {
+	background-color: rgb(225, 225, 225);
+	border-color: rgb(190,190,190);
 }
-button[type="submit"]:hover,
-button.active:hover,
-button.green:hover {
-	background-color: rgb(20, 160, 60);
-	background-image: -webkit-linear-gradient(top, rgb(20, 160, 60), rgb(0, 130, 30));
-	background-image: -moz-linear-gradient(top, rgb(20, 160, 60), rgb(0, 130, 30));
-    background-image: -o-linear-gradient(top, rgb(20, 160, 60), rgb(0, 130, 30));
-	border-color: rgb(20, 100, 20);
-}
-
-button[type="reset"],
-button.black {
-	color: white;
-	background-color: rgb(40, 40, 40);
-	background-image: -webkit-linear-gradient(top, rgb(50, 50, 50), rgb(0, 0, 0));
-	background-image: -moz-linear-gradient(top, rgb(50, 50, 50), rgb(0, 0, 0));
-    background-image: -o-linear-gradient(top, rgb(50, 50, 50), rgb(0, 0, 0));
-	border-color: rgb(10,10,10);
-	text-shadow: 1px 1px black;
-}
-button[type="reset"]:hover,
-button.black:hover {
-	background-color: rgb(0, 106, 194);
-	background-image: -webkit-linear-gradient(top, rgb(30, 30, 30), rgb(0, 0, 0));
-	background-image: -moz-linear-gradient(top, rgb(30, 30, 30), rgb(0, 0, 0));
-    background-image: -o-linear-gradient(top, rgb(30, 30, 30), rgb(0, 0, 0));
-	border-color: rgb(10,10,10);
-}
-
-button.disable {
-	color: white;
-	background-color: rgb(200, 64, 0);
-	background-image: -webkit-linear-gradient(top, rgb(200, 64, 0), rgb(180, 44, 0));
-	background-image: -moz-linear-gradient(top, rgb(200, 64, 0), rgb(180, 44, 0));
-    background-image: -o-linear-gradient(top, rgb(200, 64, 0), rgb(180, 44, 0));
-	border-color: rgb(150, 20, 20);
-	text-shadow: 1px 1px black;
-}
-button.disable:hover {
-	background-color: rgb(200, 64, 0);
-	background-image: -webkit-linear-gradient(top, rgb(190, 54, 0), rgb(170, 34, 0));
-	background-image: -moz-linear-gradient(top, rgb(190, 54, 0), rgb(170, 34, 0));
-    background-image: -o-linear-gradient(top, rgb(190, 54, 0), rgb(170, 34, 0));
-	border-color: rgb(140, 10, 10);
+input[type=range]:disabled::-moz-range-thumb {
+	background-color: rgb(225, 225, 225);
+	border-color: rgb(190,190,190);
 }
 
 /* ----------- Header ----------- */
@@ -142,6 +143,78 @@ header span {
 	float: left;
 	font-weight: bold;
 	margin: 23px;
+	text-shadow: 1px 1px 2px black;
+}
+
+/* ----------- Section ----------- */
+section {
+	width: 422px;
+	float: left;
+	padding: 0px 23px;
+	margin-top: 20px;
+}
+section input {
+	float: left;
+}
+section input[type='file'] {
+	height: 25px;
+	padding-top: 2px;
+}
+section.menu {
+	width: 100%;
+	float: none;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-top: 15px;
+	position: absolute;
+	bottom: 0;
+}
+section.menu ul {
+	width: 100%;
+	float: left;
+}
+section.menu input[type='button'] {
+	width: 55px;
+	height: 55px;
+	float: right;
+	border-radius: 30px;
+	font-size: 20px;
+	font-weight: bold;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	background-color: red;
+	border-width: 0px;
+	color: white;
+	text-shadow: 1px 1px 2px black;
+	cursor: pointer;
+}
+section.menu a {
+	width: 50%;
+	padding: 13px 0px;
+	float: left;
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	background-color: blue;
+	text-shadow: 1px 1px 2px black;
+}
+section.menu button {
+	width: 50%;
+	padding: 13px 0px;
+	float: left;
+	color: white;
+	font-weight: bold;
+	background-color: blue;
+	background-image: none;
+	border-width: 0px;
+	border-radius: 0px;
+	margin: 0px;
+	font-size: 15px;
+	text-shadow: 1px 1px 2px black;
+}
+section.menu button:hover {
+	background-color: blue;
+	background-image: none;
 }
 
 /* ----------- Main ----------- */
@@ -153,21 +226,10 @@ main {
 	border: 1px blue solid;
 	position: relative;
 }
-main section {
-	width: 422px;
-	float: left;
-	padding: 0px 23px;
-	margin-top: 20px;
-}
 main div {
 	width: 100%;
 	float: left;
 	margin-top: 15px;
-}
-main section div div {
-	width: auto;
-	display: table;
-	margin: 0px;
 }
 main div.titulo {
 	width: 100%;
@@ -182,39 +244,18 @@ main label {
 	display: table-cell;
 	vertical-align: middle;
 }
+main span.disabled {
+	color: rgb(130, 130, 130);
+}
 main button {
 	width: 91px;
 	float: left;
 	margin-right: 5px;
-	font-size: 14px;
 }
-main section input {
-	float: left;
-}
-main section input[type='rangee'] {
-	height: 27px;
-}
-main section input[type='file'] {
-	height: 25px;
-	padding-top: 2px;
-}
-main section.menu {
-	width: 100%;
-	float: none;
-	padding-left: 0px;
-	padding-right: 0px;
-	margin-top: 15px;
-	position: absolute;
-	bottom: 0;
-}
-main section.menu a {
-	width: 50%;
-	padding: 13px 0px;
-	float: left;
-	color: white;
-	font-weight: bold;
-	text-align: center;
-	background-color: blue;
+main section div div {
+	width: auto;
+	display: table;
+	margin: 0px;
 }
 
 /* ----------- Main.Listar_Evento ----------- */
@@ -227,52 +268,78 @@ main.listar_evento section table {
 	width: 100%;
 	border-collapse: collapse;
 }
-main.listar_evento section table td {
+main.listar_evento section td {
 	padding: 20px 0px;
 	border-bottom: 1px blue solid;
 }
-main.listar_evento section table td.horario {
+main.listar_evento section td.horario {
 	width: 40%;
 	text-align: center;
 }
-main.listar_evento section table td.horario span {
+main.listar_evento section td.horario span {
+	color: rgb(0,0,250);
 	font-size: 24px;
 }
-main.listar_evento section table td.nome {
+main.listar_evento section td.nome {
 	width: 50%;
 }
-main.listar_evento section table td.nome span {
-	font-size: 16px;
+main.listar_evento section td.nome a {
+	font-weight: bold;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: rgb(255,255,255);
 }
-main.listar_evento section table td.status {
-	width: 10%;
+main.listar_evento section td.nome a:hover {
+	border-bottom-color: black;
 }
-main.listar_evento section table td.status input {
-	position: relative;
-	margin: auto;
-}
-main.listar_evento section table ul {
+main.listar_evento section td.nome ul {
 	width: 100%;
 	float: left;
 }
-main.listar_evento section table ul li {
+main.listar_evento section td.nome ul li {
 	width: auto;
 	float: left;
-	padding: 5px 0px;
-	margin-right: 10px;
+	padding: 5px 5px;
 }
-main.listar_evento section table td.nome ul li span {
+main.listar_evento section td.nome li span {
+	font-weight: normal;
 	font-size: 14px;
+}
+main.listar_evento section td.nome li.bold {
+	background-color: black;
+}
+main.listar_evento section td.nome li.bold span {
+	color: white;
+	font-weight: bold;
+}
+main.listar_evento section td.status {
+	width: 10%;
+}
+main.listar_evento section td.status input {
+	position: relative;
+	margin: auto;
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
 }
 
 /* ----------- Main.Evento ----------- */
-
-main.evento section.evento ul,
+main.evento section input[type='number'] {
+	vertical-align: bottom;
+	margin-right: 10px;
+}
+main.evento section.evento input[type='number'] {
+	vertical-align: middle;
+	margin-right: 0px;
+}
+main.evento section.evento ul {
+	width: 100%;
+	float: left;
+}
 main.evento section.evento li {
 	width: 100%;
 	float: left;
 }
-
 main.evento section div.hora span {
 	width: 25px;
 	text-align: center;
@@ -281,8 +348,6 @@ main.evento section div.tempo span,
 main.evento section div.distancia span {
 	margin-left: 10px;
 }
-
-
 main.evento section div div span {
 	float: none;
 	display: table-cell;
@@ -291,12 +356,4 @@ main.evento section div div span {
 main.evento section div div span,
 main.evento section input[type='checkbox'] {
 	height: 27px;
-}
-
-
-
-main.evento section.som input[type='number'],
-main.evento section.carrinho input[type='number'] {
-	vertical-align: bottom;
-	margin-right: 10px;
 }

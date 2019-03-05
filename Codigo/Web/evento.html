@@ -10,133 +10,137 @@
 			<span>Evento</span>
 		</header>
 		<main class="evento">
-			<section class="evento">
-				<div>
+			<form>
+				<section class="evento">
 					<div>
-						<label for="nome">Nome:</label>
+						<div>
+							<label for="nome">Nome:</label>
+						</div>
+						<input type="text" name="nome" id="nome" placeholder="De manhã" required="required">
 					</div>
-					<input type="text" name="nome" id="nome" placeholder="De manhã">
-				</div>
-				<div class="hora">
+					<div class="hora">
+						<div>
+							<label for="horario_hora">Horário:</label>
+						</div>
+						<input type="number" name="horario_hora" id="horario_hora" placeholder="00" required="required">
+						<div>
+							<span>:</span>
+						</div>
+						<input type="number" name="horario_minuto" id="horario_minuto" placeholder="00" required="required">
+					</div>
 					<div>
-						<label for="nome">Hora:</label>
+						<ul>
+							<li>
+								<div>
+									<label for="dia_domingo">Domingo</label>
+								</div>
+								<input type="checkbox" name="dia_domingo" id="dia_domingo">
+							</li>
+							<li>
+								<div>
+									<label for="dia_segunda">Segunda</label>
+								</div>
+								<input type="checkbox" name="dia_segunda" id="dia_segunda">
+							</li>
+							<li>
+								<div>
+									<label for="dia_terca">Terça</label>
+								</div>
+								<input type="checkbox" name="dia_terca" id="dia_terca">
+							</li>
+							<li>
+								<div>
+									<label for="dia_quarta">Quarta</label>
+								</div>
+								<input type="checkbox" name="dia_quarta" id="dia_quarta">
+							</li>
+							<li>
+								<div>
+									<label for="dia_quinta">Quinta</label>
+								</div>
+								<input type="checkbox" name="dia_quinta" id="dia_quinta">
+							</li>
+							<li>
+								<div>
+									<label for="dia_sexta">Sexta</label>
+								</div>
+								<input type="checkbox" name="dia_sexta" id="dia_sexta">
+							</li>
+							<li>
+								<div>
+									<label for="dia_sabado">Sabado</label>
+								</div>
+								<input type="checkbox" name="dia_sabado" id="dia_sabado">
+							</li>
+						</ul>
 					</div>
-					<input type="number" name="nome" id="hora_hora" placeholder="00">
+				</section>
+				<section class="carrinho">
+					<div class="titulo">
+						<span>Carrinho</span>
+					</div>
 					<div>
-						<span>:</span>
+						<div>
+							<label for="carrinho_velocidade">Velocidade:</label>
+						</div>
+						<input type="range" name="carrinho_velocidade" id="carrinho_velocidade">
 					</div>
-					<input type="number" name="nome" id="hora_minuto" placeholder="00">
-				</div>
-				<div>
+					<div class="distancia">
+						<div>
+							<label for="carrinho_distancia">Distância:</label>
+						</div>
+						<input type="number" name="carrinho_distancia" id="carrinho_distancia" placeholder="0" required="required">
+						<div>
+							<span>metros</span>
+						</div>
+					</div>
+				</section>
+				<section class="som">
+					<div class="titulo">
+						<span>Som</span>
+					</div>
+					<div>
+						<div>
+							<label for="som_input_checkbox">Tocar:</label>
+						</div>
+						<input type="checkbox" name="som_input_checkbox" id="som_input_checkbox">
+					</div>
+					<div>
+						<div>
+							<label for="som_input_volume">Volume:</label>
+						</div>
+						<input type="range" name="som_input_volume" id="som_input_volume" disabled="disabled">
+					</div>
+					<div class="tempo">
+						<div>
+							<label for="som_input_tempo">Tempo:</label>
+						</div>
+						<input type="number" name="som_input_tempo" id="som_input_tempo" placeholder="0" disabled="disabled">
+						<div>
+							<span class="disabled">segundos</span>
+						</div>
+					</div>
+					<div>
+						<div>
+							<label for="som_input_arquivo">Arquivo:</label>
+						</div>
+						<input type="file" name="som_input_arquivo" id="som_input_arquivo" disabled="disabled">
+					</div>
+				</section>
+				<section class="menu">
 					<ul>
 						<li>
-							<div>
-								<label for="dia_domingo">Domingo</label>
-							</div>
-							<input type="checkbox" name="dia_domingo">
+							<button type="submit">Salvar</button>
 						</li>
 						<li>
-							<div>
-								<label for="dia_segunda">Segunda</label>
-							</div>
-							<input type="checkbox" name="dia_segunda">
-						</li>
-						<li>
-							<div>
-								<label for="dia_terca">Terça</label>
-							</div>
-							<input type="checkbox" name="dia_terca">
-						</li>
-						<li>
-							<div>
-								<label for="dia_quarta">Quarta</label>
-							</div>
-							<input type="checkbox" name="dia_quarta">
-						</li>
-						<li>
-							<div>
-								<label for="dia_quinta">Quinta</label>
-							</div>
-							<input type="checkbox" name="dia_quinta">
-						</li>
-						<li>
-							<div>
-								<label for="dia_sexta">Sexta</label>
-							</div>
-							<input type="checkbox" name="dia_sexta">
-						</li>
-						<li>
-							<div>
-								<label for="dia_sabado">Sabado</label>
-							</div>
-							<input type="checkbox" name="dia_sabado">
+							<a href="index.html">Cancelar</a>
 						</li>
 					</ul>
-				</div>
-			</section>
-			<section class="carrinho">
-				<div class="titulo">
-					<span>Carrinho</span>
-				</div>
-				<div>
-					<div>
-						<label>Velocidade:</label>
-					</div>
-					<input type="range" name="carrinho_velocidade">
-				</div>
-				<div class="distancia">
-					<div>
-						<label for="carrinho_distancia">Distância:</label>
-					</div>
-					<input type="number" name="carrinho_distancia" id="carrinho_distancia" placeholder="0">
-					<div>
-						<span>metros</span>
-					</div>
-				</div>
-			</section>
-			<section class="som">
-				<div class="titulo">
-					<span>Som</span>
-				</div>
-				<div>
-					<div>
-						<label for="som_tocar">Tocar:</label>
-					</div>
-					<input type="checkbox" name="som_tocar" id="som_tocar">
-				</div>
-				<div>
-					<div>
-						<label for="som_volume">Volume:</label>
-					</div>
-					<input type="range" name="som_tempo" id="som_volume">
-				</div>
-				<div class="tempo">
-					<div>
-						<label for="som_tempo">Tempo:</label>
-					</div>
-					<input type="number" name="som_tempo" id="som_tempo" placeholder="0">
-					<div>
-						<span>segundos</span>
-					</div>
-				</div>
-				<div>
-					<div>
-						<label for="som_arquivo">Arquivo:</label>
-					</div>
-					<input type="file" name="som_arquivo" id="som_arquivo">
-				</div>
-			</section>
-			<section class="menu">
-				<ul>
-					<li>
-						<a href="javascript: void(0);">Salvar</a>
-					</li>
-					<li>
-						<a href="index.html">Cancelar</a>
-					</li>
-				</ul>
-			</section>
+				</section>
+			</form>
 		</main>
 	</div>
 </body>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
 </html>

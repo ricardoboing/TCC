@@ -4,24 +4,34 @@
 	list-style-type: none;
 	text-decoration: none;
 	color: rgb(15,15,15);
-	font-family: Arial;
-	font-size: 15px;
+	font-family: sans-serif;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	z-index: 1;
+	font-size: 14px;
+}
+html, body {
+	width: 100%;
+	height: 100%;
 }
 div.centralizado {
-	width: 470px;
+	width: 100%;
 	margin: auto;
-	padding: 0px 5px;
+	padding: 0px;
+	position: relative;
+	height: 100%;
+	min-height: 100%;
 }
 
 /* ----------- Button ----------- */
 button {
-	padding: 7px 14px;
+	padding: 5px 13px;
 	border-width: 1px;
 	border-style: solid;
 	border-radius: 3px;
 	cursor: pointer;
 	outline: none;
-	font-size: 14px;
 }
 button.green {
 	color: white;
@@ -63,15 +73,20 @@ input[type='number'] {
 input[type='number'],
 input[type='text'] {
 	height: 20px;
-	padding: 3px 5px;
-	border-width: 2px;
+	padding: 13px;
+	border: 1px rgb(180,180,180) solid;
 }
 input[type='file'],
 input[type='range'] {
-	width: 286px;
+	width: 41vw;
 }
 input[type='file']:disabled {
 	color: rgb(130, 130, 130);
+}
+input[type='checkbox'] {
+	width: 28px;
+	height: 28px;
+	cursor: pointer;
 }
 
 /* ----------- Input[range] ----------- */
@@ -133,10 +148,12 @@ input[type=range]:disabled::-moz-range-thumb {
 
 /* ----------- Header ----------- */
 header {
-	width: 468px;
+	width: 100%;
 	float: left;
 	background-color: blue;
 	border: 1px blue solid;
+	position: fixed;
+	z-index: 100;
 }
 header span {
 	color: white;
@@ -146,34 +163,20 @@ header span {
 	text-shadow: 1px 1px 2px black;
 }
 
-/* ----------- Section ----------- */
-section {
-	width: 422px;
-	float: left;
-	padding: 0px 23px;
-	margin-top: 20px;
-}
-section input {
-	float: left;
-}
-section input[type='file'] {
-	height: 25px;
-	padding-top: 2px;
-}
-section.menu {
+/* ----------- Footer ----------- */
+footer {
 	width: 100%;
 	float: none;
 	padding-left: 0px;
 	padding-right: 0px;
-	margin-top: 15px;
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 }
-section.menu ul {
+footer ul {
 	width: 100%;
 	float: left;
 }
-section.menu input[type='button'] {
+footer input[type='button'] {
 	width: 55px;
 	height: 55px;
 	float: right;
@@ -187,8 +190,11 @@ section.menu input[type='button'] {
 	color: white;
 	text-shadow: 1px 1px 2px black;
 	cursor: pointer;
+	position: absolute;
+	right: 0;
+	bottom: 40px;
 }
-section.menu a {
+footer a {
 	width: 50%;
 	padding: 13px 0px;
 	float: left;
@@ -198,7 +204,7 @@ section.menu a {
 	background-color: blue;
 	text-shadow: 1px 1px 2px black;
 }
-section.menu button {
+footer button {
 	width: 50%;
 	padding: 13px 0px;
 	float: left;
@@ -209,27 +215,43 @@ section.menu button {
 	border-width: 0px;
 	border-radius: 0px;
 	margin: 0px;
-	font-size: 15px;
 	text-shadow: 1px 1px 2px black;
 }
-section.menu button:hover {
+footer button:hover {
 	background-color: blue;
 	background-image: none;
 }
 
+/* ----------- Section ----------- */
+section {
+	width: 100%;
+	float: left;
+	padding: 0px 23px;
+	margin-top: 20px;
+}
+section input {
+	float: left;
+}
+section input[type='file'] {
+	height: 25vh;
+	padding-top: 2px;
+}
+
 /* ----------- Main ----------- */
 main {
-	width: 468px;
-	min-height: 732px;
-	padding-bottom: 60px;
+	width: 100%;
+	min-height: 100%;
+	padding-bottom: 70px;
 	float: left;
 	border: 1px blue solid;
 	position: relative;
+	padding-top: 70px;
 }
 main div {
 	width: 100%;
 	float: left;
 	margin-top: 15px;
+	display: table;
 }
 main div.titulo {
 	width: 100%;
@@ -239,7 +261,7 @@ main div.titulo {
 	padding-bottom: 5px;
 }
 main label {
-	width: 130px;
+	width: 100vw;
 	height: 27px;
 	display: table-cell;
 	vertical-align: middle;
@@ -248,17 +270,54 @@ main span.disabled {
 	color: rgb(130, 130, 130);
 }
 main button {
-	width: 91px;
 	float: left;
-	margin-right: 5px;
+	margin-left: 2vw;
 }
 main section div div {
-	width: auto;
-	display: table;
+	width: 42vw;
 	margin: 0px;
 }
 
+/* ----------- Main.Index ----------- */
+main.index section div div {
+	width: 55vw;
+	margin: 0px;
+	float: right;
+}
+main.index section button,
+main.index section input {
+	float: right;
+}
+main.index section.carrinho button div.desenho_triangulo_direita {
+	width: 0px;
+	height: 0px;
+	border-left: 4vw white solid;
+	border-top: 2vw transparent solid;
+	border-bottom: 2vw transparent solid;
+	margin: 1vw;
+}
+main.index section.carrinho button div.desenho_triangulo_esquerda {
+	width: 0px;
+	height: 0px;
+	border-right: 4vw white solid;
+	border-top: 2vw transparent solid;
+	border-bottom: 2vw transparent solid;
+	margin: 1vw;
+}
+main.index section.carrinho button div.desenho_quadrado {
+	width: 4vw;
+	height: 4vw;
+	background-color: white;
+	margin: 1vw;
+}
+main.index section.som button {
+	max-width: 
+}
+
 /* ----------- Main.Listar_Evento ----------- */
+main.listar_evento {
+	padding-bottom: 40px;
+}
 main.listar_evento section {
 	width: 100%;
 	padding: 0px;
@@ -269,19 +328,17 @@ main.listar_evento section table {
 	border-collapse: collapse;
 }
 main.listar_evento section td {
-	padding: 20px 0px;
+	padding: 30px 10px;
 	border-bottom: 1px blue solid;
 }
 main.listar_evento section td.horario {
-	width: 40%;
 	text-align: center;
 }
 main.listar_evento section td.horario span {
-	color: rgb(0,0,250);
-	font-size: 24px;
-}
-main.listar_evento section td.nome {
-	width: 50%;
+	color: rgb(0,0,220);
+	font-size: 28px;
+	font-family: sans-serif;
+	font-weight: bold;
 }
 main.listar_evento section td.nome a {
 	font-weight: bold;
@@ -299,38 +356,39 @@ main.listar_evento section td.nome ul {
 main.listar_evento section td.nome ul li {
 	width: auto;
 	float: left;
-	padding: 5px 5px;
+	margin-top: 10px;
+	margin-right: 10px;
 }
 main.listar_evento section td.nome li span {
 	font-weight: normal;
-	font-size: 14px;
-}
-main.listar_evento section td.nome li.bold {
-	background-color: black;
 }
 main.listar_evento section td.nome li.bold span {
 	color: white;
 	font-weight: bold;
-}
-main.listar_evento section td.status {
-	width: 10%;
+	text-shadow: 1px 1px 2px black;
 }
 main.listar_evento section td.status input {
 	position: relative;
 	margin: auto;
-	width: 20px;
-	height: 20px;
-	cursor: pointer;
 }
 
 /* ----------- Main.Evento ----------- */
 main.evento section input[type='number'] {
+	width: 17vw;
 	vertical-align: bottom;
 	margin-right: 10px;
 }
 main.evento section.evento input[type='number'] {
 	vertical-align: middle;
 	margin-right: 0px;
+}
+main.evento section.evento input[type='text'] {
+	width: 41vw;
+}
+main.evento section.evento ul label {
+	width: 30vw;
+	height: 37px;
+	float: left;
 }
 main.evento section.evento ul {
 	width: 100%;
@@ -339,21 +397,29 @@ main.evento section.evento ul {
 main.evento section.evento li {
 	width: 100%;
 	float: left;
+	margin: 5px 0px;
+}
+main.evento section.evento input {
+	float: right;
+}
+main.evento section div.hora div {
+	float: right;
+}
+main.evento section div.hora div div {
+	width: auto;
 }
 main.evento section div.hora span {
-	width: 25px;
+	width: 7vw;
 	text-align: center;
+	vertical-align: middle;
 }
 main.evento section div.tempo span,
 main.evento section div.distancia span {
 	margin-left: 10px;
 }
 main.evento section div div span {
+	height: 28px;
 	float: none;
 	display: table-cell;
-	vertical-align: middle;
-}
-main.evento section div div span,
-main.evento section input[type='checkbox'] {
-	height: 27px;
+	vertical-align: bottom;
 }

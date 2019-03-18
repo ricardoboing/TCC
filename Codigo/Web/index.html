@@ -7,62 +7,310 @@
 	<meta charset="utf-8"/>
 </head>
 <body>
-	<div class="centralizado">
-		<div class="tudo">
-			<header>
-				<span>Controle Manual</span>
-			</header>
-			<main class="index">
-				<section class="carrinho">
-					<div class="titulo">
-						<span>Carrinho</span>
-					</div>
-					<div>
-						<label for="direcao">Sentido:</label>
-						<div>
-							<button id="carrinho_button_esquerda" type="button" class="green">
-								<div class="desenho_triangulo_direita"></div>
-							</button>
-							<button id="carrinho_button_parar" type="button" class="black">
-								<div class="desenho_quadrado"></div>
-							</button>
-							<button id="carrinho_button_direita" type="button" class="green">
-								<div class="desenho_triangulo_esquerda"></div>
-							</button>
-						</div>
-					</div>
-				</section>
-				<section class="som">
-					<div class="titulo">
-						<span>Som</span>
-					</div>
-					<div>
-						<label for="som_input_volume">Volume:</label>
-						<div>
-							<input type="range" id="som_input_volume" name="som_input_volume">
-						</div>
-					</div>
-					<div>
-						<label>Tocar:</label>
-						<div>
-							<button type="button" id="som_button_parar" class="black">Parar</button>
-							<button type="button" id="som_button_tocar" class="green">Tocar</button>
-						</div>
-					</div>
-				</section>
-			</main>
-			<footer>
-				<ul>
-					<li>
-						<a href="javascript: void(0);">Controle Manual</a>
-					</li>
-					<li>
-						<a href="listar_evento.html">Controle Programado</a>
-					</li>
-				</ul>
-			</footer>
-		</div>
-	</div>
+	<header>
+		<span>ESTIMATIVA DE CONSUMO</span>
+	</header>
+	<main class="index">
+		<section>
+			<div class="titulo">
+				<span>Carrinho</span>
+			</div>
+			<table>
+				<tr class="head">
+					<th>
+						<span></span>
+					</th>
+					<th>
+						<span>DIA</span>
+					</th>
+					<th>
+						<span>MÊS</span>
+					</th>
+					<th>
+						<span>ANO</span>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<span>HORAS</span>
+					</th>
+					<td>
+						<span>5.3</span>
+					</td>
+					<td>
+						<span>29</span>
+					</td>
+					<td>
+						<span>0.65</span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>kWH</span>
+					</th>
+					<td>
+						<span>0.71</span>
+					</td>
+					<td>
+						<span>0.71</span>
+					</td>
+					<td>
+						<span>0.71</span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>R$</span>
+					</th>
+					<td>
+						<span>3.4</span>
+					</td>
+					<td>
+						<span>30</span>
+					</td>
+					<td>
+						<span>0.67</span>
+					</td>
+				</tr>
+			</table>
+			<div class="titulo">
+				<span>Central</span>
+			</div>
+			<table>
+				<tr class="head">
+					<th>
+						<span></span>
+					</th>
+					<th>
+						<span>DIA</span>
+					</th>
+					<th>
+						<span>MÊS</span>
+					</th>
+					<th>
+						<span>ANO</span>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<span>HORAS</span>
+					</th>
+					<td>
+						<span>5.3</span>
+					</td>
+					<td>
+						<span>29</span>
+					</td>
+					<td>
+						<span>0.65</span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>kWH</span>
+					</th>
+					<td>
+						<span>0.71</span>
+					</td>
+					<td>
+						<span>0.71</span>
+					</td>
+					<td>
+						<span>0.71</span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>R$</span>
+					</th>
+					<td>
+						<span>3.4</span>
+					</td>
+					<td>
+						<span>30</span>
+					</td>
+					<td>
+						<span>0.67</span>
+					</td>
+				</tr>
+			</table>
+			<div class="titulo">
+				<span>Total (Completo)</span>
+			</div>
+			<table>
+				<tr class="head">
+					<th>
+						<span></span>
+					</th>
+					<th>
+						<span>DIA</span>
+					</th>
+					<th>
+						<span>MÊS</span>
+					</th>
+					<th>
+						<span>ANO</span>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<span>HORAS</span>
+					</th>
+					<td>
+						<span>5.3</span>
+					</td>
+					<td>
+						<span>29</span>
+					</td>
+					<td>
+						<span>0.65</span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>kWH</span>
+					</th>
+					<td>
+						<span>0.71</span>
+					</td>
+					<td>
+						<span>0.71</span>
+					</td>
+					<td>
+						<span>0.71</span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>R$</span>
+					</th>
+					<td>
+						<span>3.4</span>
+					</td>
+					<td>
+						<span>30</span>
+					</td>
+					<td>
+						<span>0.67</span>
+					</td>
+				</tr>
+			</table>
+			<div class="titulo">
+				<span>Total (Consumido)</span>
+			</div>
+			<table>
+				<tr class="head">
+					<th>
+						<span></span>
+					</th>
+					<th>
+						<span>DIA</span>
+					</th>
+					<th>
+						<span>MÊS</span>
+					</th>
+					<th>
+						<span>ANO</span>
+					</th>
+				</tr>
+				<tr>
+					<th>
+						<span>HORAS</span>
+					</th>
+					<td>
+						<span>5.3</span>
+					</td>
+					<td>
+						<span>29</span>
+					</td>
+					<td>
+						<span>0.65</span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>kWH</span>
+					</th>
+					<td>
+						<span>0.71</span>
+					</td>
+					<td>
+						<span>0.71</span>
+					</td>
+					<td>
+						<span>0.71</span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>R$</span>
+					</th>
+					<td>
+						<span>3.4</span>
+					</td>
+					<td>
+						<span>30</span>
+					</td>
+					<td>
+						<span>0.67</span>
+					</td>
+				</tr>
+			</table>
+			<div class="titulo">
+				<span>Tarifa</span>
+			</div>
+			<table class="tarifa">
+				<tr class="head">
+					<th>
+						<span>VALOR (R$)</span>
+					</th>
+					<th>
+						<span>COBRADO ATÉ O CONSUMO DE (kWH)</span>
+					</th>
+				</tr>
+				<tr>
+					<td>
+						<input type="number" name="">
+					</td>
+					<td>
+						<input type="number" name="">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="number" name="">
+					</td>
+					<td>
+						<input type="number" name="">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="number" name="">
+					</td>
+					<td>
+						<input type="number" name="">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button type="submit" class="green">Salvar</button>
+						<button type="submit" class="black">Adicionar</button>
+					</td>
+				</tr>
+			</table>
+		</section>
+	</main>
+	<footer>
+		<ul>
+			<li>
+				<a href="javascript: void(0);">ESTIMATIVA DE CONSUMO</a>
+			</li>
+			<li>
+				<a href="horarios.html">HORÁRIOS</a>
+			</li>
+		</ul>
+	</footer>
 </body>
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/script.js"></script>

@@ -165,7 +165,8 @@ header span {
 
 /* ----------- Footer ----------- */
 footer {
-	width: 100%;
+	width: 100vw;
+	height: 64px;
 	float: none;
 	padding-left: 0px;
 	padding-right: 0px;
@@ -174,17 +175,23 @@ footer {
 }
 footer ul {
 	width: 100%;
+	height: 100%;
 	float: left;
+}
+footer li {
+	width: 50%;
+	height: 100%;
+	float: left;
+	display: table;
 }
 footer input[type='button'] {
 	width: 55px;
 	height: 55px;
-	float: right;
 	border-radius: 30px;
 	font-size: 20px;
 	font-weight: bold;
 	margin-right: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 35px;
 	background-color: red;
 	border-width: 0px;
 	color: white;
@@ -194,28 +201,27 @@ footer input[type='button'] {
 	right: 0;
 	bottom: 40px;
 }
-footer a {
-	width: 50%;
+footer a,
+footer button {
+	width: 100%;
+	height: 64px;
 	padding: 13px 0px;
-	float: left;
 	color: white;
 	font-weight: bold;
-	text-align: center;
 	background-color: blue;
 	text-shadow: 1px 1px 2px black;
 }
+footer a {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
 footer button {
-	width: 50%;
-	padding: 13px 0px;
-	float: left;
-	color: white;
-	font-weight: bold;
-	background-color: blue;
 	background-image: none;
 	border-width: 0px;
 	border-radius: 0px;
 	margin: 0px;
-	text-shadow: 1px 1px 2px black;
+	
 }
 footer button:hover {
 	background-color: blue;
@@ -225,6 +231,7 @@ footer button:hover {
 /* ----------- Section ----------- */
 section {
 	width: 100%;
+	max-width: 100vw;
 	float: left;
 	padding: 0px 23px;
 	margin-top: 20px;
@@ -243,7 +250,6 @@ main {
 	min-height: 100%;
 	padding-bottom: 70px;
 	float: left;
-	border: 1px blue solid;
 	position: relative;
 	padding-top: 70px;
 }
@@ -279,16 +285,53 @@ main section div div {
 }
 
 /* ----------- Main.Index ----------- */
-main.index section div div {
+main.index table {
+	width: 100%;
+	border: 1px rgb(200,200,200) solid;
+	border-collapse: collapse;
+	margin-top: 12px;
+}
+main.index table td span {
+	float: right;
+}
+main.index table th,
+main.index table td {
+	width: 20%;
+	padding: 10px;
+	border: 1px rgb(200,200,200) solid;
+}
+main.index table th span,
+main.index table td span {
+	font-size: 12px;
+}
+main.index table th {
+	text-align: left;
+	background-color: rgb(230,230,230);
+}
+main.index table tr.head th {
+	text-align: center;
+}
+main.index table td button {
+	float: right;
+}
+main.index table td input {
+	width: 100%;
+}
+main.index table.tarifa td {
+	width: 50%;
+}
+
+/* ----------- Main.Manual ----------- */
+main.manual section div div {
 	width: 55vw;
 	margin: 0px;
 	float: right;
 }
-main.index section button,
-main.index section input {
+main.manual section button,
+main.manual section input {
 	float: right;
 }
-main.index section.carrinho button div.desenho_triangulo_direita {
+main.manual section.carrinho button div.desenho_triangulo_direita {
 	width: 0px;
 	height: 0px;
 	border-left: 4vw white solid;
@@ -296,7 +339,7 @@ main.index section.carrinho button div.desenho_triangulo_direita {
 	border-bottom: 2vw transparent solid;
 	margin: 1vw;
 }
-main.index section.carrinho button div.desenho_triangulo_esquerda {
+main.manual section.carrinho button div.desenho_triangulo_esquerda {
 	width: 0px;
 	height: 0px;
 	border-right: 4vw white solid;
@@ -304,13 +347,13 @@ main.index section.carrinho button div.desenho_triangulo_esquerda {
 	border-bottom: 2vw transparent solid;
 	margin: 1vw;
 }
-main.index section.carrinho button div.desenho_quadrado {
+main.manual section.carrinho button div.desenho_quadrado {
 	width: 4vw;
 	height: 4vw;
 	background-color: white;
 	margin: 1vw;
 }
-main.index section.som button {
+main.manual section.som button {
 	max-width: 
 }
 
@@ -423,3 +466,5 @@ main.evento section div div span {
 	display: table-cell;
 	vertical-align: bottom;
 }
+
+

@@ -11,9 +11,9 @@ $(document).ready(function() {
 			page_evento();
 			console.log("EVENTO")
 			break;
-		case "listar_evento":
-			page_listar_evento();
-			console.log("LISTAR_EVENTO")
+		case "horarios":
+			page_horarios();
+			console.log("HORARIOS")
 			break;
 		default:
 			break;
@@ -142,13 +142,12 @@ function page_evento() {
 /* --------------------- [Class] EventoSom --------------------- */
 
 
-/* --------------------- [PageFunction] ListarEvento --------------------- */
-function page_listar_evento() {
+/* --------horarios [PageFunction] Horarios --------------------- */
+function page_horarios() {
 	$("table input:checkbox").click(function() {
 		console.log("ahudhasd");
 	});
 	$("input:button").click(function() {
 		$(window.document.location).attr("href", "evento.html");
 	});
-
 }

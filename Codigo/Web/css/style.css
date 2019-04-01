@@ -158,20 +158,21 @@ header {
 header span {
 	color: white;
 	float: left;
+	font-size: 12px;
 	font-weight: bold;
-	margin: 23px;
+	margin: 18px 23px;
 	text-shadow: 1px 1px 2px black;
 }
 
 /* ----------- Footer ----------- */
 footer {
 	width: 100vw;
-	height: 64px;
+	height: 60px;
 	float: none;
-	padding-left: 0px;
-	padding-right: 0px;
+	padding: 0px;
 	position: fixed;
 	bottom: 0;
+	background-color: blue;
 }
 footer ul {
 	width: 100%;
@@ -204,9 +205,10 @@ footer input[type='button'] {
 footer a,
 footer button {
 	width: 100%;
-	height: 64px;
-	padding: 13px 0px;
+	height: 60px;
+	padding: 18px 23px;
 	color: white;
+	font-size: 12px;
 	font-weight: bold;
 	background-color: blue;
 	text-shadow: 1px 1px 2px black;
@@ -248,10 +250,10 @@ section input[type='file'] {
 main {
 	width: 100%;
 	min-height: 100%;
-	padding-bottom: 70px;
+	padding-bottom: 80px;
 	float: left;
 	position: relative;
-	padding-top: 70px;
+	padding-top: 50px;
 }
 main div {
 	width: 100%;
@@ -357,75 +359,84 @@ main.manual section.som button {
 	max-width: 
 }
 
-/* ----------- Main.Listar_Evento ----------- */
-main.listar_evento {
-	padding-bottom: 40px;
+/* ----------- main.horarios ----------- */
+main.horarios {
+	padding-bottom: 60px;
 }
-main.listar_evento section {
+main.horarios section {
 	width: 100%;
 	padding: 0px;
 	margin: 0px;
 }
-main.listar_evento section table {
+main.horarios section table {
 	width: 100%;
 	border-collapse: collapse;
+	margin-bottom: 90px;
 }
-main.listar_evento section td {
+main.horarios section td {
 	padding: 30px 10px;
 	border-bottom: 1px blue solid;
 }
-main.listar_evento section td.horario {
+main.horarios section td.horario {
 	text-align: center;
 }
-main.listar_evento section td.horario span {
+main.horarios section td.horario span {
 	color: rgb(0,0,220);
-	font-size: 28px;
+	font-size: 24px;
 	font-family: sans-serif;
 	font-weight: bold;
 }
-main.listar_evento section td.nome a {
+main.horarios section td.nome a {
 	font-weight: bold;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: rgb(255,255,255);
 }
-main.listar_evento section td.nome a:hover {
+main.horarios section td.nome a:hover {
 	border-bottom-color: black;
 }
-main.listar_evento section td.nome ul {
+main.horarios section td.nome ul {
 	width: 100%;
 	float: left;
 }
-main.listar_evento section td.nome ul li {
+main.horarios section td.nome ul li {
 	width: auto;
 	float: left;
 	margin-top: 10px;
 	margin-right: 10px;
 }
-main.listar_evento section td.nome li span {
+main.horarios section td.nome li span {
+	color: rgb(170,170,170);
 	font-weight: normal;
 }
-main.listar_evento section td.nome li.bold span {
-	color: white;
+main.horarios section td.nome li.bold span {
+	color: darkblue;
 	font-weight: bold;
-	text-shadow: 1px 1px 2px black;
 }
-main.listar_evento section td.status input {
+main.horarios section td.status input {
 	position: relative;
 	margin: auto;
 }
+main.horarios section tr.disabled td.horario span,
+main.horarios section tr.disabled td.nome span,
+main.horarios section tr.disabled td.nome a {
+	color: rgb(170,170,170);
+}
+main.horarios section tr.disabled td.nome li.bold span {
+	color: rgb(120,120,120);	
+}
 
 /* ----------- Main.Evento ----------- */
-main.evento section input[type='number'] {
+main.evento section input.number {
 	width: 17vw;
 	vertical-align: bottom;
 	margin-right: 10px;
 }
-main.evento section.evento input[type='number'] {
+main.evento section.evento input.number {
 	vertical-align: middle;
 	margin-right: 0px;
 }
-main.evento section.evento input[type='text'] {
+main.evento section.evento input#nome {
 	width: 41vw;
 }
 main.evento section.evento ul label {

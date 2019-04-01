@@ -3,7 +3,7 @@
 <head>
 	<title>Sistema Fog - Criar Evento</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<meta name="viewport" content="width=device-width, height=device-height minimum-scale=1, maximum-scale=1"">
+	<meta name="viewport" content="width=device-width, height=device-height minimum-scale=1, maximum-scale=1">
 	<meta charset="utf-8"/>
 </head>
 <body>
@@ -20,11 +20,11 @@
 				<div class="hora">
 					<label for="horario_hora">Horário:</label>
 					<div>
-						<input type="number" name="horario_minuto" id="horario_minuto" placeholder="00" required="required">
+						<input type="text" class="number" name="horario_minuto" id="horario_minuto" placeholder="00" required="required">
 						<div>
 							<span>:</span>
 						</div>
-						<input type="number" name="horario_hora" id="horario_hora" placeholder="01" required="required">
+						<input type="text" class="number" name="horario_hora" id="horario_hora" placeholder="01" required="required">
 					</div>
 				</div>
 				<div>
@@ -60,18 +60,6 @@
 					</ul>
 				</div>
 			</section>
-			<section class="carrinho">
-				<div class="titulo">
-					<span>Carrinho</span>
-				</div>
-				<div class="distancia">
-					<label for="carrinho_distancia">Distância:</label>
-					<div>
-						<input type="number" name="carrinho_distancia" id="carrinho_distancia" placeholder="0" required="required">
-						<span>metros</span>
-					</div>
-				</div>
-			</section>
 			<section class="som">
 				<div class="titulo">
 					<span>Som</span>
@@ -87,7 +75,7 @@
 				<div class="tempo">
 					<label for="som_input_tempo">Tempo:</label>
 					<div>
-						<input type="number" name="som_input_tempo" id="som_input_tempo" placeholder="0" disabled="disabled">
+						<input type="text" class="number" name="som_input_tempo" id="som_input_tempo" placeholder="0" disabled="disabled">
 						<span class="disabled">segundos</span>
 					</div>
 				</div>

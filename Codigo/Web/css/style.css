@@ -65,6 +65,22 @@ button.black:hover {
     background-image: -o-linear-gradient(top, rgb(30, 30, 30), rgb(0, 0, 0));
 	border-color: rgb(10,10,10);
 }
+button.red {
+	color: white;
+	background-color: rgb(180, 0, 0);
+	background-image: -webkit-linear-gradient(top, rgb(180, 0, 0), rgb(80, 0, 0));
+	background-image: -moz-linear-gradient(top, rgb(180, 0, 0), rgb(80, 0, 0));
+    background-image: -o-linear-gradient(top, rgb(180, 0, 0), rgb(80, 0, 0));
+	border-color: rgb(100,0,0);
+	text-shadow: 1px 1px black;
+}
+button.red:hover {
+	background-color: rgb(170, 0, 0);
+	background-image: -webkit-linear-gradient(top, rgb(170, 0, 0), rgb(70, 0, 0));
+	background-image: -moz-linear-gradient(top, rgb(170, 0, 0), rgb(70, 0, 0));
+    background-image: -o-linear-gradient(top, rgb(170, 0, 0), rgb(70, 0, 0));
+	border-color: rgb(100,0,0);
+}
 
 /* ----------- Input ----------- */
 input[type='number'] {
@@ -193,7 +209,10 @@ footer input[type='button'] {
 	font-weight: bold;
 	margin-right: 10px;
 	margin-bottom: 35px;
-	background-color: red;
+	background-color: rgb(230, 0, 0);
+	background-image: -webkit-linear-gradient(top, rgb(230, 0, 0), rgb(150, 0, 0));
+	background-image: -moz-linear-gradient(top, rgb(230, 0, 0), rgb(150, 0, 0));
+    background-image: -o-linear-gradient(top, rgb(230, 0, 0), rgb(150, 0, 0));
 	border-width: 0px;
 	color: white;
 	text-shadow: 1px 1px 2px black;
@@ -201,6 +220,12 @@ footer input[type='button'] {
 	position: absolute;
 	right: 0;
 	bottom: 40px;
+}
+footer input[type='button']:hover {
+	background-color: rgb(200, 0, 0);
+	background-image: -webkit-linear-gradient(top, rgb(200, 0, 0), rgb(100, 0, 0));
+	background-image: -moz-linear-gradient(top, rgb(200, 0, 0), rgb(100, 0, 0));
+    background-image: -o-linear-gradient(top, rgb(200, 0, 0), rgb(100, 0, 0));
 }
 footer a,
 footer button {
@@ -313,8 +338,13 @@ main.index table th {
 main.index table tr.head th {
 	text-align: center;
 }
-main.index table td button {
+main.index table tr button {
+	float: none;
+	margin: 0px;
+}
+main.index table tr.menu button {
 	float: right;
+	margin-left: 2vw;
 }
 main.index table td input {
 	width: 100%;
@@ -416,6 +446,7 @@ main.horarios section td.nome li.bold span {
 main.horarios section td.status input {
 	position: relative;
 	margin: auto;
+	color: red;
 }
 main.horarios section tr.disabled td.horario span,
 main.horarios section tr.disabled td.nome span,

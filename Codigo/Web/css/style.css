@@ -349,6 +349,9 @@ main.index table tr.menu button {
 main.index table td input {
 	width: 100%;
 }
+main.index table.tarifa button.remover:disabled {
+	opacity: 0.5;
+}
 main.index table.tarifa td {
 	width: 50%;
 }
@@ -386,7 +389,7 @@ main.manual section.carrinho button div.desenho_quadrado {
 	margin: 1vw;
 }
 main.manual section.som button {
-	max-width: 
+
 }
 
 /* ----------- main.horarios ----------- */

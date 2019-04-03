@@ -20,49 +20,119 @@ $(document).ready(function() {
 	}
 });
 
-/* --------------------- [Class] IndexCarrinho --------------------- */
+/* --------------------- [Class] IndexTarifa --------------------- */
+var IndexTarifa = function() {
+	
+};
+IndexTarifa.prototype.adicionarTarifa = function(button) {
+	var trMenu = $(button).parents("tr.menu")[0];
+	var table = $(button).parents("table")[0];
+	
+	var trClonada = $(table).find("tr")[1];
+	var trClone = $(trClonada).clone();
+
+	$(trMenu).remove();
+	$(trClonada).parent().append(trClone);
+	$(trClonada).parent().append(trMenu);
+
+	$(trClone).find("button.remover").click(function() {
+		indexTarifa.removerTarifa($(this));
+	});
+
+	$(trMenu).find("button.adicionar").click(function() {
+		indexTarifa.adicionarTarifa($(this));
+	});
+
+	$(trMenu).find("button.salvar").click(function() {
+		indexTarifa.salvarTarifa();
+	});
+
+	$(table).find("button.remover").prop("disabled", false);
+};
+IndexTarifa.prototype.salvarTarifa = function() {
+	
+};
+IndexTarifa.prototype.removerTarifa = function(button) {
+	var trPai = $(button).parents("tr")[0];
+	var elementoAvo = $(trPai).parent();
+
+	var numeroFilhosDoAvo = $(elementoAvo).find("tr").length;
+
+	// Se o "avo" do elemento possuir duas ou menos tr
+	if (numeroFilhosDoAvo <= 3) {
+		return;
+	}
+
+	$(trPai).remove();
+
+	if (numeroFilhosDoAvo <= 4) {
+		var ultimaTrDeTarifa = $(elementoAvo).find("tr")[1];
+		$(ultimaTrDeTarifa).find("button.remover").prop("disabled", true);
+	}
+};
+
+
+/* --------------------- [PageFunction] Index --------------------- */
+function page_index() {
+	this.indexTarifa;
+	indexTarifa = new IndexTarifa();
+
+	$("table.tarifa button.remover").click(function() {
+		indexTarifa.removerTarifa($(this));
+	});
+
+	$("table.tarifa button.adicionar").click(function() {
+		indexTarifa.adicionarTarifa($(this));
+	});
+
+	$("table.tarifa button.salvar").click(function() {
+		indexTarifa.salvarTarifa();
+	});
+}
+
+/* --------------------- [Class] ManualCarrinho --------------------- */
 var DIRECAO = {
 	ANDAR_ESQUERDA: 1,
 	PARADO: 0,
 	ANDAR_DIREITA: 2
 };
-var IndexCarrinho = function() {
+var ManualCarrinho = function() {
 	this.direcao = DIRECAO.PARADO;
 	this.velocidade = 0;
 };
-IndexCarrinho.prototype.andar_esquerda = function() {
+ManualCarrinho.prototype.andar_esquerda = function() {
 	console.log("ANDAR_ESQUERDA");
 };
-IndexCarrinho.prototype.andar_direita = function() {
+ManualCarrinho.prototype.andar_direita = function() {
 	console.log("ANDAR_DIREITA");
 };
-IndexCarrinho.prototype.parar = function() {
+ManualCarrinho.prototype.parar = function() {
 	console.log("PARAR");
 };
-IndexCarrinho.prototype.set_velocidade = function(value) {
+ManualCarrinho.prototype.set_velocidade = function(value) {
 	console.log("SET_VELOCIDADE");
 };
 
-/* --------------------- [Class] IndexSom --------------------- */
-var IndexSom = function() {
+/* --------------------- [Class] ManualSom --------------------- */
+var ManualSom = function() {
 	this.parado = true;
 	this.arquivo = "oie";
 };
-IndexSom.prototype.parar = function() {
+ManualSom.prototype.parar = function() {
 	console.log("parar som");
 };
-IndexSom.prototype.tocar = function() {
+ManualSom.prototype.tocar = function() {
 	console.log("tocar som");
 };
-IndexSom.prototype.set_volume = function(value) {
+ManualSom.prototype.set_volume = function(value) {
 	console.log("set_volume: "+value);
 };
-IndexSom.prototype.set_arquivo = function(value) {
+ManualSom.prototype.set_arquivo = function(value) {
 	console.log("set_arquivo: "+value);	
 };
 
 /* --------------------- [PageFunction] Index --------------------- */
-function page_index() {
+function page_manual() {
 	var carrinho = new IndexCarrinho();
 	var som = new IndexSom();
 	
@@ -139,13 +209,25 @@ function page_evento() {
 	});
 }
 
-/* --------------------- [Class] EventoSom --------------------- */
+/* --------------------- [Class]  --------------------- */
 
 
-/* --------horarios [PageFunction] Horarios --------------------- */
+/* --------------------- [PageFunction] Horarios --------------------- */
 function page_horarios() {
 	$("table input:checkbox").click(function() {
-		console.log("ahudhasd");
+		console.log("active checkbox");
+
+		var tr;
+		tr = $(this).parents("tr")[0];
+		
+		var disabled;
+		disabled = $(tr).hasClass("disabled");
+
+		if (disabled) {
+			$(tr).removeClass("disabled");
+		} else {
+			$(tr).addClass("disabled");
+		}
 	});
 	$("input:button").click(function() {
 		$(window.document.location).attr("href", "evento.html");

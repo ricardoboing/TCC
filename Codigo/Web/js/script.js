@@ -238,44 +238,105 @@ function page_manual() {
 }
 
 /* --------------------- [Class] EventoSom --------------------- */
-var EventoSom = function() {
-	this.parado = true;
-	this.arquivo = "oie";
-};
-EventoSom.prototype.ativar = function() {
-	$("#som_input_tempo").prop("disabled", false);
-	$("#som_input_volume").prop("disabled", false);
-	$("#som_input_arquivo").prop("disabled", false);
+class FrontEvento {
+	static ativarSom() {
+		$("#som_input_tempo").prop("disabled", false);
+		$("#som_input_volume").prop("disabled", false);
+		$("#som_input_arquivo").prop("disabled", false);
 
-	$("#som_input_tempo").prop("required", true);
-	$("#som_input_volume").prop("required", true);
-	$("#som_input_arquivo").prop("required", true);
-	console.log("ativar");
-};
-EventoSom.prototype.desativar = function() {
-	$("#som_input_tempo").prop("disabled", true);
-	$("#som_input_volume").prop("disabled", true);
-	$("#som_input_arquivo").prop("disabled", true);
+		$("#som_input_tempo").prop("required", true);
+		$("#som_input_volume").prop("required", true);
+		$("#som_input_arquivo").prop("required", true);
+		console.log("ativar");
+	}
+	static desativarSom() {
+		$("#som_input_tempo").prop("disabled", true);
+		$("#som_input_volume").prop("disabled", true);
+		$("#som_input_arquivo").prop("disabled", true);
 
-	$("#som_input_tempo").prop("required", false);
-	$("#som_input_volume").prop("required", false);
-	$("#som_input_arquivo").prop("required", false);
-	console.log("desativar");
-};
+		$("#som_input_tempo").prop("required", false);
+		$("#som_input_volume").prop("required", false);
+		$("#som_input_arquivo").prop("required", false);
+		console.log("desativar");
+	}
+	static salvar() {
+		var nome = $("#nome").val();
+
+		if (nome == "" || nome == undefined) {
+			return;
+		}
+
+		function function_sucess(data) {
+			$(window.document.location).attr("href", "horarios.html");
+		}
+		function function_error(data) {
+			console.log("Error:");
+			console.log(data);
+		}
+
+		BackEvento.salvar(function_sucess, function_error);
+	}
+	static cancelar() {
+		$(window.document.location).attr("href", "horarios.html");
+	}
+}
+class BackEvento {
+	static salvar(front_function_sucess, front_function_error) {
+		// Dados gerais
+		var nome = $("#nome").val();
+		var horario = $("#horario_hora").val() + ":" + $("#horario_minuto").val();
+		
+		var segunda = $("#dia_segunda").prop("checked");
+		var terca = $("#dia_terca").prop("checked");
+		var quarta = $("#dia_quarta").prop("checked");
+		var quinta = $("#dia_quinta").prop("checked");
+		var sexta = $("#dia_sexta").prop("checked");
+		var sabado = $("#dia_sabado").prop("checked");
+		var domingo = $("#dia_domingo").prop("checked");
+
+		// Dados do som
+		var somTocar = $("#som_input_checkbox").prop("checked");
+		var somVolume = $("#som_input_volume").val();
+		var somTempo = $("#som_input_tempo").val();
+
+		// String dados
+		var dado = "nome=" + nome;
+		dado += "&horario=" + horario;
+		dado += "&segunda=" + (segunda? "1" : "0");
+		dado += "&terca=" + (terca? "1" : "0");
+		dado += "&quarta=" + (quarta? "1" : "0");
+		dado += "&quinta=" + (quinta? "1" : "0");
+		dado += "&sexta=" + (sexta? "1" : "0");
+		dado += "&sabado=" + (sabado? "1" : "0");
+		dado += "&domingo=" + (domingo? "1" : "0");
+
+		dado += "&somTocar=" + (somTocar? "1" : "0");
+		dado += "&somVolume=" + somVolume;
+		dado += "&somTempo=" + somTempo;
+
+		console.log(dado);
+
+		Ajax("action/evento/insert.php", dado, front_function_sucess, front_function_error);
+	}
+}
 
 /* --------------------- [FunctionPage] Evento --------------------- */
 function page_evento() {
-	var som = new EventoSom();
-
 	$("#som_input_checkbox").change(function() {
 		var checked = $(this).prop("checked");
 		console.log(checked);
 
 		if (checked) {
-			som.ativar();
+			FrontEvento.ativarSom();
 		} else {
-			som.desativar();
+			FrontEvento.desativarSom();
 		}
+	});
+	$("footer a.salvar").click(function() {
+		FrontEvento.salvar();
+	});
+	$("footer a.cancelar").click(function() {
+		FrontEvento.cancelar();
 	});
 }
 

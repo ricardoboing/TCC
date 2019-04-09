@@ -342,84 +342,60 @@ function page_evento() {
 
 /* --------------------- [Class]  --------------------- */
 class FrontListaDeEvento {
-	static updateStatus(tr) {
-		var disabled;
-		disabled = $(tr).hasClass("disabled");
-
-		// Habilitar
-		if (disabled) {
-			function function_sucess(data) {
-				console.log("Sucess:");
-				console.log(data);
-				$(tr).removeClass("disabled");
-			}
-			function function_error(data) {
-				console.log("Error:");
-				console.log(data);
-			}
-
-			BackListaDeEvento.enable(tr, function_sucess, function_error);
-		}
-		// Desabilitar
-		else {
-			function function_sucess(data) {
-				console.log("Sucess:");
-				console.log(data);
-				$(tr).addClass("disabled");
-			}
-			function function_error(data) {
-				console.log("Error:");
-				console.log(data);
-			}
-
-			BackListaDeEvento.disable(tr, function_sucess, function_error);
+	static select() {
+		var arrayCheckbox = $("table input:checkbox:checked");
+		
+		if ($(arrayCheckbox).length <= 0) {
+			$("input.remove:button").attr("data-disabled", "disabled");
+			$("input.insert:button").attr("data-disabled", "enabled");
+		} else {
+			$("input.remove:button").attr("data-disabled", "enabled");
+			$("input.insert:button").attr("data-disabled", "disabled");
 		}
 	}
-	static remove() {
+	static remove(arrayTr) {
+		$("input:checkbox").prop("disabled", true);
 
+		function function_sucess(data) {
+			console.log("Sucess:");
+			console.log(data);
+
+			$("input:checkbox").prop("disabled", false);
+
+			for (var c = 0; c < $(arrayTr).length; c++) {
+				var tr = $(arrayTr)[c];
+				
+				if ($(tr).find("input").prop("checked")) {
+					$(tr).remove();
+				}
+			}
+		}
+		function function_error(data) {
+			console.log("Error:");
+			console.log(data);
+			$("input:checkbox").prop("disabled", false);
+		}
+
+		BackListaDeEvento.remove(arrayTr, function_sucess, function_error);
 	}
 	static insert() {
 		$(window.document.location).attr("href", "evento.html");
 	}
 }
 class BackListaDeEvento {
-	static enable(tr, front_function_sucess, front_function_error) {
-		var dataId = $(tr).attr("data-id");
+	static remove(arrayTr, front_function_sucess, front_function_error) {
+		var id = "";
+		for (var c = 0; c < $(arrayTr).length; c++) {
+			var tr = $(arrayTr)[c];
+			var dataId = $(tr).attr("data-id");
 
-		function function_sucess(data) {
-			console.log("Sucess:");
-			console.log(data);
-			front_function_sucess(data);
-		}
-		function function_error(data) {
-			console.log("Error:");
-			console.log(data);
-			front_function_error(data);
+			if (c > 0) {
+				id += ",";
+			}
+			id += dataId;
 		}
 
-		Ajax("action/evento/enable.php", "id="+dataId, function_sucess, function_error);
-	}
-	static disable(tr, front_function_sucess, front_function_error) {
-		var dataId = $(tr).attr("data-id");
-		
-		function function_sucess(data) {
-			console.log("Sucess:");
-			console.log(data);
-			front_function_sucess(data);
-		}
-		function function_error(data) {
-			console.log("Error:");
-			console.log(data);
-			front_function_error(data);
-		}
-
-		Ajax("action/evento/disable.php", "id="+dataId, function_sucess, function_error);
-	}
-	static remove() {
-
-	}
-	static insert() {
-
+		Ajax("action/evento/remove.php", "id="+id, front_function_sucess, front_function_error);
 	}
 }
 
@@ -428,10 +404,14 @@ function page_horarios() {
 	$("table input:checkbox").click(function() {
 		console.log("active checkbox");
 		var tr = $(this).parents("tr")[0];
-
-		FrontListaDeEvento.updateStatus(tr);
+		
+		FrontListaDeEvento.select(tr);
 	});
-	$("input:button").click(function() {
+	$("input.insert:button").click(function() {
 		FrontListaDeEvento.insert();
+	});
+	$("input.remove:button").click(function() {
+		var arrayTr = $("table tr");
+		FrontListaDeEvento.remove(arrayTr);
 	});
 }

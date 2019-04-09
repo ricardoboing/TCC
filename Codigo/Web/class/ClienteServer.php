@@ -5,7 +5,7 @@ class ClienteServer {
 
 	function ClienteServer() {
 		$this->host = "yyy.yyy.yyy.yyy";
-		$this->port = 8083;
+		$this->port = 8081;
 	}
 	
 	function criarConexao() {
@@ -21,5 +21,5 @@ class ClienteServer {
 	function enviar($dado) {
 		return socket_write($this->socket, $dado, strlen($dado))? 0 : 1;
 	}
-}
+};
 ?>

@@ -23,19 +23,19 @@
 							<li>
 								<span>D</span>
 							</li>
-							<li>
+							<li class="bold">
 								<span>S</span>
 							</li>
 							<li>
 								<span>T</span>
 							</li>
-							<li>
+							<li class="bold">
 								<span>Q</span>
 							</li>
 							<li>
 								<span>Q</span>
 							</li>
-							<li>
+							<li class="bold">
 								<span>S</span>
 							</li>
 							<li>
@@ -44,7 +44,7 @@
 						</ul>
 					</td>
 					<td class="status">
-						<input type="checkbox" checked>
+						<input type="checkbox">
 					</td>
 				</tr>
 				<tr data-id="2">
@@ -60,50 +60,16 @@
 							<li>
 								<span>S</span>
 							</li>
-							<li>
+							<li class="bold">
 								<span>T</span>
-							</li>
-							<li>
-								<span>Q</span>
-							</li>
-							<li>
-								<span>Q</span>
-							</li>
-							<li>
-								<span>S</span>
-							</li>
-							<li>
-								<span>S</span>
-							</li>
-						</ul>
-					</td>
-					<td class="status">
-						<input type="checkbox" checked>
-					</td>
-				</tr>
-				<tr data-id="3">
-					<td class="horario">
-						<span>09:30</span>
-					</td>
-					<td class="nome">
-						<a href="evento.html">Evento</a>
-						<ul>
-							<li>
-								<span>D</span>
-							</li>
-							<li>
-								<span>S</span>
-							</li>
-							<li>
-								<span>T</span>
-							</li>
-							<li>
-								<span>Q</span>
 							</li>
 							<li>
 								<span>Q</span>
 							</li>
 							<li class="bold">
+								<span>Q</span>
+							</li>
+							<li>
 								<span>S</span>
 							</li>
 							<li>
@@ -112,7 +78,41 @@
 						</ul>
 					</td>
 					<td class="status">
-						<input type="checkbox" checked>
+						<input type="checkbox">
+					</td>
+				</tr>
+				<tr data-id="3">
+					<td class="horario">
+						<span>10:00</span>
+					</td>
+					<td class="nome">
+						<a href="evento.html">Evento</a>
+						<ul>
+							<li class="bold">
+								<span>D</span>
+							</li>
+							<li class="bold">
+								<span>S</span>
+							</li>
+							<li class="bold">
+								<span>T</span>
+							</li>
+							<li class="bold">
+								<span>Q</span>
+							</li>
+							<li class="bold">
+								<span>Q</span>
+							</li>
+							<li class="bold">
+								<span>S</span>
+							</li>
+							<li class="bold">
+								<span>S</span>
+							</li>
+						</ul>
+					</td>
+					<td class="status">
+						<input type="checkbox">
 					</td>
 				</tr>
 				<tr data-id="4">
@@ -146,17 +146,17 @@
 						</ul>
 					</td>
 					<td class="status">
-						<input type="checkbox" checked>
+						<input type="checkbox">
 					</td>
 				</tr>
-				<tr class="disabled" data-id="5">
+				<tr data-id="5">
 					<td class="horario">
-						<span>09:30</span>
+						<span>08:15</span>
 					</td>
 					<td class="nome">
 						<a href="evento.html">Evento</a>
 						<ul>
-							<li>
+							<li class="bold">
 								<span>D</span>
 							</li>
 							<li>
@@ -171,10 +171,10 @@
 							<li>
 								<span>Q</span>
 							</li>
-							<li class="bold">
+							<li>
 								<span>S</span>
 							</li>
-							<li>
+							<li class="bold">
 								<span>S</span>
 							</li>
 						</ul>
@@ -187,7 +187,8 @@
 		</section>
 	</main>
 	<footer>
-		<input type="button" value="+">
+		<input type="button" class="insert" value="+" data-disabled="enabled">
+		<input type="button" class="remove" value="-" data-disabled="disabled">
 		<ul>
 			<li>
 				<a href="index.html">ESTIMATIVA DE CONSUMO</a>

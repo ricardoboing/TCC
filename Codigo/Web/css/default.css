@@ -25,7 +25,7 @@ div.centralizado {
 }
 
 /* ----------- Button ----------- */
-button {
+button, a.button{
 	padding: 5px 13px;
 	border-width: 1px;
 	border-style: solid;
@@ -33,7 +33,7 @@ button {
 	cursor: pointer;
 	outline: none;
 }
-button.green {
+button.green, a.button.green {
 	color: white;
 	background-color: rgb(5, 159, 42);
 	background-image: -webkit-linear-gradient(top, rgb(5, 159, 42), rgb(0, 95, 10));
@@ -42,14 +42,14 @@ button.green {
     border-color: rgb(0, 130, 20);
 	text-shadow: 1px 1px black;
 }
-button.green:hover {
+button.green:hover, a.button.green:hover {
 	background-color: rgb(17, 169, 52);
 	background-image: -webkit-linear-gradient(top, rgb(17, 169, 52), rgb(5, 105, 20));
 	background-image: -moz-linear-gradient(top, rgb(17, 169, 52), rgb(5, 105, 20));
     background-image: -o-linear-gradient(top, rgb(17, 169, 52), rgb(5, 105, 20));
 	border-color: rgb(0, 149, 32);
 }
-button.black {
+button.black, a.button.black {
 	color: white;
 	background-color: rgb(40, 40, 40);
 	background-image: -webkit-linear-gradient(top, rgb(50, 50, 50), rgb(0, 0, 0));
@@ -58,14 +58,14 @@ button.black {
 	border-color: rgb(10,10,10);
 	text-shadow: 1px 1px black;
 }
-button.black:hover {
+button.black:hover, a.button.green:hover {
 	background-color: rgb(0, 106, 194);
 	background-image: -webkit-linear-gradient(top, rgb(30, 30, 30), rgb(0, 0, 0));
 	background-image: -moz-linear-gradient(top, rgb(30, 30, 30), rgb(0, 0, 0));
     background-image: -o-linear-gradient(top, rgb(30, 30, 30), rgb(0, 0, 0));
 	border-color: rgb(10,10,10);
 }
-button.red {
+button.red, a.button.red {
 	color: white;
 	background-color: rgb(180, 0, 0);
 	background-image: -webkit-linear-gradient(top, rgb(180, 0, 0), rgb(80, 0, 0));
@@ -74,7 +74,7 @@ button.red {
 	border-color: rgb(100,0,0);
 	text-shadow: 1px 1px black;
 }
-button.red:hover {
+button.red:hover, a.button.green:hover {
 	background-color: rgb(170, 0, 0);
 	background-image: -webkit-linear-gradient(top, rgb(170, 0, 0), rgb(70, 0, 0));
 	background-image: -moz-linear-gradient(top, rgb(170, 0, 0), rgb(70, 0, 0));
@@ -170,13 +170,14 @@ header {
 	border: 1px blue solid;
 	position: fixed;
 	z-index: 100;
+	padding: 0px 23px;
 }
 header span {
 	color: white;
 	float: left;
 	font-size: 12px;
 	font-weight: bold;
-	margin: 18px 23px;
+	margin: 18px 0px;
 	text-shadow: 1px 1px 2px black;
 }
 
@@ -207,25 +208,35 @@ footer input[type='button'] {
 	border-radius: 30px;
 	font-size: 20px;
 	font-weight: bold;
-	margin-right: 10px;
 	margin-bottom: 35px;
-	background-color: rgb(230, 0, 0);
-	background-image: -webkit-linear-gradient(top, rgb(230, 0, 0), rgb(150, 0, 0));
-	background-image: -moz-linear-gradient(top, rgb(230, 0, 0), rgb(150, 0, 0));
-    background-image: -o-linear-gradient(top, rgb(230, 0, 0), rgb(150, 0, 0));
 	border-width: 0px;
 	color: white;
 	text-shadow: 1px 1px 2px black;
 	cursor: pointer;
 	position: absolute;
-	right: 0;
 	bottom: 40px;
 }
-footer input[type='button']:hover {
-	background-color: rgb(200, 0, 0);
-	background-image: -webkit-linear-gradient(top, rgb(200, 0, 0), rgb(100, 0, 0));
-	background-image: -moz-linear-gradient(top, rgb(200, 0, 0), rgb(100, 0, 0));
-    background-image: -o-linear-gradient(top, rgb(200, 0, 0), rgb(100, 0, 0));
+footer input[type='button'].insert {
+	left: 0;
+	margin-left: 10px;
+	background-color: rgb(0, 170, 0);
+	background-image: -webkit-linear-gradient(top, rgb(0, 200, 0), rgb(0, 110, 0));
+	background-image: -moz-linear-gradient(top, rgb(0, 200, 0), rgb(0, 110, 0));
+    background-image: -o-linear-gradient(top, rgb(0, 200, 0), rgb(0, 110, 0));
+    display: block;
+}
+footer input[type='button'].remove {
+	right: 0;
+	margin-right: 10px;
+	background-color: rgb(230, 0, 0);
+	background-image: -webkit-linear-gradient(top, rgb(230, 0, 0), rgb(150, 0, 0));
+	background-image: -moz-linear-gradient(top, rgb(230, 0, 0), rgb(150, 0, 0));
+    background-image: -o-linear-gradient(top, rgb(230, 0, 0), rgb(150, 0, 0));
+    display: block;
+}
+footer input[type='button'].remove[data-disabled='disabled'],
+footer input[type='button'].insert[data-disabled='disabled'] {
+	display: none;
 }
 footer a,
 footer button {
@@ -248,7 +259,6 @@ footer button {
 	border-width: 0px;
 	border-radius: 0px;
 	margin: 0px;
-	
 }
 footer button:hover {
 	background-color: blue;
@@ -342,10 +352,6 @@ main.index table tr button {
 	float: none;
 	margin: 0px;
 }
-main.index table tr.menu button {
-	float: right;
-	margin-left: 2vw;
-}
 main.index table td input {
 	width: 100%;
 }
@@ -370,7 +376,7 @@ main.manual section.som button {
 
 }
 
-/* ----------- main.horarios ----------- */
+/* ----------- Main.horarios ----------- */
 main.horarios {
 	padding-bottom: 60px;
 }
@@ -393,7 +399,7 @@ main.horarios section td.horario {
 }
 main.horarios section td.horario span {
 	color: rgb(0,0,220);
-	font-size: 24px;
+	font-size: 32px;
 	font-family: sans-serif;
 	font-weight: bold;
 }
@@ -414,7 +420,7 @@ main.horarios section td.nome ul li {
 	width: auto;
 	float: left;
 	margin-top: 10px;
-	margin-right: 10px;
+	margin-right: 5px;
 }
 main.horarios section td.nome li span {
 	color: rgb(170,170,170);
@@ -489,5 +495,7 @@ main.evento section div div span {
 	display: table-cell;
 	vertical-align: bottom;
 }
+
+
 
 

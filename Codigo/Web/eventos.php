@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Sistema Fog - Listar Eventos</title>
-	<link rel="stylesheet" type="text/css" href="css/default.css">
-	<meta name="viewport" content="width=device-width, height=device-height minimum-scale=1, maximum-scale=1"">
-	<meta charset="utf-8"/>
-</head>
+<?php include_once "include/head.php"; ?>
 <body>
 	<header>
 		<span>HORÁRIOS</span>
@@ -187,11 +182,11 @@
 		</section>
 	</main>
 	<footer>
-		<input type="button" class="insert" value="+" data-disabled="enabled">
+		<input type="button" id="insert_event" class="insert" value="+" data-disabled="enabled" data-href="evento.php">
 		<input type="button" class="remove" value="-" data-disabled="disabled">
 		<ul>
 			<li>
-				<a href="index.html">ESTIMATIVA DE CONSUMO</a>
+				<a href="index.php">ESTIMATIVA DE CONSUMO</a>
 			</li>
 			<li>
 				<a href="javascript: void(0);">HORÁRIOS</a>
@@ -199,6 +194,5 @@
 		</ul>
 	</footer>
 </body>
-<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
+<?php include_once "include/scripts.php"; ?>
 </html>

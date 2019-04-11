@@ -1,4 +1,6 @@
 <?php
+include "../../class/ClienteServer.php";
+
 // Dados gerais
 $nome = $_GET["nome"];
 $horario = $_GET["horario"];
@@ -18,11 +20,16 @@ $somVolume = $_GET["somVolume"];
 $somTempo = $_GET["somTempo"];
 
 // Formacao do pacote a ser enviado (de acordo com o protocolo definido)
-$pacote = "insert event";
+$pacote = "insert event test";
 
 $clienteServer = new ClienteServer();
 $clienteServer->criarConexao();
 $clienteServer->conectar();
 $clienteServer->enviar($pacote);
 $clienteServer->desconectar();
+
+
+$respostaDoServidor = true;
+
+echo json_encode($respostaDoServidor);
 ?>

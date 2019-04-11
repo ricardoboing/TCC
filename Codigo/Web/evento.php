@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Sistema Fog - Criar Evento</title>
-	<link rel="stylesheet" type="text/css" href="css/default.css">
-	<meta name="viewport" content="width=device-width, height=device-height minimum-scale=1, maximum-scale=1">
-	<meta charset="utf-8"/>
-</head>
+<?php include_once "include/head.php"; ?>
 <body>
 	<header>
 		<span>CRIAR EVENTO</span>
@@ -85,14 +80,13 @@
 	<footer>
 		<ul>
 			<li>
-				<a href="javascript: void(0);" class="salvar">SALVAR</a>
+				<a href="javascript: void(0);" class="salvar" data-href="eventos.php">SALVAR</a>
 			</li>
 			<li>
-				<a href="eventos.html" class="cancelar">CANCELAR</a>
+				<a href="eventos.php" class="cancelar">CANCELAR</a>
 			</li>
 		</ul>
 	</footer>
 </body>
-<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
+<?php include_once "include/scripts.php"; ?>
 </html>

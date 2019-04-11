@@ -104,6 +104,11 @@ input[type='checkbox'] {
 	height: 28px;
 	cursor: pointer;
 }
+input[type='number']:disabled,
+input[type='text']:disabled {
+	background-color: rgb(240,240,240);
+	color: rgb(120,120,120);
+}
 
 /* ----------- Input[range] ----------- */
 input[type='range'] {
@@ -355,10 +360,7 @@ main.estimativa_de_consumo table tr button {
 main.estimativa_de_consumo table td input {
 	width: 100%;
 }
-main.estimativa_de_consumo table.tarifa button.remover:disabled {
-	opacity: 0.5;
-}
-main.estimativa_de_consumo table.tarifa td {
+main.estimativa_de_consumo table#tarifa td {
 	width: 50%;
 }
 

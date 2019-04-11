@@ -4,13 +4,13 @@ $(document).ready(function() {
 	
 	switch (pagina) {
 		case "estimativa_de_consumo":
-			page_index();
+			page_estimativa_de_consumo();
 			break;
 		case "evento":
 			page_evento();
 			break;
 		case "lista_de_evento":
-			page_horarios();
+			page_lista_de_evento();
 			break;
 		default:
 			break;
@@ -37,238 +37,144 @@ function Ajax(url, data, function_sucess, function_error) {
 	});
 }
 
+const message_box_type = {
+	SUCESS: 0,
+	ERROR: 1,
+	FAIL: 2
+};
+// Futuramente implementar algo melhor (nao usar esse alert padrao)
+function message_box(box_type, message) {
+	switch(box_type) {
+		case message_box_type.SUCESS:
+			alert("SUCESSO\n"+message);
+			break;
+		case message_box_type.ERROR:
+			alert("ERRO\n"+message);
+			break;
+		case message_box_type.FAIL:
+			alert("OPERAÇÃO FALHOU\n"+message);
+			break;
+		default:
+			break;
+	}
+}
+
 /* --------------------- [Class] FrontIndexTarifa --------------------- */
-class FrontIndexTarifa {
+class FrontEstimativaDeConsumo {
 	static recalcularEstimativaDeConsumo() {
+		var valorDaTarifa = parseInt($($("table#tarifa input")[0]).val());
+
 		// [TABLE] Consumo_Carrinho
-		$($("table#table_consumo_carrinho tr.valor_financeiro td.dia span")[0]).text("oi7");
-		$($("table#table_consumo_carrinho tr.valor_financeiro td.mes span")[0]).text("oi8");
-		$($("table#table_consumo_carrinho tr.valor_financeiro td.ano span")[0]).text("oi9");
-
+		FrontEstimativaDeConsumo.recalcularEstimativaDeConsumoDaTable(
+			$("table#table_consumo_carrinho"),
+			valorDaTarifa
+		);
 		// [TABLE] Consumo_Fog
-		$($("table#table_consumo_fog tr.valor_financeiro td.dia span")[0]).text("oi17");
-		$($("table#table_consumo_fog tr.valor_financeiro td.mes span")[0]).text("oi18");
-		$($("table#table_consumo_fog tr.valor_financeiro td.ano span")[0]).text("oi19");
-
+		FrontEstimativaDeConsumo.recalcularEstimativaDeConsumoDaTable(
+			$("table#table_consumo_fog"),
+			valorDaTarifa
+		);
 		// [TABLE] Consumo_Total_Completo
-		$($("table#table_consumo_total_completo tr.valor_financeiro td.dia span")[0]).text("oi27");
-		$($("table#table_consumo_total_completo tr.valor_financeiro td.mes span")[0]).text("oi28");
-		$($("table#table_consumo_total_completo tr.valor_financeiro td.ano span")[0]).text("oi29");
-
-		// [TABLE] Consumo_Total_Consumido
-		$($("table#table_consumo_total_consumido tr.valor_financeiro td.dia span")[0]).text("oi37");
-		$($("table#table_consumo_total_consumido tr.valor_financeiro td.mes span")[0]).text("oi38");
-		$($("table#table_consumo_total_consumido tr.valor_financeiro td.ano span")[0]).text("oi39");
+		FrontEstimativaDeConsumo.recalcularEstimativaDeConsumoDaTable(
+			$("table#table_consumo_total"),
+			valorDaTarifa
+		);
 	}
-	static adicionarTarifa(button) {
-		var trMenu = $(button).parents("tr.menu")[0];
-		var table = $(button).parents("table")[0];
-		
-		var trClonada = $(table).find("tr")[1];
-		
+	static recalcularEstimativaDeConsumoDaTable(table, valorDaTarifa) {
+		if ( $(table).attr("id") == "table_consumo_total" ) {
+			var tdValorFinanceiro, tdConsumoFog, tdConsumoCarrinho;
+			var consumoFog, consumoCarrinho;
+
+			// [TABLE] Consumo_Total_Completo
+			tdValorFinanceiro = $(table).find("tr.valor_financeiro td span");
+			tdConsumoFog = $("table#table_consumo_fog tr.valor_financeiro td span");
+			tdConsumoCarrinho = $("table#table_consumo_carrinho tr.valor_financeiro td span");
+
+			// Dia
+			consumoFog = parseFloat($($(tdConsumoFog)[0]).text());
+			consumoCarrinho = parseFloat($($(tdConsumoCarrinho)[0]).text());
+			$($(tdValorFinanceiro)[0]).text(consumoFog + consumoCarrinho);
+			
+			// Mes
+			consumoFog = parseFloat($($(tdConsumoFog)[1]).text());
+			consumoCarrinho = parseFloat($($(tdConsumoCarrinho)[1]).text());
+			$($(tdValorFinanceiro)[1]).text(consumoFog + consumoCarrinho);
+			
+			// Ano
+			consumoFog = parseFloat($($(tdConsumoFog)[2]).text());
+			consumoCarrinho = parseFloat($($(tdConsumoCarrinho)[2]).text());
+			$($(tdValorFinanceiro)[2]).text(consumoFog + consumoCarrinho);
+		} else {
+			var tdTempoDeConsumo, tdValorFinanceiro, tdConsumoWatt;
+			var consumo, tempo;
+
+			// [TABLE] Consumo_Total_Completo
+			tdValorFinanceiro = $(table).find("tr.valor_financeiro td span");
+			tdTempoDeConsumo = $(table).find("tr.tempo td span");
+			tdConsumoWatt = $(table).find("tr.consumo td span");
+
+			// Dia
+			consumo = parseFloat($($(tdConsumoWatt)[0]).text());
+			tempo = parseFloat($($(tdTempoDeConsumo)[0]).text());
+			$($(tdValorFinanceiro)[0]).text(consumo * tempo * valorDaTarifa);
+			
+			// Mes
+			consumo = parseFloat($($(tdConsumoWatt)[1]).text());
+			tempo = parseFloat($($(tdTempoDeConsumo)[1]).text());
+			$($(tdValorFinanceiro)[1]).text(consumo * tempo * valorDaTarifa);
+			
+			// Ano
+			consumo = parseFloat($($(tdConsumoWatt)[2]).text());
+			tempo = parseFloat($($(tdTempoDeConsumo)[2]).text());
+			$($(tdValorFinanceiro)[2]).text(consumo * tempo * valorDaTarifa);
+		}
+	}
+	static salvarTarifa(button) {
+		var trTarifa = $(button).parents("tr")[0];
+
 		function function_sucess(data) {
-			// Cria nova tr com base em outra e add eventos
-			var trClone = $(trClonada).clone();
-			$(trClone).attr("data-id", "-1");
-			// Habilita botao de remover
-			$(trClone).find("button.remover").click(function() {
-				FrontIndexTarifa.removerTarifa($(this));
-			});
-			// Habilita botao de add
-			$(trMenu).find("button.adicionar").click(function() {
-				FrontIndexTarifa.adicionarTarifa($(this));
-			});
-			// Habilita remocao de tarifas (desativada quando existir apenas uma tarifa)
-			$(table).find("button.remover").prop("disabled", false);
-
-			// Remove trMenu da posicao atual para add na ultima posicao
-			$(trMenu).remove();
-			// Add nova tr
-			$(trClonada).parent().append(trClone);
-			// Add trMenu na ultima posicao
-			$(trClonada).parent().append(trMenu);
-
-			// Atualiza estimativa com base na nova tarifa
-			FrontIndexFarifa.recalcularEstimativaDeConsumo(data);
+			message_box(
+				message_box_type.SUCESS,
+				"Salvo com sucesso!"
+			);
+			FrontEstimativaDeConsumo.recalcularEstimativaDeConsumo();
 		}
 		function function_error(data) {
-
+			message_box(
+				message_box_type.FAIL,
+				"Algo inesperado ocorreu no servidor.\nVerifique a corretude dos dados e tente mais tarde."
+			);
 		}
 
-		BackIndexFarifa.salvarTarifa($(trClonada), function_sucess, function_error);
-	}
-	static removerTarifa(button) {
-		var trPai = $(button).parents("tr")[0];
-		var elementoAvo = $(trPai).parent();
-
-		var numeroFilhosDoAvo = $(elementoAvo).find("tr").length;
-
-		// Se o "avo" do elemento possuir duas ou menos tr
-		if (numeroFilhosDoAvo <= 3) {
-			return;
-		}
-
-		function function_sucess(data) {
-			$(trPai).remove();
-
-			// Desabilita remocao de tarifas quando existir apenas uma
-			if (numeroFilhosDoAvo <= 4) { // 4 tr: cabecalho; 2x tarifa; buttons
-				var ultimaTrDeTarifa = $(elementoAvo).find("tr")[1];
-				$(ultimaTrDeTarifa).find("button.remover").prop("disabled", true);
-			}
-
-			FrontIndexTarifa.recalcularEstimativaDeConsumo();
-		}
-		function function_error(data) {
-
-		}
-
-		BackIndexFarifa.removerTarifa($(trPai), function_sucess, function_error);
+		BackEstimativaDeConsumo.salvarTarifa($(trTarifa), function_sucess, function_error);
 	}
 };
-class BackIndexFarifa {
-	static removerTarifa(trTarifa, front_function_sucess, front_function_error) {
-		var url = "action/estimativa_de_consumo/tarifa/";
-		
-		var tdTarifaValor = $(trTarifa).find("input")[0];
-		var tdTarifaConsumo = $(trTarifa).find("input")[1]
-
-		var dataId = $(trTarifa).attr("data-id");
-		var valor = $(tdTarifaValor).val();
-		var consumo = $(tdTarifaConsumo).val();
-
-		var data = "valor="+valor+"&consumo="+consumo;
-
-		// Ainda nao foi efetivamente salva: adiciona nova tarifa
-		if (dataId == "-1") {
-			url += "insert.php";
-		}
-		// Senao: atualiza tarifa existente
-		else {
-			url += "update.php";
-			data += "&id="+dataId;
-		}
-
-		function function_sucess(data) {
-			console.log("Sucess:");
-			console.log(data);
-			front_function_sucess(data);
-		}
-		function function_error(data) {
-			console.log("Error:");
-			console.log(data);
-			front_function_error(data);
-		}
-
-		Ajax(url, data, function_sucess, function_error);
-	}
+class BackEstimativaDeConsumo {
 	static salvarTarifa(trTarifa, front_function_sucess, front_function_error) {
-		var dataId = $(trTarifa).attr("data-id");
-
-		// Ainda nao foi efetivamente salva: nao se comunica com o servidor
-		if (dataId == "-1") {
-			front_function_sucess();
-			return;
-		}
-
+		var valorCobrado = $($(trTarifa).find("td input")[0]).val();
+		
 		function function_sucess(data) {
 			console.log("Sucess:");
 			console.log(data);
-			front_function_sucess(data);
+
+			if (data) {
+				front_function_sucess(data);
+			} else {
+				front_function_error(data);
+			}
 		}
 		function function_error(data) {
-			console.log("Error:");
-			console.log(data);
 			front_function_error(data);
 		}
 
-		Ajax("action/estimativa_de_consumo/tarifa/remove.php", "id="+dataId, function_sucess, function_error);
+		Ajax("action/estimativa_de_consumo/tarifa/update.php", "valorCobrado="+valorCobrado, function_sucess, function_error);
 	}
 }
 
 /* --------------------- [FunctionPage] Index --------------------- */
-function page_index() {
-	$("table.tarifa button.remover").click(function() {
-		FrontIndexTarifa.removerTarifa($(this));
-	});
-	$("table.tarifa button.adicionar").click(function() {
-		FrontIndexTarifa.adicionarTarifa($(this));
-	});
-}
-
-/* --------------------- [Class] ManualCarrinho --------------------- */
-var DIRECAO = {
-	PARADO: 0,
-	ANDAR_ESQUERDA: 1,
-	ANDAR_DIREITA: 2
-};
-var ManualCarrinho = function() {
-	this.direcao = DIRECAO.PARADO;
-	this.velocidade = 0;
-};
-ManualCarrinho.prototype.andar_esquerda = function() {
-	console.log("ANDAR_ESQUERDA");
-};
-ManualCarrinho.prototype.andar_direita = function() {
-	console.log("ANDAR_DIREITA");
-};
-ManualCarrinho.prototype.parar = function() {
-	console.log("PARAR");
-};
-ManualCarrinho.prototype.set_velocidade = function(value) {
-	console.log("SET_VELOCIDADE");
-};
-
-/* --------------------- [Class] ManualSom --------------------- */
-var ManualSom = function() {
-	this.parado = true;
-	this.arquivo = "oie";
-};
-ManualSom.prototype.parar = function() {
-	console.log("parar som");
-};
-ManualSom.prototype.tocar = function() {
-	console.log("tocar som");
-};
-ManualSom.prototype.set_volume = function(value) {
-	console.log("set_volume: "+value);
-};
-ManualSom.prototype.set_arquivo = function(value) {
-	console.log("set_arquivo: "+value);	
-};
-
-/* --------------------- [FunctionPage] Index --------------------- */
-function page_manual() {
-	var carrinho = new IndexCarrinho();
-	$("#carrinho_button_direita").click(function() {
-		carrinho.andar_direita();
-	});
-	$("#carrinho_button_esquerda").click(function() {
-		carrinho.andar_esquerda();
-	});
-	$("#carrinho_button_parar").click(function() {
-		carrinho.parar();
-	});
-	$("#carrinho_input_velocidade").mouseup(function() {
-		var value = $(this).val();
-		carrinho.set_velocidade(value);
-	});
-
-	var som = new IndexSom();
-	$("#som_button_tocar").click(function() {
-		som.tocar();
-	});
-	$("#som_button_parar").click(function() {
-		som.parar();
-	});
-	$("#som_input_volume").mouseup(function() {
-		var value = $(this).val();
-		som.set_volume(value);
-	});
-	$("#som_input_arquivo").mouseup(function() {
-		var value = $(this).val();
-		console.log(value);
-		alert("Após selecionar o arquivo de áudio, clique novamente em \"Tocar\"!");
+function page_estimativa_de_consumo() {
+	$("table#tarifa button").click(function() {
+		FrontEstimativaDeConsumo.salvarTarifa($(this));
 	});
 }
 
@@ -294,19 +200,29 @@ class FrontEvento {
 		$("#som_input_arquivo").prop("required", false);
 		console.log("desativar");
 	}
-	static salvar() {
+	static salvar(button) {
 		var nome = $("#nome").val();
 
 		if (nome == "" || nome == undefined) {
+			message_box(
+				message_box_type.ERROR,
+				"Insira um nome para o evento."
+			);
 			return;
 		}
 
 		function function_sucess(data) {
-			$(window.document.location).attr("href", "horarios.html");
+			message_box(
+				message_box_type.SUCESS,
+				"Salvo com sucesso!"
+			);
+			$(window.document.location).attr("href", $(button).attr("data-href"));
 		}
 		function function_error(data) {
-			console.log("Error:");
-			console.log(data);
+			message_box(
+				message_box_type.FAIL,
+				"Algo inesperado ocorreu no servidor.\nVerifique a corretude dos dados e tente mais tarde."
+			);
 		}
 
 		BackEvento.salvar(function_sucess, function_error);
@@ -346,9 +262,21 @@ class BackEvento {
 		dado += "&somVolume=" + somVolume;
 		dado += "&somTempo=" + somTempo;
 
-		console.log(dado);
+		function function_sucess(data) {
+			console.log("Sucess:");
+			console.log(data);
 
-		Ajax("action/evento/insert.php", dado, front_function_sucess, front_function_error);
+			if (data) {
+				front_function_sucess(data);
+			} else {
+				front_function_error(data);
+			}
+		}
+		function function_error(data) {
+			front_function_error(data);
+		}
+
+		Ajax("action/evento/insert.php", dado, function_sucess, function_error);
 	}
 }
 
@@ -365,11 +293,11 @@ function page_evento() {
 		}
 	});
 	$("footer a.salvar").click(function() {
-		FrontEvento.salvar();
+		FrontEvento.salvar($(this));
 	});
 }
 
-/* --------------------- [Class]  --------------------- */
+/* --------------------- [Class] ListaDeEvento --------------------- */
 class FrontListaDeEvento {
 	static select() {
 		var arrayCheckbox = $("table input:checkbox:checked");
@@ -400,15 +328,19 @@ class FrontListaDeEvento {
 			}
 		}
 		function function_error(data) {
-			console.log("Error:");
-			console.log(data);
+			message_box(
+				message_box_type.FAIL,
+				"Algo inesperado ocorreu no servidor. Tente mais tarde."
+			);
+
 			$("input:checkbox").prop("disabled", false);
 		}
 
 		BackListaDeEvento.remove(arrayTr, function_sucess, function_error);
 	}
 	static insert() {
-		$(window.document.location).attr("href", "evento.html");
+		var button = $("input#insert_event");
+		$(window.document.location).attr("href", $(button).attr("data-href"));
 	}
 }
 class BackListaDeEvento {
@@ -424,12 +356,26 @@ class BackListaDeEvento {
 			id += dataId;
 		}
 
-		Ajax("action/evento/remove.php", "id="+id, front_function_sucess, front_function_error);
+		function function_sucess(data) {
+			console.log("Sucess:");
+			console.log(data);
+
+			if (data) {
+				front_function_sucess(data);
+			} else {
+				front_function_error(data);
+			}
+		}
+		function function_error(data) {
+			front_function_error(data);
+		}
+
+		Ajax("action/evento/remove.php", "id="+id, function_sucess, function_error);
 	}
 }
 
 /* --------------------- [FunctionPage] Horarios --------------------- */
-function page_horarios() {
+function page_lista_de_evento() {
 	$("table input:checkbox").click(function() {
 		console.log("active checkbox");
 		var tr = $(this).parents("tr")[0];

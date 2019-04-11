@@ -19,11 +19,13 @@ $somVolume = $_GET["somVolume"];
 $somTempo = $_GET["somTempo"];
 
 // Formacao do pacote a ser enviado (de acordo com o protocolo definido)
-$pacote = "update event";
+$pacote = "update event test";
 
 $clienteServer = new ClienteServer();
 $clienteServer->criarConexao();
 $clienteServer->conectar();
 $clienteServer->enviar($pacote);
 $clienteServer->desconectar();
+
+
 ?>

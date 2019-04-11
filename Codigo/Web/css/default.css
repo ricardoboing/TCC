@@ -321,44 +321,44 @@ main section div div {
 	margin: 0px;
 }
 
-/* ----------- Main.Index ----------- */
-main.index table {
+/* ----------- Main.EstimativaDeConsumo ----------- */
+main.estimativa_de_consumo table {
 	width: 100%;
 	border: 1px rgb(200,200,200) solid;
 	border-collapse: collapse;
 	margin-top: 12px;
 }
-main.index table td span {
+main.estimativa_de_consumo table td span {
 	float: right;
 }
-main.index table th,
-main.index table td {
+main.estimativa_de_consumo table th,
+main.estimativa_de_consumo table td {
 	width: 20%;
 	padding: 10px;
 	border: 1px rgb(200,200,200) solid;
 }
-main.index table th span,
-main.index table td span {
+main.estimativa_de_consumo table th span,
+main.estimativa_de_consumo table td span {
 	font-size: 12px;
 }
-main.index table th {
+main.estimativa_de_consumo table th {
 	text-align: left;
 	background-color: rgb(230,230,230);
 }
-main.index table tr.head th {
+main.estimativa_de_consumo table tr.head th {
 	text-align: center;
 }
-main.index table tr button {
+main.estimativa_de_consumo table tr button {
 	float: none;
 	margin: 0px;
 }
-main.index table td input {
+main.estimativa_de_consumo table td input {
 	width: 100%;
 }
-main.index table.tarifa button.remover:disabled {
+main.estimativa_de_consumo table.tarifa button.remover:disabled {
 	opacity: 0.5;
 }
-main.index table.tarifa td {
+main.estimativa_de_consumo table.tarifa td {
 	width: 50%;
 }
 
@@ -372,75 +372,72 @@ main.manual section button,
 main.manual section input {
 	float: right;
 }
-main.manual section.som button {
-
-}
 
 /* ----------- Main.horarios ----------- */
-main.horarios {
+main.lista_de_evento {
 	padding-bottom: 60px;
 }
-main.horarios section {
+main.lista_de_evento section {
 	width: 100%;
 	padding: 0px;
 	margin: 0px;
 }
-main.horarios section table {
+main.lista_de_evento section table {
 	width: 100%;
 	border-collapse: collapse;
 	margin-bottom: 90px;
 }
-main.horarios section td {
+main.lista_de_evento section td {
 	padding: 30px 10px;
 	border-bottom: 1px blue solid;
 }
-main.horarios section td.horario {
+main.lista_de_evento section td.horario {
 	text-align: center;
 }
-main.horarios section td.horario span {
+main.lista_de_evento section td.horario span {
 	color: rgb(0,0,220);
 	font-size: 32px;
 	font-family: sans-serif;
 	font-weight: bold;
 }
-main.horarios section td.nome a {
+main.lista_de_evento section td.nome a {
 	font-weight: bold;
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: rgb(255,255,255);
 }
-main.horarios section td.nome a:hover {
+main.lista_de_evento section td.nome a:hover {
 	border-bottom-color: black;
 }
-main.horarios section td.nome ul {
+main.lista_de_evento section td.nome ul {
 	width: 100%;
 	float: left;
 }
-main.horarios section td.nome ul li {
+main.lista_de_evento section td.nome ul li {
 	width: auto;
 	float: left;
 	margin-top: 10px;
 	margin-right: 5px;
 }
-main.horarios section td.nome li span {
+main.lista_de_evento section td.nome li span {
 	color: rgb(170,170,170);
 	font-weight: normal;
 }
-main.horarios section td.nome li.bold span {
+main.lista_de_evento section td.nome li.bold span {
 	color: darkblue;
 	font-weight: bold;
 }
-main.horarios section td.status input {
+main.lista_de_evento section td.status input {
 	position: relative;
 	margin: auto;
 	color: red;
 }
-main.horarios section tr.disabled td.horario span,
-main.horarios section tr.disabled td.nome span,
-main.horarios section tr.disabled td.nome a {
+main.lista_de_evento section tr.disabled td.horario span,
+main.lista_de_evento section tr.disabled td.nome span,
+main.lista_de_evento section tr.disabled td.nome a {
 	color: rgb(170,170,170);
 }
-main.horarios section tr.disabled td.nome li.bold span {
+main.lista_de_evento section tr.disabled td.nome li.bold span {
 	color: rgb(120,120,120);	
 }
 
@@ -495,7 +492,3 @@ main.evento section div div span {
 	display: table-cell;
 	vertical-align: bottom;
 }
-
-
-
-

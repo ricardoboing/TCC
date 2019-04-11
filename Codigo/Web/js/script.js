@@ -3,17 +3,14 @@ $(document).ready(function() {
 	var pagina = $(main).attr("class");
 	
 	switch (pagina) {
-		case "index":
+		case "estimativa_de_consumo":
 			page_index();
-			console.log("INDEX");
 			break;
 		case "evento":
 			page_evento();
-			console.log("EVENTO")
 			break;
-		case "horarios":
+		case "lista_de_evento":
 			page_horarios();
-			console.log("HORARIOS")
 			break;
 		default:
 			break;
@@ -42,27 +39,63 @@ function Ajax(url, data, function_sucess, function_error) {
 
 /* --------------------- [Class] FrontIndexTarifa --------------------- */
 class FrontIndexTarifa {
+	static recalcularEstimativaDeConsumo() {
+		// [TABLE] Consumo_Carrinho
+		$($("table#table_consumo_carrinho tr.valor_financeiro td.dia span")[0]).text("oi7");
+		$($("table#table_consumo_carrinho tr.valor_financeiro td.mes span")[0]).text("oi8");
+		$($("table#table_consumo_carrinho tr.valor_financeiro td.ano span")[0]).text("oi9");
+
+		// [TABLE] Consumo_Fog
+		$($("table#table_consumo_fog tr.valor_financeiro td.dia span")[0]).text("oi17");
+		$($("table#table_consumo_fog tr.valor_financeiro td.mes span")[0]).text("oi18");
+		$($("table#table_consumo_fog tr.valor_financeiro td.ano span")[0]).text("oi19");
+
+		// [TABLE] Consumo_Total_Completo
+		$($("table#table_consumo_total_completo tr.valor_financeiro td.dia span")[0]).text("oi27");
+		$($("table#table_consumo_total_completo tr.valor_financeiro td.mes span")[0]).text("oi28");
+		$($("table#table_consumo_total_completo tr.valor_financeiro td.ano span")[0]).text("oi29");
+
+		// [TABLE] Consumo_Total_Consumido
+		$($("table#table_consumo_total_consumido tr.valor_financeiro td.dia span")[0]).text("oi37");
+		$($("table#table_consumo_total_consumido tr.valor_financeiro td.mes span")[0]).text("oi38");
+		$($("table#table_consumo_total_consumido tr.valor_financeiro td.ano span")[0]).text("oi39");
+	}
 	static adicionarTarifa(button) {
 		var trMenu = $(button).parents("tr.menu")[0];
 		var table = $(button).parents("table")[0];
 		
 		var trClonada = $(table).find("tr")[1];
-		var trClone = $(trClonada).clone();
+		
+		function function_sucess(data) {
+			// Cria nova tr com base em outra e add eventos
+			var trClone = $(trClonada).clone();
+			$(trClone).attr("data-id", "-1");
+			// Habilita botao de remover
+			$(trClone).find("button.remover").click(function() {
+				FrontIndexTarifa.removerTarifa($(this));
+			});
+			// Habilita botao de add
+			$(trMenu).find("button.adicionar").click(function() {
+				FrontIndexTarifa.adicionarTarifa($(this));
+			});
+			// Habilita remocao de tarifas (desativada quando existir apenas uma tarifa)
+			$(table).find("button.remover").prop("disabled", false);
 
-		$(trMenu).remove();
-		$(trClonada).parent().append(trClone);
-		$(trClonada).parent().append(trMenu);
+			// Remove trMenu da posicao atual para add na ultima posicao
+			$(trMenu).remove();
+			// Add nova tr
+			$(trClonada).parent().append(trClone);
+			// Add trMenu na ultima posicao
+			$(trClonada).parent().append(trMenu);
 
-		$(trClone).attr("data-id", "-1");
-		$(trClone).find("button.remover").click(function() {
-			FrontIndexTarifa.removerTarifa($(this));
-		});
-		$(trMenu).find("button.adicionar").click(function() {
-			FrontIndexTarifa.adicionarTarifa($(this));
-		});
+			// Atualiza estimativa com base na nova tarifa
+			FrontIndexFarifa.recalcularEstimativaDeConsumo(data);
+		}
+		function function_error(data) {
 
-		// Habilita remocao de tarifas (desativada quando existir apenas uma tarifa)
-		$(table).find("button.remover").prop("disabled", false);
+		}
+
+		BackIndexFarifa.salvarTarifa($(trClonada), function_sucess, function_error);
 	}
 	static removerTarifa(button) {
 		var trPai = $(button).parents("tr")[0];
@@ -83,6 +116,8 @@ class FrontIndexTarifa {
 				var ultimaTrDeTarifa = $(elementoAvo).find("tr")[1];
 				$(ultimaTrDeTarifa).find("button.remover").prop("disabled", true);
 			}
+
+			FrontIndexTarifa.recalcularEstimativaDeConsumo();
 		}
 		function function_error(data) {
 
@@ -276,9 +311,6 @@ class FrontEvento {
 
 		BackEvento.salvar(function_sucess, function_error);
 	}
-	static cancelar() {
-		$(window.document.location).attr("href", "horarios.html");
-	}
 }
 class BackEvento {
 	static salvar(front_function_sucess, front_function_error) {
@@ -334,9 +366,6 @@ function page_evento() {
 	});
 	$("footer a.salvar").click(function() {
 		FrontEvento.salvar();
-	});
-	$("footer a.cancelar").click(function() {
-		FrontEvento.cancelar();
 	});
 }
 

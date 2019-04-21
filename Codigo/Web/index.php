@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html>
+<?php include "class/ClienteServer.php"; ?>
 <?php include_once "include/head.php"; ?>
 <?php
+	$pacote = "e";
+	$clienteServer = new ClienteServer();
+	$clienteServer->criarConexao();
+	$clienteServer->conectar();
+	$clienteServer->enviar($pacote);
+
+	$pacote = $clienteServer->ler(19);
+
+	$clienteServer->desconectar();
+
+	//00001111 00001111 000
+
 	// CARRINHO
-	$carrinhoDiaHora = 1;
+	$carrinhoDiaHora = substr($pacote, 0, 2).":".substr($pacote, 2, 2);
 	$carrinhoMesHora = $carrinhoDiaHora*30;
 	$carrinhoAnoHora = $carrinhoMesHora*12;
 
-	$carrinhoDiaConsumo = 0.89;
+	$carrinhoDiaConsumo = substr($pacote, 4, 2).".".substr($pacote, 6, 2);
 	$carrinhoMesConsumo = $carrinhoDiaConsumo*30;
 	$carrinhoAnoConsumo = $carrinhoMesConsumo*12;
 
@@ -16,11 +29,11 @@
 	$carrinhoAnoValorFinanceiro = 0;
 
 	// FOG
-	$fogDiaHora = 1;
+	$fogDiaHora = substr($pacote, 8, 2).":".substr($pacote, 10, 2);
 	$fogMesHora = $fogDiaHora*30;
 	$fogAnoHora = $fogMesHora*12;
 
-	$fogDiaConsumo = 0.17;
+	$fogDiaConsumo = substr($pacote, 12, 2).".".substr($pacote, 14, 2);
 	$fogMesConsumo = $fogDiaConsumo*30;
 	$fogAnoConsumo = $fogMesConsumo*12;
 
@@ -40,6 +53,9 @@
 	$totalDiaValorFinanceiro = 0;
 	$totalMesValorFinanceiro = 0;
 	$totalAnoValorFinanceiro = 0;
+
+	$valorTarifa = substr($pacote, 16, 3);
+	$valorTarifa = intval($valorTarifa);
 ?>
 <body>
 	<header>
@@ -187,6 +203,7 @@
 						<span>ANO</span>
 					</th>
 				</tr>
+				<!--
 				<tr class="tempo">
 					<th>
 						<span>HORAS</span>
@@ -201,6 +218,7 @@
 						<span><?php echo $totalAnoHora; ?></span>
 					</td>
 				</tr>
+				-->
 				<tr class="consumo">
 					<th>
 						<span>kWH</span>
@@ -244,7 +262,7 @@
 				</tr>
 				<tr>
 					<td>
-						<input type="number" name="" value="0" min="0">
+						<input type="number" name="" min="0" value=<?php echo "\"".$valorTarifa."\""; ?> >
 					</td>
 					<td>
 						<input type="number" value="1" disabled="">

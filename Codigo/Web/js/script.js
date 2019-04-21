@@ -167,7 +167,7 @@ class BackEstimativaDeConsumo {
 			front_function_error(data);
 		}
 
-		Ajax("action/estimativa_de_consumo/tarifa/update.php", "valorCobrado="+valorCobrado, function_sucess, function_error);
+		Ajax("action/estimativa_de_consumo/tarifa/update.php", "valor="+valorCobrado, function_sucess, function_error);
 	}
 }
 
@@ -212,17 +212,17 @@ class FrontEvento {
 		}
 
 		function function_sucess(data) {
-			message_box(
+			/*message_box(
 				message_box_type.SUCESS,
 				"Salvo com sucesso!"
-			);
-			$(window.document.location).attr("href", $(button).attr("data-href"));
+			);*/
+			//$(window.document.location).attr("href", $(button).attr("data-href"));
 		}
 		function function_error(data) {
-			message_box(
+			/*message_box(
 				message_box_type.FAIL,
 				"Algo inesperado ocorreu no servidor.\nVerifique a corretude dos dados e tente mais tarde."
-			);
+			);*/
 		}
 
 		BackEvento.salvar(function_sucess, function_error);
@@ -232,8 +232,22 @@ class BackEvento {
 	static salvar(front_function_sucess, front_function_error) {
 		// Dados gerais
 		var nome = $("#nome").val();
-		var horario = $("#horario_hora").val() + ":" + $("#horario_minuto").val();
+		var horario = "";
 		
+		var horarioHora = $("#horario_hora").val()+"";
+		if (horarioHora.length < 2) {
+			horario += "0" +horarioHora;
+		} else {
+			horario += horarioHora.substring(0,2);
+		}
+
+		var horarioMinuto = $("#horario_minuto").val() +"";
+		if (horarioMinuto.length < 2) {
+			horario += "0" +horarioMinuto;
+		} else {
+			horario += horarioMinuto.substring(0,2);
+		}
+
 		var segunda = $("#dia_segunda").prop("checked");
 		var terca = $("#dia_terca").prop("checked");
 		var quarta = $("#dia_quarta").prop("checked");
@@ -273,6 +287,7 @@ class BackEvento {
 			}
 		}
 		function function_error(data) {
+			console.log(data);
 			front_function_error(data);
 		}
 
@@ -312,6 +327,15 @@ class FrontListaDeEvento {
 	}
 	static remove(arrayTr) {
 		$("input:checkbox").prop("disabled", true);
+		var dataId = "";
+
+		for (var c = 0; c < $(arrayTr).length; c++) {
+			var tr = $(arrayTr)[c];
+			
+			if ($(tr).find("input").prop("checked")) {
+				dataId += $(tr).attr("data-id");
+			}
+		}
 
 		function function_sucess(data) {
 			console.log("Sucess:");
@@ -336,7 +360,7 @@ class FrontListaDeEvento {
 			$("input:checkbox").prop("disabled", false);
 		}
 
-		BackListaDeEvento.remove(arrayTr, function_sucess, function_error);
+		BackListaDeEvento.remove(dataId, function_sucess, function_error);
 	}
 	static insert() {
 		var button = $("input#insert_event");
@@ -344,18 +368,7 @@ class FrontListaDeEvento {
 	}
 }
 class BackListaDeEvento {
-	static remove(arrayTr, front_function_sucess, front_function_error) {
-		var id = "";
-		for (var c = 0; c < $(arrayTr).length; c++) {
-			var tr = $(arrayTr)[c];
-			var dataId = $(tr).attr("data-id");
-
-			if (c > 0) {
-				id += ",";
-			}
-			id += dataId;
-		}
-
+	static remove(dataId, front_function_sucess, front_function_error) {
 		function function_sucess(data) {
 			console.log("Sucess:");
 			console.log(data);
@@ -370,7 +383,7 @@ class BackListaDeEvento {
 			front_function_error(data);
 		}
 
-		Ajax("action/evento/remove.php", "id="+id, function_sucess, function_error);
+		Ajax("action/evento/remove.php", "id="+dataId, function_sucess, function_error);
 	}
 }
 

@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
+<?php include "class/ClienteServer.php"; ?>
 <?php include_once "include/head.php"; ?>
+<?php
+	$pacote = "g";
+	$clienteServer = new ClienteServer();
+	$clienteServer->criarConexao();
+	$clienteServer->conectar();
+	$clienteServer->enviar($pacote);
+?>
 <body>
 	<header>
 		<span>HORÁRIOS</span>
@@ -8,176 +16,69 @@
 	<main class="lista_de_evento">
 		<section>
 			<table>
-				<tr data-id="1">
-					<td class="horario">
-						<span>07:15</span>
-					</td>
-					<td class="nome">
-						<a href="evento.html">Evento</a>
-						<ul>
-							<li>
-								<span>D</span>
-							</li>
-							<li class="bold">
-								<span>S</span>
-							</li>
-							<li>
-								<span>T</span>
-							</li>
-							<li class="bold">
-								<span>Q</span>
-							</li>
-							<li>
-								<span>Q</span>
-							</li>
-							<li class="bold">
-								<span>S</span>
-							</li>
-							<li>
-								<span>S</span>
-							</li>
-						</ul>
-					</td>
-					<td class="status">
-						<input type="checkbox">
-					</td>
-				</tr>
-				<tr data-id="2">
-					<td class="horario">
-						<span>08:20</span>
-					</td>
-					<td class="nome">
-						<a href="evento.html">Evento</a>
-						<ul>
-							<li>
-								<span>D</span>
-							</li>
-							<li>
-								<span>S</span>
-							</li>
-							<li class="bold">
-								<span>T</span>
-							</li>
-							<li>
-								<span>Q</span>
-							</li>
-							<li class="bold">
-								<span>Q</span>
-							</li>
-							<li>
-								<span>S</span>
-							</li>
-							<li>
-								<span>S</span>
-							</li>
-						</ul>
-					</td>
-					<td class="status">
-						<input type="checkbox">
-					</td>
-				</tr>
-				<tr data-id="3">
-					<td class="horario">
-						<span>10:00</span>
-					</td>
-					<td class="nome">
-						<a href="evento.html">Evento</a>
-						<ul>
-							<li class="bold">
-								<span>D</span>
-							</li>
-							<li class="bold">
-								<span>S</span>
-							</li>
-							<li class="bold">
-								<span>T</span>
-							</li>
-							<li class="bold">
-								<span>Q</span>
-							</li>
-							<li class="bold">
-								<span>Q</span>
-							</li>
-							<li class="bold">
-								<span>S</span>
-							</li>
-							<li class="bold">
-								<span>S</span>
-							</li>
-						</ul>
-					</td>
-					<td class="status">
-						<input type="checkbox">
-					</td>
-				</tr>
-				<tr data-id="4">
-					<td class="horario">
-						<span>09:30</span>
-					</td>
-					<td class="nome">
-						<a href="evento.html">Evento</a>
-						<ul>
-							<li>
-								<span>D</span>
-							</li>
-							<li>
-								<span>S</span>
-							</li>
-							<li>
-								<span>T</span>
-							</li>
-							<li>
-								<span>Q</span>
-							</li>
-							<li>
-								<span>Q</span>
-							</li>
-							<li class="bold">
-								<span>S</span>
-							</li>
-							<li>
-								<span>S</span>
-							</li>
-						</ul>
-					</td>
-					<td class="status">
-						<input type="checkbox">
-					</td>
-				</tr>
-				<tr data-id="5">
-					<td class="horario">
-						<span>08:15</span>
-					</td>
-					<td class="nome">
-						<a href="evento.html">Evento</a>
-						<ul>
-							<li class="bold">
-								<span>D</span>
-							</li>
-							<li>
-								<span>S</span>
-							</li>
-							<li>
-								<span>T</span>
-							</li>
-							<li>
-								<span>Q</span>
-							</li>
-							<li>
-								<span>Q</span>
-							</li>
-							<li>
-								<span>S</span>
-							</li>
-							<li class="bold">
-								<span>S</span>
-							</li>
-						</ul>
-					</td>
-					<td class="status">
-						<input type="checkbox">
-					</td>
-				</tr>
+				<?php
+					while (true) {
+						$subPacote1 = $clienteServer->ler(12); //"00000001234212";
+						
+						if ($subPacote1 == "") {
+							break;
+						}
+
+						echo $subPacote1."<br>"; // 00000009542217
+						$semanaDomingo = (substr($subPacote1, 0, 1) == "0")? "" : " class=\"bold\"";
+						$semanaSegunda = (substr($subPacote1, 1, 1) == "0")? "" : " class=\"bold\"";
+						$semanaTerca   = (substr($subPacote1, 2, 1) == "0")? "" : " class=\"bold\"";
+						$semanaQuarta  = (substr($subPacote1, 3, 1) == "0")? "" : " class=\"bold\"";
+						$semanaQuinta  = (substr($subPacote1, 4, 1) == "0")? "" : " class=\"bold\"";
+						$semanaSexta   = (substr($subPacote1, 5, 1) == "0")? "" : " class=\"bold\"";
+						$semanaSabado  = (substr($subPacote1, 6, 1) == "0")? "" : " class=\"bold\"";
+
+						$horarioHora   = substr($subPacote1, 7, 2);
+						$horarioMinuto = substr($subPacote1, 9, 2);
+						$horario = $horarioHora.":".$horarioMinuto;
+
+						$digitosId = substr($subPacote1, 11, 1);
+						$id = $clienteServer->ler($digitosId);
+				?>
+						<tr data-id=<?php echo "\"".$id."\""; ?>>
+							<td class="horario">
+								<span><?php echo $horario; ?></span>
+							</td>
+							<td class="nome">
+								<a href="evento.html">Evento</a>
+								<ul>
+									<li <?php echo "\"".$semanaDomingo."\""; ?>>
+										<span>D</span>
+									</li>
+									<li <?php echo "\"".$semanaSegunda."\""; ?>>
+										<span>S</span>
+									</li>
+									<li <?php echo "\"".$semanaTerca."\""; ?>>
+										<span>T</span>
+									</li>
+									<li <?php echo "\"".$semanaQuarta."\""; ?>>
+										<span>Q</span>
+									</li>
+									<li <?php echo "\"".$semanaQuinta."\""; ?>>
+										<span>Q</span>
+									</li>
+									<li <?php echo "\"".$semanaSexta."\""; ?>>
+										<span>S</span>
+									</li>
+									<li <?php echo "\"".$semanaSabado."\""; ?>>
+										<span>S</span>
+									</li>
+								</ul>
+							</td>
+							<td class="status">
+								<input type="checkbox">
+							</td>
+						</tr>
+				<?php
+						}
+
+						$clienteServer->desconectar();
+				?>
 			</table>
 		</section>
 	</main>

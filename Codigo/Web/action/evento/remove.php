@@ -2,12 +2,9 @@
 include "../../class/ClienteServer.php";
 
 // Dados gerais
-$id = explode(",", $_GET["id"]);
+$id = $_GET["id"];
 
-$pacote = "remove event test";
-for ($c = 0; $c < count($id); $c++) {
-	$pacote .= $id[$c];
-}
+$pacote = "b".$id;
 
 $clienteServer = new ClienteServer();
 $clienteServer->criarConexao();

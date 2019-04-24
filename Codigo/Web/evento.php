@@ -11,7 +11,7 @@
 		$title = "EDITAR EVENTO";
 	}
 
-	$pacote = "g";//"f";
+	$pacote = "f";
 
 	$clienteServer = new ClienteServer();
 	$clienteServer->criarConexao();

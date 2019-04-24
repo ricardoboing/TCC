@@ -4,8 +4,8 @@ class ClienteServer {
 	private $socket;
 
 	function ClienteServer() {
-		$this->host = "192.168.25.6";
-		$this->port = 8081;
+		$this->host = "192.168.50.179";
+		$this->port = 8085;
 	}
 	
 	function criarConexao() {
@@ -29,7 +29,7 @@ class ClienteServer {
 			$dado = "0".$dado;
 		}
 
-		return socket_write($this->socket, $dado, strlen($dado))? 1 : 0;
+		return socket_write ($this->socket, $dado, strlen($dado))? 1 : 0;
 	}
 	function ler($bytes) {
 		return socket_read ($this->socket, $bytes);

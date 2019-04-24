@@ -75,9 +75,9 @@
 							</td>
 						</tr>
 				<?php
-						}
+					}
 
-						$clienteServer->desconectar();
+					$clienteServer->desconectar();
 				?>
 			</table>
 		</section>

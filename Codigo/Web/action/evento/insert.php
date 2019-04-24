@@ -111,13 +111,15 @@ if ($clienteServer->enviar($pacote) == 0) {
 	echo json_encode(false);
 	return;
 }
-if ($clienteServer->ler(1) != "1") {
+
+$respostaDoServidor = $clienteServer->ler(1);
+$clienteServer->desconectar();
+
+if ($respostaDoServidor != "1") {
 	// FALHOU
 	echo json_encode(false);
 	return;
 }
-
-$clienteServer->desconectar();
 
 echo json_encode(true);
 ?>

@@ -333,6 +333,9 @@ class FrontListaDeEvento {
 			var tr = $(arrayTr)[c];
 			
 			if ($(tr).find("input").prop("checked")) {
+				if (dataId != "") {
+					dataId += ",";
+				}
 				dataId += $(tr).attr("data-id");
 			}
 		}

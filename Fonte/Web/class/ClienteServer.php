@@ -5,7 +5,7 @@ class ClienteServer {
 
 	function ClienteServer() {
 		$this->host = "192.168.50.179";
-		$this->port = 8085;
+		$this->port = 8084;
 	}
 	
 	function criarConexao() {

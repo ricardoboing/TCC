@@ -18,13 +18,13 @@
 			<table>
 				<?php
 					while (true) {
-						$subPacote1 = $clienteServer->ler(12); //"00000001234212";
+						$subPacote1 = $clienteServer->ler(15);
 						
 						if ($subPacote1 == "") {
 							break;
 						}
 
-						echo $subPacote1."<br>"; // 00000009542217
+						//echo $subPacote1."<br>";
 						$semanaDomingo = (substr($subPacote1, 0, 1) == "0")? "" : " class=\"bold\"";
 						$semanaSegunda = (substr($subPacote1, 1, 1) == "0")? "" : " class=\"bold\"";
 						$semanaTerca   = (substr($subPacote1, 2, 1) == "0")? "" : " class=\"bold\"";
@@ -37,7 +37,10 @@
 						$horarioMinuto = substr($subPacote1, 9, 2);
 						$horario = $horarioHora.":".$horarioMinuto;
 
-						$digitosId = substr($subPacote1, 11, 1);
+						$digitosNome = substr($subPacote1, 11, 2);
+						$digitosId = substr($subPacote1, 13, 2);
+
+						$nome = $clienteServer->ler($digitosNome);
 						$id = $clienteServer->ler($digitosId);
 				?>
 						<tr data-id=<?php echo "\"".$id."\""; ?>>
@@ -45,7 +48,7 @@
 								<span><?php echo $horario; ?></span>
 							</td>
 							<td class="nome">
-								<a href="evento.html">Evento</a>
+								<a href="evento.html"><?php echo $nome; ?></a>
 								<ul>
 									<li <?php echo "\"".$semanaDomingo."\""; ?>>
 										<span>D</span>

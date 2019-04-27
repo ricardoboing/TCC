@@ -23,8 +23,7 @@
 						if ($subPacote1 == "") {
 							break;
 						}
-
-						//echo $subPacote1."<br>";
+						//echo "\"".$subPacote1."\"";
 						$semanaDomingo = (substr($subPacote1, 0, 1) == "0")? "" : " class=\"bold\"";
 						$semanaSegunda = (substr($subPacote1, 1, 1) == "0")? "" : " class=\"bold\"";
 						$semanaTerca   = (substr($subPacote1, 2, 1) == "0")? "" : " class=\"bold\"";

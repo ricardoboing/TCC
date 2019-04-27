@@ -212,17 +212,17 @@ class FrontEvento {
 		}
 
 		function function_sucess(data) {
-			/*message_box(
+			message_box(
 				message_box_type.SUCESS,
 				"Salvo com sucesso!"
-			);*/
-			//$(window.document.location).attr("href", $(button).attr("data-href"));
+			);
+			$(window.document.location).attr("href", $(button).attr("data-href"));
 		}
 		function function_error(data) {
-			/*message_box(
+			message_box(
 				message_box_type.FAIL,
 				"Algo inesperado ocorreu no servidor.\nVerifique a corretude dos dados e tente mais tarde."
-			);*/
+			);
 		}
 
 		BackEvento.salvar(function_sucess, function_error);
@@ -315,8 +315,11 @@ function page_evento() {
 /* --------------------- [Class] ListaDeEvento --------------------- */
 class FrontListaDeEvento {
 	static select() {
+		console.log("oi");
 		var arrayCheckbox = $("table input:checkbox:checked");
-		
+		console.log(arrayCheckbox);
+		console.log($(arrayCheckbox));
+
 		if ($(arrayCheckbox).length <= 0) {
 			$("input.remove:button").attr("data-disabled", "disabled");
 			$("input.insert:button").attr("data-disabled", "enabled");
@@ -353,6 +356,8 @@ class FrontListaDeEvento {
 					$(tr).remove();
 				}
 			}
+
+			FrontListaDeEvento.select();
 		}
 		function function_error(data) {
 			message_box(

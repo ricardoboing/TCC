@@ -7,32 +7,56 @@
 
 	if ($id == "") {
 		$title = "NOVO EVENTO";
+
+		$nome = "";
+		$somTocar = "";
+		$somVolume = "50";
+		$somTempoDuracao = "";
+
+		$semanaDomingo = "";
+		$semanaSegunda = "";
+		$semanaTerca   = "";
+		$semanaQuarta  = "";
+		$semanaQuinta  = "";
+		$semanaSexta   = "";
+		$semanaSabado  = "";
+
+		$horarioHora   = "";
+		$horarioMinuto = "";
 	} else {
 		$title = "EDITAR EVENTO";
+
+		$pacote = "f";
+
+		$clienteServer = new ClienteServer();
+		$clienteServer->criarConexao();
+		$clienteServer->conectar();
+		$clienteServer->enviar($pacote);
+		
+		$subPacote1 = $clienteServer->ler(12); //"00000001234212";
+
+		echo "\"".$subPacote1."\"<br>"; // 00000009542217
+		
+		/*
+		$nome = "";
+		$somTocar = (substr($subPacote1, -,1) == "0")? "" : " checked";
+		$somVolume = substr($subPacote1, , 3);
+		$somTempoDuracao = substr($subPacote1, , 2);
+		*/
+		
+		$semanaDomingo = (substr($subPacote1, 0, 1) == "0")? "" : " checked";
+		$semanaSegunda = (substr($subPacote1, 1, 1) == "0")? "" : " checked";
+		$semanaTerca   = (substr($subPacote1, 2, 1) == "0")? "" : " checked";
+		$semanaQuarta  = (substr($subPacote1, 3, 1) == "0")? "" : " checked";
+		$semanaQuinta  = (substr($subPacote1, 4, 1) == "0")? "" : " checked";
+		$semanaSexta   = (substr($subPacote1, 5, 1) == "0")? "" : " checked";
+		$semanaSabado  = (substr($subPacote1, 6, 1) == "0")? "" : " checked";
+
+		$horarioHora   = substr($subPacote1, 7, 2);
+		$horarioMinuto = substr($subPacote1, 9, 2);
+
+		$clienteServer->desconectar();
 	}
-
-	$pacote = "f";
-
-	$clienteServer = new ClienteServer();
-	$clienteServer->criarConexao();
-	$clienteServer->conectar();
-	$clienteServer->enviar($pacote);
-	
-	$subPacote1 = $clienteServer->ler(12); //"00000001234212";
-
-	echo "\"".$subPacote1."\"<br>"; // 00000009542217
-	$semanaDomingo = (substr($subPacote1, 0, 1) == "0")? "" : " checked";
-	$semanaSegunda = (substr($subPacote1, 1, 1) == "0")? "" : " checked";
-	$semanaTerca   = (substr($subPacote1, 2, 1) == "0")? "" : " checked";
-	$semanaQuarta  = (substr($subPacote1, 3, 1) == "0")? "" : " checked";
-	$semanaQuinta  = (substr($subPacote1, 4, 1) == "0")? "" : " checked";
-	$semanaSexta   = (substr($subPacote1, 5, 1) == "0")? "" : " checked";
-	$semanaSabado  = (substr($subPacote1, 6, 1) == "0")? "" : " checked";
-
-	$horarioHora   = substr($subPacote1, 7, 2);
-	$horarioMinuto = substr($subPacote1, 9, 2);
-
-	$clienteServer->desconectar();
 ?>
 
 <body>
@@ -44,7 +68,7 @@
 			<section class="evento">
 				<div>
 					<label for="nome">Nome:</label>
-					<input type="text" name="nome" id="nome" placeholder="De manhã" required="required">
+					<input type="text" name="nome" id="nome" placeholder="De manhã" required="required" value=<?php echo $nome; ?>>
 				</div>
 				<div class="hora">
 					<label for="horario_hora">Horário:</label>

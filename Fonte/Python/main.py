@@ -2,8 +2,8 @@ import socket
 import pymysql
 from datetime import datetime
 
-SERVER_HOST = "192.168.50.179"
-SERVER_PORT = 8084
+SERVER_HOST = "192.168.25.6"#"192.168.50.179"
+SERVER_PORT = 8082
 
 DATABASE_HOST = "localhost"
 DATABASE_USER = "boing"
@@ -76,24 +76,25 @@ def remover_evento(conexao, length_pacote):
     banco(querry)
 
 def select_eventos():
-    querry = "SELECT idEvento, nome,horario,domingo,segunda,terca,quarta,quinta,sexta,sabado,somTocar,somVolume,somTempoDuracao FROM evento;"
+    querry = "SELECT idEvento,nome,domingo,segunda,terca,quarta,quinta,sexta,sabado,horario,somTocar,somVolume,somTempoDuracao FROM evento;"
     data = banco(querry)
     
     retorno = ""
 
     for linha in data:
         idEvento = str(linha[0])
-        nome = str(linha[1])
-        horario = str(linha[2]).split(":")
+        nome = str(linha[1]) # nao pode ter ascento se nao buga o role ;(
+        domingo = str(linha[2])
+        segunda = str(linha[3])
+        terca = str(linha[4])
+        quarta = str(linha[5])
+        quinta = str(linha[6])
+        sexta = str(linha[7])
+        sabado = str(linha[8])
+
+        horario = str(linha[9]).split(":")
         hora = horario[0]
         minuto = horario[1]
-        domingo = str(linha[3])
-        segunda = str(linha[4])
-        terca = str(linha[5])
-        quarta = str(linha[6])
-        quinta = str(linha[7])
-        sexta = str(linha[8])
-        sabado = str(linha[9])
 
         if len(hora) < 2:
             hora = "0"+hora

@@ -2,7 +2,7 @@ import socket
 import pymysql
 from datetime import datetime
 
-SERVER_HOST = "192.168.25.6"#"192.168.50.179"
+SERVER_HOST = "192.168.50.179"#"192.168.25.6"
 SERVER_PORT = 8082
 
 DATABASE_HOST = "localhost"

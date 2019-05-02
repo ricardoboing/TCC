@@ -4,7 +4,7 @@ class ClienteServer {
 	private $socket;
 
 	function ClienteServer() {
-		$this->host = "192.168.25.6";//"192.168.50.179";
+		$this->host = "192.168.50.179";//"192.168.25.6";//;
 		$this->port = 8082;
 	}
 	

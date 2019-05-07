@@ -1,26 +1,13 @@
 <?php
 include "../../class/ClienteServer.php";
+include "../../util/util.php";
 
 // Dados gerais
 $id = explode(",", $_GET["id"]);
 $pacote = "b";
 
 for ($c = 0; $c < count($id); $c++) {
-	switch (strlen($id[$c])) {
-		case 3:
-			$pacote .= "0";
-			break;
-		case 2:
-			$pacote .= "00";
-			break;
-		case 1:
-			$pacote .= "000";
-			break;
-		default:
-			break;
-	}
-
-	$pacote .= $id[$c];
+	$pacote .= formatar_digitos($id[$c], 4, 0);
 }
 
 $clienteServer = new ClienteServer();

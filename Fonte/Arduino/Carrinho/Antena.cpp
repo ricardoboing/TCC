@@ -4,7 +4,7 @@
 #include "Antena.hpp"
 
 Antena::Antena(uint8_t pinCE, uint8_t pinCSN) {
-	SPI.begin();
+	//SPI.begin();
 
 	this->antena = new RF24(pinCE, pinCSN);
 	this->endereco = 0x0;
@@ -16,7 +16,10 @@ bool Antena::iniciar_modo_leitura() {
 		return false;
 	}
 
-	this->antena->openReadingPipe(1, this->endereco);
+	const byte address[6] = "00001";
+
+	this->antena->openReadingPipe(0, address);
+	this->antena->setPALevel(RF24_PA_MIN);
 	this->antena->startListening();
 	this->antena->printDetails();
 
@@ -31,9 +34,9 @@ bool Antena::ler(byte* dado) {
 		}
 	}
 
-	this->antena->read(dado, sizeof(dado));
-
-	return true;
+	char oi[1];
+	this->antena->read(&oi, sizeof(dado));
+	Serial.println(oi[0]);
 }
 
 void Antena::set_endereco(uint64_t endereco) {

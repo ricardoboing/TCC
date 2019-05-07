@@ -3,7 +3,7 @@
 <?php include "class/ClienteServer.php"; ?>
 <?php include_once "include/head.php"; ?>
 <?php
-	$pacote = "g";
+	$pacote = "e";
 	$clienteServer = new ClienteServer();
 	$clienteServer->criarConexao();
 	$clienteServer->conectar();
@@ -47,7 +47,7 @@
 								<span><?php echo $horario; ?></span>
 							</td>
 							<td class="nome">
-								<a href="evento.html"><?php echo $nome; ?></a>
+								<a <?php echo "href='evento.php?id=".$id."'"; ?>><?php echo $nome; ?></a>
 								<ul>
 									<li <?php echo "\"".$semanaDomingo."\""; ?>>
 										<span>D</span>

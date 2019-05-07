@@ -291,7 +291,17 @@ class BackEvento {
 			front_function_error(data);
 		}
 
-		Ajax("action/evento/insert.php", dado, function_sucess, function_error);
+		var operacaoASerRealizada = $($("main").get(0)).attr("data-operacao");
+		var urlDaPagina = "insert";
+
+		if (operacaoASerRealizada == "update") {
+			urlDaPagina = "update";
+
+			var id = $($("main").get(0)).attr("data-id");
+			dado += "&id="+id;
+		}
+
+		Ajax("action/evento/"+urlDaPagina+".php", dado, function_sucess, function_error);
 	}
 }
 

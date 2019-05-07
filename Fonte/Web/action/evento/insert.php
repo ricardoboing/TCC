@@ -1,5 +1,6 @@
 <?php
 include "../../class/ClienteServer.php";
+include "../../util/util.php";
 
 // Dados gerais
 $nome = $_GET["nome"];
@@ -21,7 +22,7 @@ $somTempo = $_GET["somTempo"];
 
 // Formacao do pacote a ser enviado (de acordo com o protocolo definido)
 $pacote = "a";
-$pacote .= ($domingo == "1"  || $domingo == 1)? "1" : "0";
+$pacote .= ($domingo == "1"  || $domingo == 1)?  "1" : "0";
 $pacote .= ($segunda == "1"  || $segunda == 1)?  "1" : "0";
 $pacote .= ($terca == "1"    || $terca == 1)?    "1" : "0";
 $pacote .= ($quarta == "1"   || $quarta == 1)?   "1" : "0";
@@ -29,69 +30,17 @@ $pacote .= ($quinta == "1"   || $quinta == 1)?   "1" : "0";
 $pacote .= ($sexta == "1"    || $sexta == 1)?    "1" : "0";
 $pacote .= ($sabado == "1"   || $sabado == 1)?   "1" : "0";
 
-if ($somTocar == "1"  || $somTocar == 1) {
+if ($somTocar == "1" || $somTocar == 1) {
 	$pacote .= "1";
 
-	switch (strlen($somVolume)) {
-		case 0:
-			$pacote .= "000";
-			break;
-		case 1:
-			$pacote .= "00".$somVolume;
-			break;
-		case 2:
-			$pacote .= "0".$somVolume;
-			break;
-		case 3:
-			$pacote .= $somVolume;
-			break;
-		default:
-			$pacote .= substr($somVolume, 0, 2);
-			break;
-	}
-	switch (strlen($somTempo)) {
-		case 0:
-			$pacote .= "00";
-			break;
-		case 1:
-			$pacote .= "0".$somTempo;
-			break;
-		case 2:
-			$pacote .= $somTempo;
-			break;
-		default:
-			$pacote .= substr($somTempo, 0, 2);
-			break;
-	}
+	$pacote .= formatar_digitos($somVolume, 3, 0);
+	$pacote .= formatar_digitos($somTempo, 2, 0);
 } else {
 	$pacote .= "0";
 }
 
-switch (strlen($horario)) {
-	case 4:
-		$pacote .= $horario;
-		break;
-	case 3:
-		$pacote .= "0".$horario;
-		break;
-	case 2:
-		$pacote .= "00".$horario;
-		break;
-	case 1:
-		$pacote .= "000".$horario;
-		break;
-	case 0:
-		$pacote .= "0000";
-		break;
-	default:
-		$pacote .= substr($horario, 0, 4);
-		break;
-}
-
-if (strlen($nome) < 10) {
-	$pacote .= "0";
-}
-$pacote .= strlen($nome);
+$pacote .= formatar_digitos($horario, 4, 0);
+$pacote .= formatar_digitos(strlen($nome), 2, 0);
 $pacote .= substr($nome, 0, 100);
 
 $clienteServer = new ClienteServer();

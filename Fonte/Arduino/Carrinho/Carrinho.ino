@@ -2,7 +2,7 @@
 #include "Antena.hpp"
 
 Antena antena(8,7);
-Carrinho carrinho(3, 4, 6, 5);
+Carrinho carrinho(3, 4, 6, 5, 1, 2, 9, 10);
 
 byte dado[1];
 

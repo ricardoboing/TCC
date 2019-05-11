@@ -19,3 +19,27 @@ def formatar_digitos(valor, numeroDeDigitosEsperado):
         valorStr = "0"+valorStr
 
     return valorStr
+
+listaDiaDaSemana = ["segunda","terca","quarta","quinta","sexta","sabado","domingo"]
+
+def menor_dia(dia1,dia2):
+    indiceDia1 = -1
+    indiceDia2 = -1
+    for c in range(0,6):
+        if listaDiaDaSemana[c] == dia1:
+            indiceDia1 = c
+        if listaDiaDaSemana[c] == dia2:
+            indiceDia2 = c
+
+    if indiceDia1 < indiceDia2:
+        return 1
+    if indiceDia1 > indiceDia2:
+        return 2
+    return 0
+
+def menor_horario(horario1,horario2):
+    if horario1 < horario2:
+        return 1
+    if horario1 > horario2:
+        return 2
+    return 0

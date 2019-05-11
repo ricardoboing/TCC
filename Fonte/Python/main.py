@@ -1,10 +1,19 @@
-from datetime import datetime
+from threading import Thread, Lock
+
 from servidor import *
+from porta_serial import porta_serial
+from evento import *
 
 if __name__ == "__main__":
-    #print( formatar_digitos("1234", 6) )
-    #print( formatar_digitos("1234", 2) )
-    #print( formatar_digitos("1234", 1) )
-    #print( formatar_digitos("1", 5) )
-    #print( formatar_digitos("3", 4) )
-	ativar_servidor()
+    banco_proximo_evento()
+
+    #mutex = Lock()
+
+    #threadDoServidor = Thread(target=ativar_servidor, args=(mutex,))
+    #threadDaPortaSerial = Thread(target=porta_serial, args=(mutex,))
+
+    #threadDoServidor.start()
+    #threadDaPortaSerial.start()
+
+    #threadDoServidor.join()
+    #threadDaPortaSerial.join()

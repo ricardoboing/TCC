@@ -18,29 +18,29 @@
 			<table>
 				<?php
 					while (true) {
-						$subPacote1 = $clienteServer->ler(15);
+						$id = $clienteServer->ler(10);
 						
-						if ($subPacote1 == "") {
+						if ($id == "") {
 							break;
 						}
-						//echo "\"".$subPacote1."\"";
-						$semanaDomingo = (substr($subPacote1, 0, 1) == "0")? "" : " class=\"bold\"";
-						$semanaSegunda = (substr($subPacote1, 1, 1) == "0")? "" : " class=\"bold\"";
-						$semanaTerca   = (substr($subPacote1, 2, 1) == "0")? "" : " class=\"bold\"";
-						$semanaQuarta  = (substr($subPacote1, 3, 1) == "0")? "" : " class=\"bold\"";
-						$semanaQuinta  = (substr($subPacote1, 4, 1) == "0")? "" : " class=\"bold\"";
-						$semanaSexta   = (substr($subPacote1, 5, 1) == "0")? "" : " class=\"bold\"";
-						$semanaSabado  = (substr($subPacote1, 6, 1) == "0")? "" : " class=\"bold\"";
+						
+						$id = intval($id);
 
-						$horarioHora   = substr($subPacote1, 7, 2);
-						$horarioMinuto = substr($subPacote1, 9, 2);
+						$semanaDomingo = ($clienteServer->ler(1) == "0")? "" : " class=\"bold\"";
+						$semanaSegunda = ($clienteServer->ler(1) == "0")? "" : " class=\"bold\"";
+						$semanaTerca   = ($clienteServer->ler(1) == "0")? "" : " class=\"bold\"";
+						$semanaQuarta  = ($clienteServer->ler(1) == "0")? "" : " class=\"bold\"";
+						$semanaQuinta  = ($clienteServer->ler(1) == "0")? "" : " class=\"bold\"";
+						$semanaSexta   = ($clienteServer->ler(1) == "0")? "" : " class=\"bold\"";
+						$semanaSabado  = ($clienteServer->ler(1) == "0")? "" : " class=\"bold\"";
+
+						$horarioHora   = $clienteServer->ler(2);
+						$horarioMinuto = $clienteServer->ler(2);
 						$horario = $horarioHora.":".$horarioMinuto;
 
-						$digitosNome = substr($subPacote1, 11, 2);
-						$digitosId = substr($subPacote1, 13, 2);
+						$lengthNome = intval($clienteServer->ler(2));
 
-						$nome = $clienteServer->ler($digitosNome);
-						$id = $clienteServer->ler($digitosId);
+						$nome = $clienteServer->ler($lengthNome);
 				?>
 						<tr data-id=<?php echo "\"".$id."\""; ?>>
 							<td class="horario">

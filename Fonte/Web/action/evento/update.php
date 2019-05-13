@@ -23,7 +23,7 @@ $somTempo = $_GET["somTempo"];
 
 // Formacao do pacote a ser enviado (de acordo com o protocolo definido)
 $pacote = "c";
-$pacote .= formatar_digitos($id, 4, 0);
+$pacote .= formatar_digitos($id, 10, 0);
 $pacote .= ($domingo == "1"  || $domingo == 1)?  "1" : "0";
 $pacote .= ($segunda == "1"  || $segunda == 1)?  "1" : "0";
 $pacote .= ($terca == "1"    || $terca == 1)?    "1" : "0";

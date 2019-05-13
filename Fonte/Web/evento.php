@@ -31,7 +31,7 @@
 		$title = "EDITAR EVENTO";
 
 		$pacote = "d";
-		$pacote .= formatar_digitos($id, 4, "0");
+		$pacote .= formatar_digitos($id, 10, "0");
 
 		$clienteServer = new ClienteServer();
 		$clienteServer->criarConexao();
@@ -59,8 +59,8 @@
 			$somTocar = "";
 		}
 
-		$digitosNome = $clienteServer->ler(2);
-		$nome = $clienteServer->ler($digitosNome);
+		$lengthNome = $clienteServer->ler(2);
+		$nome = $clienteServer->ler($lengthNome);
 
 		$clienteServer->desconectar();
 	}

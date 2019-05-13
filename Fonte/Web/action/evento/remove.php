@@ -5,9 +5,10 @@ include "../../util/util.php";
 // Dados gerais
 $id = explode(",", $_GET["id"]);
 $pacote = "b";
+$pacote .= formatar_digitos(count($id), 3, 0);
 
 for ($c = 0; $c < count($id); $c++) {
-	$pacote .= formatar_digitos($id[$c], 4, 0);
+	$pacote .= formatar_digitos($id[$c], 10, 0);
 }
 
 $clienteServer = new ClienteServer();

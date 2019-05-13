@@ -1,11 +1,11 @@
 import socket
 from threading import Thread, Lock
-from banco_de_dados import *
+from bd.evento import *
 
-SERVER_HOST = "192.168.25.6"#"192.168.50.179"#
+SERVER_HOST = "192.168.50.179"#"192.168.25.6"#
 SERVER_PORT = 8081
 
-def ativar_servidor(mutex):
+def ativar_servidor():
     serverSocket = socket.socket()
     serverSocket.bind((SERVER_HOST, SERVER_PORT))
     serverSocket.listen()
@@ -22,27 +22,27 @@ def ativar_servidor(mutex):
             # INSERIR EVENTO
             if operacao == 'a':
                 print("_INSERIR EVENTO")
-                valorDeRetorno = insert_evento(conexao)
+                valorDeRetorno = bd_evento_insert(conexao)
             
             # REMOVER EVENTO
             elif operacao == 'b':
                 print("_REMOVER EVENTO")
-                valorDeRetorno = remover_evento(conexao)
+                valorDeRetorno = bd_evento_remove(conexao)
             
             # UPDATE EVENTO
             elif operacao == 'c':
                 print("_UPDATE EVENTO")
-                valorDeRetorno = update_evento(conexao)
+                valorDeRetorno = bd_evento_update(conexao)
             
             # SELECT EVENTO
             elif operacao == 'd':
                 print("_SELECT EVENTO")
-                valorDeRetorno = select_evento(conexao)
+                valorDeRetorno = bd_evento_select(conexao)
 
             # SELECT_ALL EVENTO NO BANCO DE DADOS
             elif operacao == 'e':
                 print("_SELECT_ALL EVENTO")
-                valorDeRetorno = select_eventos()
+                valorDeRetorno = bd_evento_select_all()
 
             # SELECT ESTIMATIVA DE CONSUMO
             elif operacao == 'f':

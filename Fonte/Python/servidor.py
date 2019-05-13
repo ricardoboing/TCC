@@ -1,11 +1,11 @@
 import socket
 from threading import Thread, Lock
-from banco_de_dados import *
+from bd.evento import *
 
 SERVER_HOST = "192.168.25.6"#"192.168.50.179"#
 SERVER_PORT = 8081
 
-def ativar_servidor(mutex):
+def ativar_servidor():
     serverSocket = socket.socket()
     serverSocket.bind((SERVER_HOST, SERVER_PORT))
     serverSocket.listen()
@@ -19,30 +19,38 @@ def ativar_servidor(mutex):
 
             operacao = str(ler_conteudo_conexao(conexao,1))
 
-            # INSERIR EVENTO
+            # INSERIR EVENTO (somDesabilitado)
             if operacao == 'a':
-                print("_INSERIR EVENTO")
-                valorDeRetorno = insert_evento(conexao)
+                print("_INSERIR EVENTO (somDesabilitado)")
+                valorDeRetorno = bd_evento_insert(conexao, 0)
+            # INSERIR EVENTO (somHabilitado)
+            if operacao == 'A':
+                print("_INSERIR EVENTO (somHabilitado)")
+                valorDeRetorno = bd_evento_insert(conexao, 1)
             
             # REMOVER EVENTO
             elif operacao == 'b':
                 print("_REMOVER EVENTO")
-                valorDeRetorno = remover_evento(conexao)
+                valorDeRetorno = bd_evento_delete(conexao)
             
-            # UPDATE EVENTO
+            # UPDATE EVENTO (somDesabilitado)
             elif operacao == 'c':
-                print("_UPDATE EVENTO")
-                valorDeRetorno = update_evento(conexao)
+                print("_UPDATE EVENTO (somDesabilitado)")
+                valorDeRetorno = bd_evento_update(conexao, 0)
+            # UPDATE EVENTO (somHabilitado)
+            elif operacao == 'C':
+                print("_UPDATE EVENTO (somHabilitado)")
+                valorDeRetorno = bd_evento_update(conexao, 1)
             
             # SELECT EVENTO
             elif operacao == 'd':
                 print("_SELECT EVENTO")
-                valorDeRetorno = select_evento(conexao)
+                valorDeRetorno = bd_evento_select(conexao)
 
             # SELECT_ALL EVENTO NO BANCO DE DADOS
             elif operacao == 'e':
                 print("_SELECT_ALL EVENTO")
-                valorDeRetorno = select_eventos()
+                valorDeRetorno = bd_evento_select_all()
 
             # SELECT ESTIMATIVA DE CONSUMO
             elif operacao == 'f':
@@ -53,6 +61,7 @@ def ativar_servidor(mutex):
 
             print ("\nCLIENT DISCONNECT -------\n");
             conexao.close()
+            break
     finally:
         conexao.close()
     serverSocket.close()

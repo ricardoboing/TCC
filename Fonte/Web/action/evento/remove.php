@@ -4,10 +4,13 @@ include "../../util/util.php";
 
 // Dados gerais
 $id = explode(",", $_GET["id"]);
-$pacote = "b";
+$numeroDeIds = count($id);
 
-for ($c = 0; $c < count($id); $c++) {
-	$pacote .= formatar_digitos($id[$c], 4, 0);
+$pacote = "b";
+$pacote .= codificar_inteiro($numeroDeIds);
+
+for ($c = 0; $c < $numeroDeIds; $c++) {
+	$pacote .= codificar_id($id[$c]);
 }
 
 $clienteServer = new ClienteServer();

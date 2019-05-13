@@ -31,7 +31,7 @@
 		$title = "EDITAR EVENTO";
 
 		$pacote = "d";
-		$pacote .= formatar_digitos($id, 4, "0");
+		$pacote .= codificar_id($id);
 
 		$clienteServer = new ClienteServer();
 		$clienteServer->criarConexao();

@@ -1,7 +1,9 @@
 from datetime import datetime, date
 
-from banco_de_dados import banco, ler_conteudo_conexao
-from util import *
+from bd.sql import *
+from util.util import *
+from util.codificar import *
+from util.decodificar import *
 
 idProximoEvento = 0
 diaProximoEvento = ""
@@ -85,12 +87,12 @@ def banco_proximo_evento():
     print(volumeSom)
     print(somTempoDuracaoSom)
 
-def remover_evento(conexao):
-    numeroDeIds = int( ler_conteudo_conexao(conexao,2) );
+def bd_evento_delete(conexao):
+    numeroDeIds = decodificar_inteiro(conexao,1)
 
     subQuery = ""
     for c in range(numeroDeIds):
-        idEvento = ler_conteudo_conexao(conexao,4)
+        idEvento = str(decodificar_id(conexao))
         
         if c > 0:
             subQuery += ","
@@ -104,35 +106,34 @@ def remover_evento(conexao):
 
 # Atualiza as informacoes de um evento de acordo
 # com os dados recebidos em uma conexao socket
-def update_evento(conexao):
-    idEvento = ler_conteudo_conexao(conexao,4)
-    domingo = ler_conteudo_conexao(conexao,1)
-    segunda = ler_conteudo_conexao(conexao,1)
-    terca = ler_conteudo_conexao(conexao,1)
-    quarta = ler_conteudo_conexao(conexao,1)
-    quinta = ler_conteudo_conexao(conexao,1)
-    sexta = ler_conteudo_conexao(conexao,1)
-    sabado = ler_conteudo_conexao(conexao,1)
-    somTocar = ler_conteudo_conexao(conexao,1)
-    
-    if somTocar == "1":
-        somVolume = ler_conteudo_conexao(conexao,3)
-        somTempoDuracao = ler_conteudo_conexao(conexao,2)
-    else:
-        somVolume = '000'
-        somTempoDuracao = '00'
-    
-    horario = ler_conteudo_conexao(conexao,2)
-    horario += ":"
-    horario += ler_conteudo_conexao(conexao,2)
+def bd_evento_update(conexao, somHabilitado):
+    idEvento = str(decodificar_id(conexao))
+    diasDaSemana = decodificar_dias_da_semana(conexao)
 
-    lengthNome = int(ler_conteudo_conexao(conexao,2))
-    nome = ler_conteudo_conexao(conexao,lengthNome)
+    domingo = diasDaSemana[0]
+    segunda = diasDaSemana[1]
+    terca   = diasDaSemana[2]
+    quarta  = diasDaSemana[3]
+    quinta  = diasDaSemana[4]
+    sexta   = diasDaSemana[5]
+    sabado  = diasDaSemana[6]
+
+    if somHabilitado:
+        som = decodificar_som(conexao)
+
+        somVolume = som[0]
+        somTempoDuracao = som[1]
+    else:
+        somVolume = 0
+        somTempoDuracao = 0
+
+    horario = decodificar_horario(conexao)
+    nome = decodificar_nome(conexao)
 
     query = "UPDATE evento SET "
     query += "somTempoDuracao=%s," %(somTempoDuracao)
     query += "somVolume=%s," %(somVolume)
-    query += "somTocar=%s," %(somTocar)
+    query += "somTocar=%s," %(somHabilitado)
     query += "horario='%s'," %(horario)
     query += "nome='%s'," %(nome)
     query += "domingo=%s," %(domingo)
@@ -144,33 +145,32 @@ def update_evento(conexao):
     query += "sabado=%s " %(sabado)
     query += "WHERE idEvento=%s;" %(idEvento)
 
-    return banco(query)
-
+    banco(query)
+    
     return "1"
 
-def insert_evento(conexao):
-    domingo = ler_conteudo_conexao(conexao,1)
-    segunda = ler_conteudo_conexao(conexao,1)
-    terca = ler_conteudo_conexao(conexao,1)
-    quarta = ler_conteudo_conexao(conexao,1)
-    quinta = ler_conteudo_conexao(conexao,1)
-    sexta = ler_conteudo_conexao(conexao,1)
-    sabado = ler_conteudo_conexao(conexao,1)
-    somTocar = ler_conteudo_conexao(conexao,1)
-    
-    if somTocar == "1":
-        somVolume = ler_conteudo_conexao(conexao,3)
-        somTempoDuracao = ler_conteudo_conexao(conexao,2)
-    else:
-        somVolume = '000'
-        somTempoDuracao = '00'
-    
-    horario = ler_conteudo_conexao(conexao,2)
-    horario += ":"
-    horario += ler_conteudo_conexao(conexao,2)
+def bd_evento_insert(conexao, somHabilitado):
+    diasDaSemana = decodificar_dias_da_semana(conexao)
 
-    lengthNome = int(ler_conteudo_conexao(conexao,2))
-    nome = conexao.recv(lengthNome).decode('utf-8')
+    domingo = diasDaSemana[0]
+    segunda = diasDaSemana[1]
+    terca   = diasDaSemana[2]
+    quarta  = diasDaSemana[3]
+    quinta  = diasDaSemana[4]
+    sexta   = diasDaSemana[5]
+    sabado  = diasDaSemana[6]
+
+    if somHabilitado:
+        som = decodificar_som(conexao)
+
+        somVolume = som[0]
+        somTempoDuracao = som[1]
+    else:
+        somVolume = 0
+        somTempoDuracao = 0
+
+    horario = decodificar_horario(conexao)
+    nome = decodificar_nome(conexao)
 
     query = "INSERT INTO "
     query += "evento(nome,horario,domingo,segunda,terca,quarta,quinta,sexta,sabado,somTocar,somVolume,somTempoDuracao) "
@@ -184,7 +184,7 @@ def insert_evento(conexao):
     query += "%s," %(quinta)
     query += "%s," %(sexta)
     query += "%s," %(sabado)
-    query += "%s," %(somTocar)
+    query += "%s," %(somHabilitado)
     query += "%s," %(somVolume)
     query += "%s);" %(somTempoDuracao)
     
@@ -192,7 +192,7 @@ def insert_evento(conexao):
 
     return "1"
 
-def select_eventos():
+def bd_evento_select_all():
     query = "SELECT idEvento,nome,domingo,segunda,terca,quarta,quinta,sexta,sabado,horario FROM evento;"
     data = banco(query)
     
@@ -238,8 +238,8 @@ def select_eventos():
     
     return retorno
 
-def select_evento(conexao):
-    idEvento = ler_conteudo_conexao(conexao,4)
+def bd_evento_select(idEvento):#conexao):
+    #idEvento = str(decodificar_id(conexao))
 
     query = "SELECT nome,domingo,segunda,terca,quarta,quinta,sexta,sabado,horario,somTocar,somVolume,somTempoDuracao "
     query += "FROM evento where idEvento="+idEvento+";"
@@ -247,50 +247,29 @@ def select_evento(conexao):
     
     retorno = ""
 
-    for linha in data:
-        nome = str(linha[0]) # nao pode ter ascento
-        domingo = str(linha[1])
-        segunda = str(linha[2])
-        terca = str(linha[3])
-        quarta = str(linha[4])
-        quinta = str(linha[5])
-        sexta = str(linha[6])
-        sabado = str(linha[7])
+    for tupla in data:
+        nome = str(tupla[0]) # nao pode ter ascento
+        
+        diasDaSemana = codificar_dias_da_semana(tupla[1],tupla[2],tupla[3],tupla[4],tupla[5],tupla[6],tupla[7])
 
-        horario = str(linha[8]).split(":")
-        hora = formatar_digitos(horario[0], 2)
-        minuto = formatar_digitos(horario[1], 2)
-        
-        somTocar = str(linha[9])
-        
-        somVolume = str(linha[10])
-        somVolume = formatar_digitos(somVolume, 3)
-        
-        somTempoDuracao = str(linha[11])
-        somTempoDuracao = formatar_digitos(somTempoDuracao, 2)
+        horario = str(tupla[8]).split(":")
+        horario = codificar_horario(horario[0],horario[1])
+
+        somHabilitado = str(tupla[9])
+        som = codificar_som(linha[10],tupla[11])
 
         lengthNome = str(len(nome))
         lengthNome = formatar_digitos(lengthNome, 2)
 
-        lengthId = str(len(idEvento))
-        lengthId = formatar_digitos(lengthId, 2)
-
-        retorno += domingo
-        retorno += segunda
-        retorno += terca
-        retorno += quarta
-        retorno += quinta
-        retorno += sexta
-        retorno += sabado
-        retorno += hora
-        retorno += minuto
-        if somTocar == "1":
+        retorno += diasDaSemana
+        retorno += horario
+        
+        if somHabilitado == "1":
             retorno += "1"
-            retorno += somVolume
-            retorno += somTempoDuracao
+            retorno += som
         else:
             retorno += "0"
-        retorno += lengthNome
-        retorno += nome
+
+        retorno += codificar_nome(nome)
     
     return retorno

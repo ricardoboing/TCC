@@ -23,6 +23,8 @@ function Ajax(url, data, function_sucess, function_error) {
 		data = "";
 	}
 
+	console.log(url+data);
+
 	$.ajax({
 		url: url+data,
 		dataType: "json",

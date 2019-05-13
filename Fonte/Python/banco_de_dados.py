@@ -5,6 +5,10 @@ DATABASE_USER = "boing"
 DATABASE_PASSWORD = "boing12345"
 DATABASE_NAME = "tcc"
 
+# Le o conteudo recebido em uma conexao socket
+def ler_conteudo_conexao(conexao, numeroBytes):
+    return str(conexao.recv(numeroBytes).decode('utf-8'))
+
 def banco(query):
     print(query)
 

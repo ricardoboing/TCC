@@ -36,6 +36,7 @@ def menor_dia(dia1,dia2):
     if indiceDia1 > indiceDia2:
         return 2
     return 0
+
 def menor_horario(horario1,horario2):
     if horario1 < horario2:
         return 1

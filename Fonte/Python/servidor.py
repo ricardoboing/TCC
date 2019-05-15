@@ -44,11 +44,6 @@ def ativar_servidor():
                 print("_SELECT_ALL EVENTO")
                 valorDeRetorno = bd_evento_select_all()
 
-            # SELECT ESTIMATIVA DE CONSUMO
-            elif operacao == 'f':
-                print("_SELECT ESTIMATIVA DE CONSUMO")
-                valorDeRetorno = "abcdefghij123456089"
-
             conexao.sendall(valorDeRetorno.encode())
 
             print ("\nCLIENT DISCONNECT -------\n");

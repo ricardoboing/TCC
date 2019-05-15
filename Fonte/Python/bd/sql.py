@@ -34,3 +34,23 @@ def banco(query):
     conexao.close()
 
     return retorno
+
+def sql_insert(campos, tabela, dados):
+    query = "INSERT INTO %s(%s) VALUES(%s);" %(campos, tabela, dados)
+    banco(query)
+
+def sql_select(campos, tabela, condicao):
+    query = "SELECT %s FROM %s WHERE %s;" %(campos, tabela, condicao)
+    banco(query)
+
+def sql_select_all(campos, tabela):
+    query = "SELECT %s FROM %s;" %(campos, tabela)
+    banco(query)
+
+def sql_update(campos, tabela, condicao):
+    query = "UPDATE %s SET %s WHERE %s;" %(campos, tabela, condicao)
+    banco(query)
+
+def sql_delete_where_in(tabela, campo, valoresIn):
+    query = query = "DELETE FROM %s WHERE %s in (%s);" %(tabela,campo,valoresIn)
+    banco(query)

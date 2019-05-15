@@ -2,14 +2,13 @@ import serial
 import time
 
 from threading import Thread, Lock
-#from evento import *
 
-def serial_read(evento):#mutex=Lock()):
+def serial_read(mutex, evento):#mutex=Lock()):
 	porta = serial.Serial("/dev/ttyUSB0", 9600)
 	read = porta.read()
 
 	while (True):
-		#mutex.acquire()
+		mutex.acquire()
 
 		read = porta.read(1)
 		print(read)
@@ -23,12 +22,12 @@ def serial_read(evento):#mutex=Lock()):
 				porta.write(b'C')
 
 		#porta.write(str.encode("w"))
-		#mutex.release()
+		mutex.release()
 
 	serial.close()
 
-def porta_serial(evento):
-	#threadDeAtivarSom = Thread(target=ativar_som, args=(mutex,))
+def porta_serial(mutex, evento):
+	#threadDeAtivarSom = Thread(target=ativar_som, args=(mutex,evento))
 	#threadDeAtivarSom.start()
 
-	serial_read(evento)
+	serial_read(mutex, evento)

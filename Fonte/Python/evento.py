@@ -1,5 +1,5 @@
 from datetime import datetime, date
-from bd.sql import banco, ler_conteudo_conexao
+from bd.sql import *
 
 # Gerar dados aleatorios para testes
 def gerador_aleatorio_de_eventos():
@@ -45,12 +45,15 @@ class Evento:
         for c in range (0,7):
             diaNumericoDaSemanaASerBuscado = (diaNumericoDaSemana + c) % 7
             diaStringDaSemana = self.listaDiaDaSemana[diaNumericoDaSemanaASerBuscado]
-            query = "SELECT idEvento,horario,somTocar,somVolume,somTempoDuracao,nome FROM evento WHERE %s=1 and horario > \"%s\" ORDER BY horario ASC LIMIT 1;" %(diaStringDaSemana, horarioAtual)
             
-            tuplas = banco(query)
+            queryCampos = "idEvento,horario,somTocar,somVolume,somTempoDuracao"
+            queryTabela = "evento"
+            queryCondicao = "%s=1 AND horario > \"%s\"" %(diaStringDaSemana, horarioAtual)
+            queryAdicional = "ORDER BY horario ASC LIMIT 1"
             
-            possuiTupla = False
+            tuplas = sql_select(queryCampos, queryTabela, queryCondicao, queryAdicional)
 
+            possuiTupla = False
             for tupla in tuplas:
                 possuiTupla = True
                 self.idEvento = tupla[0]
@@ -74,21 +77,6 @@ class Evento:
         if horarioAtual >= self.horarioEvento:
             self.buscar_proximo_evento()
             return 1
-
-        return 0
-
-    def proximo_evento(self,diaEvento1,horarioEvento1,diaEvento2,horarioEvento2):
-        # Verifica qual o evento ocorre primeiro pelo dia
-        if self.menor_dia(diaEvento1,diaEvento2) == 1:
-            return 1
-        if self.menor_dia(diaEvento1,diaEvento2) == 2:
-            return 2
-
-        # Se os eventos ocorrem no mesmo dia entao busca pelo horario
-        if horarioEvento1 < horarioEvento2:
-            return 1
-        if horarioEvento2 < horarioEvento1:
-            return 2
 
         return 0
 

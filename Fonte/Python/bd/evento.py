@@ -1,20 +1,21 @@
-from bd.sql import banco, ler_conteudo_conexao
+from bd.sql import *
 from util import *
 
 def bd_evento_remove(conexao):
     numeroDeIds = int( ler_conteudo_conexao(conexao,3) );
 
-    subQuery = ""
+    queryCondicaoValoresIn = ""
     for c in range(numeroDeIds):
         idEvento = ler_conteudo_conexao(conexao,10)
-        
-        if c > 0:
-            subQuery += ","
-        subQuery += idEvento
 
-    query = "DELETE FROM evento WHERE idEvento in ("+subQuery+");"
-    
-    banco(query)
+        if c > 0:
+            queryCondicaoValoresIn += ","
+        queryCondicaoValoresIn += idEvento
+
+    queryTabela = "evento"
+    queryCondicaoCampo = "idEvento"
+
+    sql_delete_where_in(queryTabela, queryCondicaoCampo, queryCondicaoValoresIn)
 
     return "1"
 
@@ -29,16 +30,16 @@ def bd_evento_update(conexao):
     quinta   = ler_conteudo_conexao(conexao,1)
     sexta    = ler_conteudo_conexao(conexao,1)
     sabado   = ler_conteudo_conexao(conexao,1)
-    
+
     somHabilitado = ler_conteudo_conexao(conexao,1)
-    
+
     if somHabilitado == "1":
         somVolume = ler_conteudo_conexao(conexao,3)
         somTempoDuracao = ler_conteudo_conexao(conexao,2)
     else:
         somVolume = '000'
         somTempoDuracao = '00'
-    
+
     horario = ler_conteudo_conexao(conexao,2)
     horario += ":"
     horario += ler_conteudo_conexao(conexao,2)
@@ -46,22 +47,23 @@ def bd_evento_update(conexao):
     lengthNome = int(ler_conteudo_conexao(conexao,2))
     nome = ler_conteudo_conexao(conexao,lengthNome)
 
-    query = "UPDATE evento SET "
-    query += "somTempoDuracao=%s," %(somTempoDuracao)
-    query += "somVolume=%s," %(somVolume)
-    query += "somTocar=%s," %(somHabilitado)
-    query += "horario='%s'," %(horario)
-    query += "nome='%s'," %(nome)
-    query += "domingo=%s," %(domingo)
-    query += "segunda=%s," %(segunda)
-    query += "terca=%s," %(terca)
-    query += "quarta=%s," %(quarta)
-    query += "quinta=%s," %(quinta)
-    query += "sexta=%s," %(sexta)
-    query += "sabado=%s " %(sabado)
-    query += "WHERE idEvento=%s;" %(idEvento)
+    queryCampos = "somTempoDuracao=%s," %(somTempoDuracao)
+    queryCampos += "somVolume=%s," %(somVolume)
+    queryCampos += "somTocar=%s," %(somHabilitado)
+    queryCampos += "horario='%s'," %(horario)
+    queryCampos += "nome='%s'," %(nome)
+    queryCampos += "domingo=%s," %(domingo)
+    queryCampos += "segunda=%s," %(segunda)
+    queryCampos += "terca=%s," %(terca)
+    queryCampos += "quarta=%s," %(quarta)
+    queryCampos += "quinta=%s," %(quinta)
+    queryCampos += "sexta=%s," %(sexta)
+    queryCampos += "sabado=%s " %(sabado)
 
-    banco(query)
+    queryTabela = "evento"
+    queryCondicao = "idEvento=%s" %(idEvento)
+
+    sql_update(queryTabela, queryCampos, queryCondicao)
 
     return "1"
 
@@ -73,7 +75,7 @@ def bd_evento_insert(conexao):
     quinta  = ler_conteudo_conexao(conexao,1)
     sexta   = ler_conteudo_conexao(conexao,1)
     sabado  = ler_conteudo_conexao(conexao,1)
-    
+
     somHabilitado = ler_conteudo_conexao(conexao,1)
 
     if somHabilitado == "1":
@@ -82,38 +84,40 @@ def bd_evento_insert(conexao):
     else:
         somVolume = '000'
         somTempoDuracao = '00'
-    
+
     horario = ler_conteudo_conexao(conexao,2)
     horario += ":"
     horario += ler_conteudo_conexao(conexao,2)
 
     lengthNome = int(ler_conteudo_conexao(conexao,2))
     nome = conexao.recv(lengthNome).decode('utf-8')
-
-    query = "INSERT INTO "
-    query += "evento(nome,horario,domingo,segunda,terca,quarta,quinta,sexta,sabado,somTocar,somVolume,somTempoDuracao) "
-    query += "VALUES("
-    query += "'%s'," %(nome)
-    query += "'%s'," %(horario)
-    query += "%s," %(domingo)
-    query += "%s," %(segunda)
-    query += "%s," %(terca)
-    query += "%s," %(quarta)
-    query += "%s," %(quinta)
-    query += "%s," %(sexta)
-    query += "%s," %(sabado)
-    query += "%s," %(somHabilitado)
-    query += "%s," %(somVolume)
-    query += "%s);" %(somTempoDuracao)
     
-    banco(query)
+    queryCampos = "nome,horario,domingo,segunda,terca,quarta,quinta,sexta,sabado,somTocar,somVolume,somTempoDuracao"
+    queryTabela = "evento"
+    queryDados = "'%s'," %(nome)
+    queryDados += "'%s'," %(horario)
+    queryDados += "%s," %(domingo)
+    queryDados += "%s," %(segunda)
+    queryDados += "%s," %(terca)
+    queryDados += "%s," %(quarta)
+    queryDados += "%s," %(quinta)
+    queryDados += "%s," %(sexta)
+    queryDados += "%s," %(sabado)
+    queryDados += "%s," %(somHabilitado)
+    queryDados += "%s," %(somVolume)
+    queryDados += "%s" %(somTempoDuracao)
+
+    sql_insert(queryCampos, queryTabela, queryDados)
 
     return "1"
 
 def bd_evento_select_all():
-    query = "SELECT domingo,segunda,terca,quarta,quinta,sexta,sabado,horario,idEvento,nome FROM evento;"
-    data = banco(query)
-    
+    queryCampos = "domingo,segunda,terca,quarta,quinta,sexta,sabado,horario,idEvento,nome"
+    queryTabela = "evento"
+    queryAdicional = "ORDER BY horario ASC"
+
+    data = sql_select_all(queryCampos, queryTabela, queryAdicional)
+
     retorno = ""
 
     for tupla in data:
@@ -127,7 +131,7 @@ def bd_evento_select_all():
 
         horario = formatar_horario(tupla[7])
         idEvento = formatar_id(tupla[8])
-        nome = formatar_nome(str(tupla[9])) # nao pode ter ascento
+        nome = formatar_nome(str(tupla[9]))
 
         retorno += idEvento
         retorno += domingo
@@ -138,17 +142,20 @@ def bd_evento_select_all():
         retorno += sexta
         retorno += sabado
         retorno += horario
-        retorno += nome
-        
+        retorno += "%s" %(nome)
+
     return retorno
 
 def bd_evento_select(conexao):
     idEvento = ler_conteudo_conexao(conexao,10)
 
-    query = "SELECT domingo,segunda,terca,quarta,quinta,sexta,sabado,horario,somTocar,somVolume,somTempoDuracao,nome "
-    query += "FROM evento where idEvento="+idEvento+";"
-    data = banco(query)
+    queryCampos = "domingo,segunda,terca,quarta,quinta,sexta,sabado,horario,somTocar,somVolume,somTempoDuracao,nome"
+    queryTabela = "evento"
+    queryCondicao = "idEvento=%s" %(idEvento)
+    queryAdicional = ""
     
+    data = sql_select(queryCampos, queryTabela, queryCondicao, queryAdicional)
+
     retorno = ""
 
     for tupla in data:
@@ -174,7 +181,7 @@ def bd_evento_select(conexao):
         retorno += horario
         retorno += som
         retorno += nome
-    
+
     return retorno
 
 def formatar_horario(horario):
@@ -195,7 +202,8 @@ def formatar_som(somHabilitado,somVolume,somTempoDuracao):
     return somHabilitado
 
 def formatar_nome(nome):
-    lengthNome = str(len(nome))
+    nomeEncode = nome.encode("utf8")
+    lengthNome = str(len(nomeEncode))
     lengthNome = formatar_digitos(lengthNome, 2)
 
     return lengthNome+nome

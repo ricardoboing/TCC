@@ -2,7 +2,7 @@ import socket
 from threading import Thread, Lock
 from bd.evento import *
 
-SERVER_HOST = "192.168.50.179"#"192.168.25.6"#
+SERVER_HOST = "192.168.25.6"#"192.168.50.179"#
 SERVER_PORT = 8081
 
 def ativar_servidor(mutex, eventoAtual):
@@ -20,7 +20,7 @@ def ativar_servidor(mutex, eventoAtual):
             operacao = str(ler_conteudo_conexao(conexao,1))
 
             mutex.acquire()
-            
+
             # INSERIR EVENTO
             if operacao == 'a':
                 print("_INSERIR EVENTO")

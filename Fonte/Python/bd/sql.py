@@ -36,21 +36,21 @@ def banco(query):
     return retorno
 
 def sql_insert(campos, tabela, dados):
-    query = "INSERT INTO %s(%s) VALUES(%s);" %(campos, tabela, dados)
+    query = "INSERT INTO %s(%s) VALUES(%s);" %(tabela, campos, dados)
     banco(query)
 
-def sql_select(campos, tabela, condicao):
-    query = "SELECT %s FROM %s WHERE %s;" %(campos, tabela, condicao)
+def sql_select(campos, tabela, condicao, adicional):
+    query = "SELECT %s FROM %s WHERE %s %s;" %(campos, tabela, condicao, adicional)
+    return banco(query)
+
+def sql_select_all(campos, tabela, adicional):
+    query = "SELECT %s FROM %s %s;" %(campos, tabela, adicional)
+    return banco(query)
+
+def sql_update(tabela, campos, condicao):
+    query = "UPDATE %s SET %s WHERE %s;" %(tabela, campos, condicao)
     banco(query)
 
-def sql_select_all(campos, tabela):
-    query = "SELECT %s FROM %s;" %(campos, tabela)
-    banco(query)
-
-def sql_update(campos, tabela, condicao):
-    query = "UPDATE %s SET %s WHERE %s;" %(campos, tabela, condicao)
-    banco(query)
-
-def sql_delete_where_in(tabela, campo, valoresIn):
-    query = query = "DELETE FROM %s WHERE %s in (%s);" %(tabela,campo,valoresIn)
+def sql_delete_where_in(tabela, condicaoCampo, condicaoValoresIn):
+    query = query = "DELETE FROM %s WHERE %s in (%s);" %(tabela,condicaoCampo,condicaoValoresIn)
     banco(query)

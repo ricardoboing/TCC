@@ -8,11 +8,11 @@ def serial_read(mutex, evento):#mutex=Lock()):
 	read = porta.read()
 
 	while (True):
-		mutex.acquire()
-
 		read = porta.read(1)
 		print(read)
 
+		mutex.acquire()
+		
 		if read == b"A":
 			if evento.disparar_agora() == 1:
 				print("Disparou")

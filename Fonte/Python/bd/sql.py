@@ -48,7 +48,13 @@ def sql_select_all(campos, tabela, adicional):
     return banco(query)
 
 def sql_update(tabela, campos, condicao):
-    query = "UPDATE %s SET %s WHERE %s;" %(tabela, campos, condicao)
+    query = "UPDATE %s SET %s" %(tabela, campos)
+
+    if condicao != "":
+        query += "WHERE %s" %(condicao)
+
+    query += ";"
+
     banco(query)
 
 def sql_delete_where_in(tabela, condicaoCampo, condicaoValoresIn):

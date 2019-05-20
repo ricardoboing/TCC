@@ -17,15 +17,12 @@
 
 	$diaHora = substr($pacote, 0, 2).":".substr($pacote, 2, 2);
 	$mesHora = $diaHora*30;
-	$anoHora = $mesHora*12;
 
 	$diaConsumo = substr($pacote, 4, 2).".".substr($pacote, 6, 2);
 	$mesConsumo = $diaConsumo*30;
-	$anoConsumo = $mesConsumo*12;
 
 	$diaValorFinanceiro = 0;
 	$mesValorFinanceiro = 0;
-	$anoValorFinanceiro = 0;
 ?>
 	<header>
 		<span>ESTIMATIVA DE CONSUMO</span>
@@ -33,7 +30,7 @@
 	<main class="estimativa_de_consumo">
 		<section>
 			<div class="titulo">
-				<span>Carrinho</span>
+				<span>Consumo (Nó IoT)</span>
 			</div>
 			<table id="table_consumo_carrinho">
 				<tr class="head">
@@ -41,18 +38,15 @@
 						<span></span>
 					</th>
 					<th>
-						<span>DIA</span>
+						<span>DIÁRIO</span>
 					</th>
 					<th>
-						<span>MÊS</span>
-					</th>
-					<th>
-						<span>ANO</span>
+						<span>MENSAL</span>
 					</th>
 				</tr>
 				<tr class="tempo">
 					<th>
-						<span>HORAS</span>
+						<span>HORAS (ATIVADO)</span>
 					</th>
 					<td class="dia">
 						<span><?php echo $diaHora; ?></span>
@@ -60,8 +54,16 @@
 					<td class="mes">
 						<span><?php echo $mesHora; ?></span>
 					</td>
-					<td class="ano">
-						<span><?php echo $anoHora; ?></span>
+				</tr>
+				<tr class="tempo">
+					<th>
+						<span>HORAS (DESATIVADO)</span>
+					</th>
+					<td class="dia">
+						<span><?php echo $diaHora; ?></span>
+					</td>
+					<td class="mes">
+						<span><?php echo $mesHora; ?></span>
 					</td>
 				</tr>
 				<tr class="consumo">
@@ -74,8 +76,32 @@
 					<td class="mes">
 						<span><?php echo $mesConsumo; ?></span>
 					</td>
-					<td class="ano">
-						<span><?php echo $anoConsumo; ?></span>
+				</tr>
+			</table>
+			<div class="titulo">
+				<span>Duração da Bateria (Nó IoT)</span>
+			</div>
+			<table>
+				<tr class="head">
+					<th>
+						<span>COMPLETO</span>
+					</th>
+					<th>
+						<span>RESTANTE</span>
+					</th>
+					<th>
+						<span></span>
+					</th>
+				</tr>
+				<tr>
+					<td>
+						<span></span>
+					</td>
+					<td>
+						<span></span>
+					</td>
+					<td>
+						<button class="red">Reiniciar</button>
 					</td>
 				</tr>
 			</table>

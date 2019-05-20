@@ -1,10 +1,12 @@
 <?php
+header("Content-type: text/html;charset=utf-8");
+
 class ClienteServer {
 	private $host, $port;
 	private $socket;
 
 	function ClienteServer() {
-		$this->host = "192.168.50.179";//"192.168.25.6";//;
+		$this->host = "192.168.25.6";//"192.168.50.179";
 		$this->port = 8081;
 	}
 	

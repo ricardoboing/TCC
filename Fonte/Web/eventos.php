@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php include "class/ClienteServer.php"; ?>
-<?php include_once "include/head.php"; ?>
+<?php
+header("Content-type: text/html;charset=utf-8");
+include "class/ClienteServer.php";
+include_once "include/head.php";
+?>
+
 <?php
 	$pacote = "e";
 	$clienteServer = new ClienteServer();

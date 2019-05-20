@@ -1,7 +1,7 @@
 from bd.sql import *
 from util import *
 
-def bd_evento_remove(conexao):
+def bd_agendamento_remove(conexao):
     numeroDeIds = int( ler_conteudo_conexao(conexao,3) );
 
     queryCondicaoValoresIn = ""
@@ -12,8 +12,8 @@ def bd_evento_remove(conexao):
             queryCondicaoValoresIn += ","
         queryCondicaoValoresIn += idEvento
 
-    queryTabela = "evento"
-    queryCondicaoCampo = "idEvento"
+    queryTabela = "evento_agendamento"
+    queryCondicaoCampo = "idAgendamento"
 
     sql_delete_where_in(queryTabela, queryCondicaoCampo, queryCondicaoValoresIn)
 
@@ -21,7 +21,7 @@ def bd_evento_remove(conexao):
 
 # Atualiza as informacoes de um evento de acordo
 # com os dados recebidos em uma conexao socket
-def bd_evento_update(conexao):
+def bd_agendamento_update(conexao):
     idEvento = ler_conteudo_conexao(conexao,10)
     domingo  = ler_conteudo_conexao(conexao,1)
     segunda  = ler_conteudo_conexao(conexao,1)
@@ -60,14 +60,14 @@ def bd_evento_update(conexao):
     queryCampos += "sexta=%s," %(sexta)
     queryCampos += "sabado=%s " %(sabado)
 
-    queryTabela = "evento"
-    queryCondicao = "idEvento=%s" %(idEvento)
+    queryTabela = "evento_agendamento"
+    queryCondicao = "idAgendamento=%s" %(idEvento)
 
     sql_update(queryTabela, queryCampos, queryCondicao)
 
     return "1"
 
-def bd_evento_insert(conexao):
+def bd_agendamento_insert(conexao):
     domingo = ler_conteudo_conexao(conexao,1)
     segunda = ler_conteudo_conexao(conexao,1)
     terca   = ler_conteudo_conexao(conexao,1)
@@ -93,7 +93,7 @@ def bd_evento_insert(conexao):
     nome = conexao.recv(lengthNome).decode('utf-8')
     
     queryCampos = "nome,horario,domingo,segunda,terca,quarta,quinta,sexta,sabado,somTocar,somVolume,somTempoDuracao"
-    queryTabela = "evento"
+    queryTabela = "evento_agendamento"
     queryDados = "'%s'," %(nome)
     queryDados += "'%s'," %(horario)
     queryDados += "%s," %(domingo)
@@ -111,9 +111,9 @@ def bd_evento_insert(conexao):
 
     return "1"
 
-def bd_evento_select_all():
-    queryCampos = "domingo,segunda,terca,quarta,quinta,sexta,sabado,horario,idEvento,nome"
-    queryTabela = "evento"
+def bd_agendamento_select_all():
+    queryCampos = "domingo,segunda,terca,quarta,quinta,sexta,sabado,horario,idAgendamento,nome"
+    queryTabela = "evento_agendamento"
     queryAdicional = "ORDER BY horario ASC"
 
     data = sql_select_all(queryCampos, queryTabela, queryAdicional)
@@ -146,12 +146,12 @@ def bd_evento_select_all():
 
     return retorno
 
-def bd_evento_select(conexao):
+def bd_agendamento_select(conexao):
     idEvento = ler_conteudo_conexao(conexao,10)
 
     queryCampos = "domingo,segunda,terca,quarta,quinta,sexta,sabado,horario,somTocar,somVolume,somTempoDuracao,nome"
-    queryTabela = "evento"
-    queryCondicao = "idEvento=%s" %(idEvento)
+    queryTabela = "evento_agendamento"
+    queryCondicao = "idAgendamento=%s" %(idEvento)
     queryAdicional = ""
     
     data = sql_select(queryCampos, queryTabela, queryCondicao, queryAdicional)

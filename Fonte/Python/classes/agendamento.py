@@ -22,7 +22,7 @@ def gerador_aleatorio_de_eventos():
         sexta    =  ((c*3) % 6) % 2
         sabado   =  ((c*4) % 9) % 2
         somTocar =  ((c*5) % 4) % 2
-        values  += "(\"evento %s\",\"%s\",%s,%s,%s,%s,%s,%s,%s,%s,5,50)" %(nome,horario,domingo,segunda,terca,quarta,quinta,sexta,sabado,somTocar)
+        values  += "(\"evento_agendamento %s\",\"%s\",%s,%s,%s,%s,%s,%s,%s,%s,5,50)" %(nome,horario,domingo,segunda,terca,quarta,quinta,sexta,sabado,somTocar)
 
     query += values+";"
     #print(query)
@@ -46,8 +46,8 @@ class Evento:
             diaNumericoDaSemanaASerBuscado = (diaNumericoDaSemana + c) % 7
             diaStringDaSemana = self.listaDiaDaSemana[diaNumericoDaSemanaASerBuscado]
             
-            queryCampos = "idEvento,horario,somTocar,somVolume,somTempoDuracao"
-            queryTabela = "evento"
+            queryCampos = "idAgendamento,horario,somTocar,somVolume,somTempoDuracao"
+            queryTabela = "evento_agendamento"
             queryCondicao = "%s=1 AND horario > \"%s\"" %(diaStringDaSemana, horarioAtual)
             queryAdicional = "ORDER BY horario ASC LIMIT 1"
             

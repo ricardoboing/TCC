@@ -12,9 +12,19 @@ $(document).ready(function() {
 		case "lista_de_evento":
 			page_lista_de_evento();
 			break;
+		case "configuracoes":
+			page_configuracoes();
+			break;
+		case "controle":
+			page_controle();
+			break;
 		default:
 			break;
 	}
+
+	$("footer li").click(function() {
+		$(this).find("a")[0].click();
+	});
 });
 function Ajax(url, data, function_sucess, function_error) {
 	if (data != undefined && data != "") {
@@ -61,83 +71,12 @@ function message_box(box_type, message) {
 
 /* --------------------- [Class] FrontIndexTarifa --------------------- */
 class FrontEstimativaDeConsumo {
-	static recalcularEstimativaDeConsumo() {
-		var valorDaTarifa = parseInt($($("table#tarifa input")[0]).val());
-
-		// [TABLE] Consumo_Carrinho
-		FrontEstimativaDeConsumo.recalcularEstimativaDeConsumoDaTable(
-			$("table#table_consumo_carrinho"),
-			valorDaTarifa
-		);
-		// [TABLE] Consumo_Fog
-		FrontEstimativaDeConsumo.recalcularEstimativaDeConsumoDaTable(
-			$("table#table_consumo_fog"),
-			valorDaTarifa
-		);
-		// [TABLE] Consumo_Total_Completo
-		FrontEstimativaDeConsumo.recalcularEstimativaDeConsumoDaTable(
-			$("table#table_consumo_total"),
-			valorDaTarifa
-		);
-	}
-	static recalcularEstimativaDeConsumoDaTable(table, valorDaTarifa) {
-		if ( $(table).attr("id") == "table_consumo_total" ) {
-			var tdValorFinanceiro, tdConsumoFog, tdConsumoCarrinho;
-			var consumoFog, consumoCarrinho;
-
-			// [TABLE] Consumo_Total_Completo
-			tdValorFinanceiro = $(table).find("tr.valor_financeiro td span");
-			tdConsumoFog = $("table#table_consumo_fog tr.valor_financeiro td span");
-			tdConsumoCarrinho = $("table#table_consumo_carrinho tr.valor_financeiro td span");
-
-			// Dia
-			consumoFog = parseFloat($($(tdConsumoFog)[0]).text());
-			consumoCarrinho = parseFloat($($(tdConsumoCarrinho)[0]).text());
-			$($(tdValorFinanceiro)[0]).text(consumoFog + consumoCarrinho);
-			
-			// Mes
-			consumoFog = parseFloat($($(tdConsumoFog)[1]).text());
-			consumoCarrinho = parseFloat($($(tdConsumoCarrinho)[1]).text());
-			$($(tdValorFinanceiro)[1]).text(consumoFog + consumoCarrinho);
-			
-			// Ano
-			consumoFog = parseFloat($($(tdConsumoFog)[2]).text());
-			consumoCarrinho = parseFloat($($(tdConsumoCarrinho)[2]).text());
-			$($(tdValorFinanceiro)[2]).text(consumoFog + consumoCarrinho);
-		} else {
-			var tdTempoDeConsumo, tdValorFinanceiro, tdConsumoWatt;
-			var consumo, tempo;
-
-			// [TABLE] Consumo_Total_Completo
-			tdValorFinanceiro = $(table).find("tr.valor_financeiro td span");
-			tdTempoDeConsumo = $(table).find("tr.tempo td span");
-			tdConsumoWatt = $(table).find("tr.consumo td span");
-
-			// Dia
-			consumo = parseFloat($($(tdConsumoWatt)[0]).text());
-			tempo = parseFloat($($(tdTempoDeConsumo)[0]).text());
-			$($(tdValorFinanceiro)[0]).text(consumo * tempo * valorDaTarifa);
-			
-			// Mes
-			consumo = parseFloat($($(tdConsumoWatt)[1]).text());
-			tempo = parseFloat($($(tdTempoDeConsumo)[1]).text());
-			$($(tdValorFinanceiro)[1]).text(consumo * tempo * valorDaTarifa);
-			
-			// Ano
-			consumo = parseFloat($($(tdConsumoWatt)[2]).text());
-			tempo = parseFloat($($(tdTempoDeConsumo)[2]).text());
-			$($(tdValorFinanceiro)[2]).text(consumo * tempo * valorDaTarifa);
-		}
-	}
-	static salvarTarifa(button) {
-		var trTarifa = $(button).parents("tr")[0];
-
+	static reiniciarEstimativaDeConsumo() {
 		function function_sucess(data) {
 			message_box(
 				message_box_type.SUCESS,
-				"Salvo com sucesso!"
+				"Tempo de duração da bateria\natualizado com sucesso!"
 			);
-			FrontEstimativaDeConsumo.recalcularEstimativaDeConsumo();
 		}
 		function function_error(data) {
 			message_box(
@@ -146,13 +85,11 @@ class FrontEstimativaDeConsumo {
 			);
 		}
 
-		BackEstimativaDeConsumo.salvarTarifa($(trTarifa), function_sucess, function_error);
+		BackEstimativaDeConsumo.reiniciarEstimativaDeConsumo(function_sucess, function_error);
 	}
 };
 class BackEstimativaDeConsumo {
-	static salvarTarifa(trTarifa, front_function_sucess, front_function_error) {
-		var valorCobrado = $($(trTarifa).find("td input")[0]).val();
-		
+	static reiniciarEstimativaDeConsumo(front_function_sucess, front_function_error) {
 		function function_sucess(data) {
 			console.log("Sucess:");
 			console.log(data);
@@ -167,14 +104,233 @@ class BackEstimativaDeConsumo {
 			front_function_error(data);
 		}
 
-		Ajax("action/estimativa_de_consumo/tarifa/update.php", "valor="+valorCobrado, function_sucess, function_error);
+		Ajax("action/estimativa_de_consumo/reiniciar_estimativa.php", "", function_sucess, function_error);
 	}
 }
 
 /* --------------------- [FunctionPage] Index --------------------- */
 function page_estimativa_de_consumo() {
-	$("table#tarifa button").click(function() {
-		FrontEstimativaDeConsumo.salvarTarifa($(this));
+	$("main button").click(function() {
+		FrontEstimativaDeConsumo.reiniciarEstimativaDeConsumo($(this));
+	});
+}
+
+/* --------------------- [Class] FrontConfiguracoes --------------------- */
+class FrontConfiguracoes {
+	static salvar(button) {
+		var noIotTempoAtividade = $("#no_iot_tempo_atividade").val();
+
+		if ($(button).prop("disabled") == true) {
+			return;
+		}
+
+		if (noIotTempoAtividade == "" || noIotTempoAtividade == undefined) {
+			message_box(
+				message_box_type.ERROR,
+				"Insira um tempo de atividade para o nó iot."
+			);
+			return;
+		}
+
+		var bateriaCapacidade = $("#bateria_capacidade").val();
+
+		if (bateriaCapacidade == "" || bateriaCapacidade == undefined) {
+			message_box(
+				message_box_type.ERROR,
+				"Insira a capacidade (corrente, em mA) da\nbateria utilizada no nó iot."
+			);
+			return;
+		}
+
+		
+
+		function function_sucess(data) {
+			message_box(
+				message_box_type.SUCESS,
+				"Salvo com sucesso!"
+			);
+			$(button).prop("disabled", false)
+			$(window.document.location).attr("href", $(button).attr("data-href"));
+		}
+		function function_error(data) {
+			message_box(
+				message_box_type.FAIL,
+				"Algo inesperado ocorreu no servidor.\nVerifique a corretude dos dados e tente mais tarde."
+			);
+			$(button).prop("disabled", false)
+		}
+
+		$(button).prop("disabled", true)
+
+		BackConfiguracoes.update(function_sucess, function_error);
+	}
+}
+
+/* --------------------- [Class] BackConfiguracoes --------------------- */
+class BackConfiguracoes {
+	static update(front_function_sucess, front_function_error) {
+		// Dados gerais
+		var noIotTempoAtividade = $("#no_iot_tempo_atividade").val()+"";
+		var noIotVelocidade = $("#no_iot_velocidade").val()+""
+		var bateriaCapacidade = $("#bateria_capacidade").val()+"";
+		var consumoAtivado = $("#consumo_ativado").val()+"";
+		var consumoDesativado = $("#consumo_desativado").val()+"";
+
+		function function_sucess(data) {
+			console.log("Sucess:");
+			console.log(data);
+
+			if (data) {
+				front_function_sucess(data);
+			} else {
+				front_function_error(data);
+			}
+		}
+		function function_error(data) {
+			console.log(data);
+			front_function_error(data);
+		}
+
+		var dado = "";
+		dado += "noIotTempoAtividade="+noIotTempoAtividade;
+		dado += "&noIotVelocidade="+noIotVelocidade;
+		dado += "&bateriaCapacidade="+bateriaCapacidade;
+		dado += "&consumoAtivado="+consumoAtivado;
+		dado += "&consumoDesativado="+consumoDesativado;
+
+		Ajax("action/configuracoes/configuracoes.php", dado, function_sucess, function_error);
+	}
+}
+
+
+/* --------------------- [FunctionPage] Configuracoes --------------------- */
+function page_configuracoes() {
+	var parametrosUrl = window.location.search.replace("?", "");
+	var parametroPage = parametrosUrl.split("=");
+
+	$($("footer a")[0]).attr("data-href", parametroPage[1]+".php");
+	$($("footer a")[1]).attr("href", parametroPage[1]+".php");
+
+	$("footer a.salvar").click(function() {
+		FrontConfiguracoes.salvar($(this));
+	});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------- [Class] Controle --------------------- */
+
+class BackControle {
+	static iot_ativar() {
+		function function_sucess(data) {
+			console.log("sucesso");
+			console.log(data);
+		}
+		function function_error(data) {
+			console.log("erro");
+			console.log(data);
+		}
+
+		Ajax("action/controle/iot.php", "", function_sucess, function_error);
+	}
+
+
+	static som_tocar() {
+		function function_sucess(data) {
+			console.log("sucesso");
+			console.log(data);
+		}
+		function function_error(data) {
+			console.log("erro");
+			console.log(data);
+		}
+
+		var dado = "";
+		dado += "operacao=tocar";
+		dado += "&valor="+$("#som_volume").val();
+		console.log(dado);
+		Ajax("action/controle/som.php", dado, function_sucess, function_error);
+	}
+	static som_parar() {
+		function function_sucess(data) {
+			console.log("sucesso");
+			console.log(data);
+		}
+		function function_error(data) {
+			console.log("erro");
+			console.log(data);
+		}
+
+		Ajax("action/controle/som.php", "operacao=parar", function_sucess, function_error);
+	}
+	static som_alterar_volume(button) {
+		function function_sucess(data) {
+			console.log("sucesso");
+			console.log(data);
+		}
+		function function_error(data) {
+			console.log("erro");
+			console.log(data);
+		}
+
+		var dado = "";
+		dado += "operacao=alterar_volume";
+		dado += "&valor="+$(button).val();
+
+		Ajax("action/controle/som.php", dado, function_sucess, function_error);
+	}
+}
+
+/* --------------------- [FunctionPage] Controle --------------------- */
+function page_controle() {
+	$("button#iot_ativar").click(function() {
+		console.log("iot_parar");
+		BackControle.iot_ativar();
+	});
+
+
+	$("button#som_tocar").click(function() {
+		console.log("som_tocar");
+		BackControle.som_tocar();
+	});
+	$("button#som_parar").click(function() {
+		console.log("som_parar");
+		BackControle.som_parar();
+	});
+	$("input#som_volume").change(function() {
+		console.log("volume");
+		BackControle.som_alterar_volume($(this));
 	});
 }
 

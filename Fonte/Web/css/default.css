@@ -172,18 +172,26 @@ header {
 	width: 100%;
 	float: left;
 	background-color: blue;
-	border: 1px blue solid;
 	position: fixed;
 	z-index: 100;
 	padding: 0px 23px;
 }
+header span,
+header a {
+	font-size: 12px;
+	font-weight: bold;
+	text-shadow: 1px 1px 2px black;
+}
 header span {
 	color: white;
 	float: left;
-	font-size: 12px;
-	font-weight: bold;
 	margin: 18px 0px;
-	text-shadow: 1px 1px 2px black;
+}
+header a {
+	color: yellow;
+	float: right;
+	padding: 18px;
+	background-color: rgba(0,0,0,0.2);
 }
 
 /* ----------- Footer ----------- */
@@ -200,12 +208,20 @@ footer ul {
 	width: 100%;
 	height: 100%;
 	float: left;
+	display: table;
 }
 footer li {
-	width: 50%;
 	height: 100%;
-	float: left;
-	display: table;
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+}
+footer li:hover {
+	background-color: rgba(0,0,0,0.2);
+}
+footer li[data-active='active'] {
+	background-color: rgba(0,0,0,0.3);
 }
 footer input[type='button'] {
 	width: 55px;
@@ -245,19 +261,11 @@ footer input[type='button'].insert[data-disabled='disabled'] {
 }
 footer a,
 footer button {
-	width: 100%;
-	height: 60px;
-	padding: 18px 23px;
+	padding: 0px 15px;
 	color: white;
 	font-size: 12px;
 	font-weight: bold;
-	background-color: blue;
 	text-shadow: 1px 1px 2px black;
-}
-footer a {
-	display: table-cell;
-	text-align: center;
-	vertical-align: middle;
 }
 footer button {
 	background-image: none;
@@ -319,7 +327,7 @@ main span.disabled {
 }
 main button {
 	float: left;
-	margin-left: 2vw;
+	/*margin-left: 2vw;*/
 }
 main section div div {
 	width: 42vw;
@@ -362,6 +370,15 @@ main.estimativa_de_consumo table td input {
 }
 main.estimativa_de_consumo table#tarifa td {
 	width: 50%;
+}
+main.estimativa_de_consumo button {
+	width: 100%;
+	height: 15vh;
+	color: white;
+	font-weight: bold;
+	background-color: rgb(0,180,0);
+	border-color: rgb(0,180,0);
+	margin-top: 20px;
 }
 
 /* ----------- Main.Manual ----------- */
@@ -492,5 +509,46 @@ main.evento section div div span {
 	height: 28px;
 	float: none;
 	display: table-cell;
+	vertical-align: bottom;
+}
+
+/* ----------- Main.Evento ----------- */
+
+main.controle section.iot div.botoes {
+	width: 100%;
+	float: left;
+}
+main.controle section div.botoes ul,
+main.controle section div.botoes li {
+	width: 100%;
+	float: left;
+	margin-bottom: 5px;
+}
+main.controle section button {
+	width: 100%;
+	height: 20vh;
+	float: left;
+	color: white;
+	border-radius: 0px;
+	font-weight: bold;
+}
+main.controle section.iot_movimentacao button.ativar {
+	background-color: rgb(0,120,0);
+	border-color: rgb(0,120,0);
+}
+
+main.controle section.som button.tocar {
+	background-color: rgb(0,120,0);
+	border-color: rgb(0,120,0);
+}
+main.controle section.som button.parar {
+	background-color: rgb(180,0,0);
+	border-color: rgb(180,0,0);
+}
+
+/* ----------- Main.Configuracoes ----------- */
+main.configuracoes input[type='number'],
+main.configuracoes input[type='text'] {
+	width: 17vw;
 	vertical-align: bottom;
 }

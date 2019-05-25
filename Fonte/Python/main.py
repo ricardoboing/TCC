@@ -7,7 +7,7 @@ from classes.agendamento import *
 if __name__ == "__main__":
 	eventoAtual = Evento()
 	eventoAtual.buscar_proximo_evento()
-		
+	
 	#porta_serial(evento)
 	
 	mutex = Lock()

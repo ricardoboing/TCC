@@ -2,7 +2,7 @@
 <html>
 <?php
 header("Content-type: text/html;charset=utf-8");
-include "class/ClienteServer.php";
+include_once "class/ClienteServer.php";
 include_once "include/head.php";
 ?>
 
@@ -93,10 +93,16 @@ include_once "include/head.php";
 		<input type="button" class="remove" value="-" data-disabled="disabled">
 		<ul>
 			<li>
-				<a href="index.php">ESTIMATIVA DE CONSUMO</a>
+				<a href="index.php">INÍCIO</a>
 			</li>
 			<li>
-				<a href="javascript: void(0);">HORÁRIOS</a>
+				<a href="controle.php">CONTROLE</a>
+			</li>
+			<li data-active="active">
+				<a href="javascript: void(0);">AGENDA</a>
+			</li>
+			<li>
+				<a href="configuracoes.php?page=agenda">CONFIG.</a>
 			</li>
 		</ul>
 	</footer>

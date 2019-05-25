@@ -1,119 +1,178 @@
 <!DOCTYPE html>
 <html>
-<?php include "class/ClienteServer.php"; ?>
+<?php include_once "class/ClienteServer.php"; ?>
 <?php include_once "include/head.php"; ?>
 <?php
-	/*
-	$pacote = "f";
+	$pacote = "h";
 	$clienteServer = new ClienteServer();
-	$clienteServer->criarConexao();
-	$clienteServer->conectar();
-	$clienteServer->enviar($pacote);
+	
+	$sucesso = $clienteServer->criarConexao();
+	
+	if ($sucesso) {
+		$sucesso = $clienteServer->conectar();
+	}
+	if ($sucesso) {
+		$sucesso = $clienteServer->enviar($pacote);
+	}
+	if ($sucesso) {
+		$diaHoraAtivado  = $clienteServer->ler(2);
+		$diaHoraAtivado .= ":";
+		$diaHoraAtivado .= $clienteServer->ler(2);
+		
+		$diaHoraDesativado  = $clienteServer->ler(2);
+		$diaHoraDesativado .= ":";
+		$diaHoraDesativado .= $clienteServer->ler(2);
+		
+		$diaConsumo  = $clienteServer->ler(2);
+		$diaConsumo .= ".";
+		$diaConsumo .= $clienteServer->ler(2);
+		
+		$mesHoraAtivado = $diaHoraAtivado*30;
+		$mesHoraDesativado = $diaHoraDesativado*30;
+		$mesConsumo = $diaConsumo*30;
 
-	$pacote = $clienteServer->ler(19);
+		$duracaoCarregado  = $clienteServer->ler(2);
+		$duracaoCarregado .= ".";
+		$duracaoCarregado .= $clienteServer->ler(2);
 
-	$clienteServer->desconectar();
-	*/
+		$duracaoConsumido  = $clienteServer->ler(2);
+		$duracaoConsumido .= ".";
+		$duracaoConsumido .= $clienteServer->ler(2);
 
-	$diaHora = substr($pacote, 0, 2).":".substr($pacote, 2, 2);
-	$mesHora = $diaHora*30;
+		$duracaoRestante  = $clienteServer->ler(2);
+		$duracaoRestante .= ".";
+		$duracaoRestante .= $clienteServer->ler(2);
+		
+		$clienteServer->desconectar();
+	} else {
+		$mensagemErro = "FALHA/ERRO";
 
-	$diaConsumo = substr($pacote, 4, 2).".".substr($pacote, 6, 2);
-	$mesConsumo = $diaConsumo*30;
+		$diaHoraAtivado = $mensagemErro;
+		$diaHoraDesativado = $mensagemErro;
+		$diaConsumo = $mensagemErro;
 
-	$diaValorFinanceiro = 0;
-	$mesValorFinanceiro = 0;
+		$mesHoraAtivado = $mensagemErro;
+		$mesHoraDesativado = $mensagemErro;
+		$mesConsumo = $mensagemErro;
+		
+		$duracaoCarregado = $mensagemErro;
+		$duracaoConsumido = $mensagemErro;
+		$duracaoRestante  = $mensagemErro;
+	}
 ?>
+<body>
 	<header>
-		<span>ESTIMATIVA DE CONSUMO</span>
+		<span>CONSUMO ESTIMATIVO DA BATERIA</span>
 	</header>
 	<main class="estimativa_de_consumo">
 		<section>
 			<div class="titulo">
-				<span>Consumo (Nó IoT)</span>
+				<span>Consumo diário</span>
 			</div>
-			<table id="table_consumo_carrinho">
-				<tr class="head">
-					<th>
-						<span></span>
-					</th>
-					<th>
-						<span>DIÁRIO</span>
-					</th>
-					<th>
-						<span>MENSAL</span>
-					</th>
-				</tr>
-				<tr class="tempo">
+			<table>
+				<tr>
 					<th>
 						<span>HORAS (ATIVADO)</span>
 					</th>
-					<td class="dia">
-						<span><?php echo $diaHora; ?></span>
-					</td>
-					<td class="mes">
-						<span><?php echo $mesHora; ?></span>
+					<td>
+						<span><?php echo $diaHoraAtivado; ?></span>
 					</td>
 				</tr>
-				<tr class="tempo">
+				<tr>
 					<th>
 						<span>HORAS (DESATIVADO)</span>
 					</th>
-					<td class="dia">
-						<span><?php echo $diaHora; ?></span>
-					</td>
-					<td class="mes">
-						<span><?php echo $mesHora; ?></span>
+					<td>
+						<span><?php echo $diaHoraDesativado; ?></span>
 					</td>
 				</tr>
-				<tr class="consumo">
+				<tr>
 					<th>
 						<span>kWH</span>
 					</th>
-					<td class="dia">
+					<td>
 						<span><?php echo $diaConsumo; ?></span>
-					</td>
-					<td class="mes">
-						<span><?php echo $mesConsumo; ?></span>
-					</td>
-				</tr>
-			</table>
-			<div class="titulo">
-				<span>Duração da Bateria (Nó IoT)</span>
-			</div>
-			<table>
-				<tr class="head">
-					<th>
-						<span>COMPLETO</span>
-					</th>
-					<th>
-						<span>RESTANTE</span>
-					</th>
-					<th>
-						<span></span>
-					</th>
-				</tr>
-				<tr>
-					<td>
-						<span></span>
-					</td>
-					<td>
-						<span></span>
-					</td>
-					<td>
-						<button class="red">Reiniciar</button>
 					</td>
 				</tr>
 			</table>
 		</section>
+		<section>
+			<div class="titulo">
+				<span>Consumo mensal</span>
+			</div>
+			<table>
+				<tr>
+					<th>
+						<span>HORAS (ATIVADO)</span>
+					</th>
+					<td>
+						<span><?php echo $mesHoraAtivado; ?></span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>HORAS (DESATIVADO)</span>
+					</th>
+					<td>
+						<span><?php echo $mesHoraDesativado; ?></span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>kWH</span>
+					</th>
+					<td>
+						<span><?php echo $mesConsumo; ?></span>
+					</td>
+				</tr>
+			</table>
+		</section>
+		<section>
+			<div class="titulo">
+				<span>Tempo de duração (em horas)</span>
+			</div>
+			<table>
+				<tr>
+					<th>
+						<span>CARREGADO</span>
+					</th>
+					<td>
+						<span><?php echo $duracaoCarregado; ?></span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>CONSUMIDO</span>
+					</th>
+					<td>
+						<span><?php echo $duracaoConsumido; ?></span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<span>RESTANTES</span>
+					</th>
+					<td>
+						<span><?php echo $duracaoRestante; ?></span>
+					</td>
+				</tr>
+			</table>
+			<button>REINICIAR</button>
+		</section>
 	</main>
 	<footer>
 		<ul>
-			<li>
-				<a href="javascript: void(0);">ESTIMATIVA DE CONSUMO</a>
+			<li data-active="active">
+				<a href="javascript: void(0);">INÍCIO</a>
 			</li>
 			<li>
-				<a href="eventos.php">HORÁRIOS</a>
+				<a href="controle.php">CONTROLE</a>
+			</li>
+			<li>
+				<a href="agenda.php">AGENDA</a>
+			</li>
+			<li>
+				<a href="configuracoes.php?page=index">CONFIG.</a>
 			</li>
 		</ul>
 	</footer>

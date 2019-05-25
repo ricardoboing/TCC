@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?php include "class/ClienteServer.php"; ?>
+<?php include_once "class/ClienteServer.php"; ?>
 <?php include_once "include/head.php"; ?>
 <?php include_once "util/util.php"; ?>
 <?php
@@ -65,7 +65,6 @@
 		$clienteServer->desconectar();
 	}
 ?>
-
 <body>
 	<header>
 		<span><?php echo $title; ?></span>
@@ -145,10 +144,10 @@
 	<footer>
 		<ul>
 			<li>
-				<a href="javascript: void(0);" class="salvar" data-href="eventos.php">SALVAR</a>
+				<a href="javascript: void(0);" class="salvar" data-href="agenda.php">SALVAR</a>
 			</li>
 			<li>
-				<a href="eventos.php" class="cancelar">CANCELAR</a>
+				<a href="agenda.php" class="cancelar">CANCELAR</a>
 			</li>
 		</ul>
 	</footer>

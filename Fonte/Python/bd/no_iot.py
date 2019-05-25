@@ -3,7 +3,7 @@ from util import *
 
 # 
 def bd_no_iot_select_configuracoes():
-	queryCampos = "velocidade, tempoDeAtividade, capacidadeDaBateria"
+	queryCampos = "velocidade, tempoDeAtividade, capacidadeDaBateria, consumoAtivado, consumoDesativado"
 	queryTabela = "no_iot"
 	queryAdicional = ""
 
@@ -16,10 +16,14 @@ def bd_no_iot_select_configuracoes():
 		velocidade          = formatar_digitos(tupla[0],3)
 		tempoDeAtividade    = formatar_digitos(tupla[1],3)
 		capacidadeDaBateria = formatar_digitos(tupla[2],4)
+		consumoAtivado      = formatar_digitos(tupla[3],5)
+		consumoDesativado   = formatar_digitos(tupla[4],5)
 
 		retorno += velocidade
 		retorno += tempoDeAtividade
 		retorno += capacidadeDaBateria
+		retorno += consumoAtivado
+		retorno += consumoDesativado
 
 		break
 

@@ -92,18 +92,12 @@ include_once "include/head.php";
 		<input type="button" id="insert_event" class="insert" value="+" data-disabled="enabled" data-href="evento.php">
 		<input type="button" class="remove" value="-" data-disabled="disabled">
 		<ul>
-			<!--<li>
-				<a href="index.php">INÍCIO</a>
-			</li>-->
 			<li>
 				<a href="index.php">CONTROLE</a>
 			</li>
 			<li data-active="active">
 				<a href="javascript: void(0);">AGENDA</a>
 			</li>
-			<!--<li>
-				<a href="configuracoes.php?page=agenda">CONFIG.</a>
-			</li>-->
 		</ul>
 	</footer>
 </body>

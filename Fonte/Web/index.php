@@ -42,18 +42,12 @@
 	</main>
 	<footer>
 		<ul>
-			<!--<li>
-				<a href="index.php">INÍCIO</a>
-			</li>-->
 			<li data-active="active">
 				<a href="javascript: void(0);">CONTROLE</a>
 			</li>
 			<li>
 				<a href="agenda.php">AGENDA</a>
 			</li>
-			<!--<li>
-				<a href="configuracoes.php?page=controle">CONFIG.</a>
-			</li>-->
 		</ul>
 	</footer>
 </body>

@@ -19,11 +19,4 @@ function formatar_digitos($valor, $numeroDeDigitosEsperado, $digitoDePreenchimen
 	
     return $valorStr;
 }
-/*
-echo "4: ".formatar_digitos("1234567", 4, "0")."<br>";
-echo "4: ".formatar_digitos("12", 4, "9")."<br>";
-echo "4: ".formatar_digitos("1", 4, "0")."<br>";
-echo "6: ".formatar_digitos("123", 6, "0")."<br>";
-echo "6: ".formatar_digitos("1234", 6, "9")."<br>";
-*/
 ?>

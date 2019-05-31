@@ -6,8 +6,8 @@ class ClienteServer {
 	private $socket;
 
 	function ClienteServer() {
-		$this->host = "192.168.25.16";//"192.168.50.179";//"192.168.50.179";
-		$this->port = 8085;
+		$this->host = "192.168.50.179";//"192.168.25.16";//"192.168.50.179";
+		$this->port = 8081;
 	}
 	
 	function criarConexao() {

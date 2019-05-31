@@ -5,20 +5,52 @@ from threading import Thread, Lock
 from bd.agendamento import *
 from bd.no_iot import *
 
+SERVER_HOST = "192.168.50.179"
+SERVER_INTERFACE_PORT = 8081
+SERVER_IOT_PORT = 8080
+CLIENTE_IOT_PORT = 8080
+IOT_ADDRESS_LIST = []
 
+MUSIC_ADDRESS = "musica.mp3"
 
-SERVER_HOST = "192.168.25.16"#"192.168.50.179"#"192.168.50.179"#
-SERVER_PORT = 8085
+################
+## SERVER IOT ##
+################
+def ativar_servidor_iot(mutex):
+    global IOT_ADDRESS_LIST
 
-def ativar_servidor(mutex, eventoAtual):
     serverSocket = socket.socket()
-    serverSocket.bind((SERVER_HOST, SERVER_PORT))
+    serverSocket.bind((SERVER_HOST, SERVER_IOT_PORT))
     serverSocket.listen()
 
-    print("SERVER CONNECT - HOST: %s | PORT : %s" %(SERVER_HOST, SERVER_PORT))
+    print("SERVER CONNECT - HOST: %s | PORT: %s (IOT)" %(SERVER_HOST, SERVER_IOT_PORT))
+
+    try:
+        while True:
+            conexao, ip = serverSocket.accept()
+            mutex.acquire()
+
+            if ip[0] not in IOT_ADDRESS_LIST:
+                IOT_ADDRESS_LIST.append(ip[0])
+            
+            mutex.release()
+
+    finally:
+        conexao.close()
+    serverSocket.close()
+
+######################
+## SERVER INTERFACE ##
+######################
+def ativar_servidor_interface(mutex, eventoAtual):
+    serverSocket = socket.socket()
+    serverSocket.bind((SERVER_HOST, SERVER_INTERFACE_PORT))
+    serverSocket.listen()
+
+    print("SERVER CONNECT - HOST: %s | PORT: %s (INTERFACE)" %(SERVER_HOST, SERVER_INTERFACE_PORT))
 
     pygame.init()
-    pygame.mixer.music.load("musica.mp3")
+    pygame.mixer.music.load(MUSIC_ADDRESS)
 
     try:
         while True:
@@ -60,7 +92,6 @@ def ativar_servidor(mutex, eventoAtual):
             # CONTROLE_NO_IOT
             elif operacao == 'f':
                 print("_CONTROLE_NO_IOT")
-                comando = ler_conteudo_conexao(conexao,1)
                 valorDeRetorno = no_iot_enviar_comando()
 
             # CONTROLE_SOM
@@ -122,13 +153,13 @@ def som_configurar(comando):
 
     return "1"
 
-def no_iot_enviar_comando(comando):
-    operacao = comando[0:1]
+def no_iot_enviar_comando():
+    global IOT_ADDRESS_LIST
+    global mutex
 
-    if operacao == "a":
-        print("ATIVAR")
-    elif operacao == "b":
-        velocidade = comando[1:]
-        print("Alterar velocidade | "+velocidade)
+    for address in IOT_ADDRESS_LIST:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
+            server.connect((address, CLIENTE_IOT_PORT))
+            server.sendall("a".encode())
 
     return "1"

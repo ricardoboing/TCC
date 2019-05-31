@@ -25,22 +25,14 @@ if __name__ == "__main__":
 	eventoAtual = Evento()
 	eventoAtual.buscar_proximo_evento()
 	
-	#porta_serial(evento)
-	
 	mutex = Lock()
 
 	listaDeNosIot = []
 	threadServidorInterface = Thread(target=ativar_servidor_interface, args=(mutex,eventoAtual))
 	threadServidorIot = Thread(target=ativar_servidor_iot, args=(mutex,))
-	#threadTeste = Thread(target=teste, args=(mutex,))
-	#threadDaPortaSerial = Thread(target=porta_serial, args=(mutex,eventoAtual))
 
 	threadServidorInterface.start()
 	threadServidorIot.start()
-	#threadTeste.start()
-	#threadDaPortaSerial.start()
 
 	threadServidorInterface.join()
 	threadServidorIot.join()
-	#threadTeste.join()
-	#threadDaPortaSerial.join()

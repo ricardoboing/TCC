@@ -13,9 +13,13 @@ IOT_ADDRESS_LIST = []
 
 MUSIC_ADDRESS = "musica.mp3"
 
-################
-## SERVER IOT ##
-################
+############################# SERVER IOT ############################
+# Recebe solicitacoes de dispositivos iot para serem cadastrados (IP)
+# em uma lista. Posteriormente, comandos de controle sao enviados aos
+# IP's cadastrados nessa lista.
+# 
+# ativar_servidor_interface, no_iot_enviar_comando
+#####################################################################
 def ativar_servidor_iot(mutex):
     global IOT_ADDRESS_LIST
 
@@ -28,8 +32,12 @@ def ativar_servidor_iot(mutex):
     try:
         while True:
             conexao, ip = serverSocket.accept()
+
+            # Um iot nao pode ser cadastrado em paralelo com
+            # o gerenciamento de dados da camada de interface
             mutex.acquire()
 
+            # Cadastra o ip do iot, caso ainda nao esteja na lista
             if ip[0] not in IOT_ADDRESS_LIST:
                 IOT_ADDRESS_LIST.append(ip[0])
             
@@ -39,9 +47,12 @@ def ativar_servidor_iot(mutex):
         conexao.close()
     serverSocket.close()
 
-######################
-## SERVER INTERFACE ##
-######################
+########################## SERVER INTERFACE #########################
+# Recebe dados da camada de interface e realiza o gerenciamento
+# desses dados.
+# 
+# ativar_servidor_iot, no_iot_enviar_comando, som_configurar
+#####################################################################
 def ativar_servidor_interface(mutex, eventoAtual):
     serverSocket = socket.socket()
     serverSocket.bind((SERVER_HOST, SERVER_INTERFACE_PORT))
@@ -49,6 +60,8 @@ def ativar_servidor_interface(mutex, eventoAtual):
 
     print("SERVER CONNECT - HOST: %s | PORT: %s (INTERFACE)" %(SERVER_HOST, SERVER_INTERFACE_PORT))
 
+    # Inicializa a biblioteca para ativar/desativar efeitos sonoros
+    # utilizados para alertar as aves.
     pygame.init()
     pygame.mixer.music.load(MUSIC_ADDRESS)
 
@@ -59,6 +72,8 @@ def ativar_servidor_interface(mutex, eventoAtual):
 
             operacao = str(ler_conteudo_conexao(conexao,1))
 
+            # As operacoes nao podem ser realizadas em paralelo com
+            # o cadastrado dos IP's dos dispositivos.
             mutex.acquire()
 
             # INSERIR EVENTO
@@ -135,31 +150,54 @@ def ativar_servidor_interface(mutex, eventoAtual):
         conexao.close()
     serverSocket.close()
 
-    mutex.release()
-
+########################### CONFIGURAR SOM ##########################
+# Com base no comando especificado eh alterado o volume, iniciado ou
+# parado a execucao do efeito sonoro (que alerta as aves sobre o
+# alimento).
+# 
+# comando:
+# a: parar som
+# b: iniciar som e alterar volume
+# c: alterar volume
+#
+# ativar_servidor_interface
+#####################################################################
 def som_configurar(comando):
     operacao = comando[0:1]
 
+    # PARAR
     if operacao == "a":
         pygame.mixer.music.stop()
     else:
+    # ALTERAR VOLUME [, INICIAR SOM]
         volume = int(comando[1:])
         volume /= 100
         
         pygame.mixer.music.set_volume(volume)
 
+        # INICIAR
         if operacao == "b":
             pygame.mixer.music.play(-1)
 
+    # Sucesso/erro/falha nao implementados
     return "1"
 
+########################### CONTROLAR IOT ###########################
+# Envia um comando de controle ao dispositivo iot de acordo com o IP
+# do dispositivo. Os IP's sao cadastrados, inicialmente, atraves de
+# um socket, na funcao ativar_servidor_iot.
+#
+# ativar_servidor_iot, ativar_servidor_interface
+#####################################################################
 def no_iot_enviar_comando():
     global IOT_ADDRESS_LIST
     global mutex
 
+    # O comando eh enviado para todos os dispositivos iot cadastrados
     for address in IOT_ADDRESS_LIST:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
             server.connect((address, CLIENTE_IOT_PORT))
             server.sendall("a".encode())
 
+    # Sucesso/erro/falha nao implementados
     return "1"

@@ -1,11 +1,13 @@
 #ifndef RESERVATORIO_HPP
 #define RESERVATORIO_HPP
 
+#include <Stepper.h> 
 #include "Reservatorio.hpp"
 
 class Reservatorio {
 private:
 	bool isAberto;
+	Stepper* motor;
 
 public:
 	Reservatorio();

@@ -1,8 +1,8 @@
 #include "Carrinho.hpp"
 #include <SoftwareSerial.h>
 #include <Ultrasonic.h>
-SoftwareSerial antennaEsp(2,3);
-Carrinho carrinho(7, 4, 6, 5, 1, 8, 9, 10);
+SoftwareSerial antennaEsp(2, 3);
+Carrinho carrinho(6, 7, 8, 9, 10, 11, 12, 13);
 Ultrasonic ultrasonic(4, 5);
 
 int estado = 0;
@@ -10,6 +10,8 @@ unsigned long tempoInicial = 0;
 unsigned long tempoFinal = 0;
 unsigned long intervaloEntreTempos = 0;
 unsigned long tempoVoltaEsperado = 0;
+
+float dist = 0;
 
 void setup() {
 	Serial.begin(115200);
@@ -28,7 +30,7 @@ void esp_configure() {
     while(!antennaEsp.find("OK"));
 
     // Registra "no" iot no servidor
-    esp_data_send("CIPSTART=\"TCP\",\"192.168.25.16\",8081");
+    esp_data_send("CIPSTART=\"TCP\",\"192.168.25.32\",8081");
     delay(2000);
 
     // Fecha conexao com o servidor
@@ -56,14 +58,22 @@ void esp_data_send(String comando) {
   
     Serial.print(resposta);
 }
+float get_sensor_distancia() {
+    long microsec = ultrasonic.timing();
+    
+    return ultrasonic.convert(microsec, Ultrasonic::CM);
+}
+
 void loop() {
     // Carrinho parado: verifica comando recebido (antena)
 	if (estado == 0) {
 		if (antennaEsp.available()) {
             delay(2000);
             while (antennaEsp.available()) antennaEsp.read();
-            Serial.println("available");
-			carrinho.andar_sentido_sul();
+            
+            dist = get_sensor_distancia();
+
+            carrinho.andar_sentido_sul();
 			carrinho.abrir_reservatorio();
 
 			estado = 1;
@@ -71,34 +81,28 @@ void loop() {
         }
 	// Carrinho andando (sentido 1 - ida)
     } else if (estado == 1) {
-        long microsec = ultrasonic.timing();
-        float distanciaCentimetro = ultrasonic.convert(microsec, Ultrasonic::CM);
+        float distancia = get_sensor_distancia();
         
-        if (distanciaCentimetro < 15 && distanciaCentimetro > 0) {
+        if (distancia < 10 && distancia > 0) {
+            carrinho.andar_sentido_norte();
             tempoFinal = millis();
-            carrinho.parar();
             estado = 2;
 
-            intervaloEntreTempos = tempoFinal - tempoInicial;
-            tempoVoltaEsperado = tempoFinal + intervaloEntreTempos;
+            tempoVoltaEsperado = 2*tempoFinal - tempoInicial;
 
-            carrinho.andar_sentido_norte();
+            
             delay(intervaloEntreTempos);
         }
 	// Carrinho andando (sentido 2 - volta)
 	} else {
-		unsigned long tempoAtual = millis();
-        if (tempoVoltaEsperado <= tempoAtual) {
+        float distancia = get_sensor_distancia();
+		//unsigned long tempoAtual = millis();
+        //if (tempoVoltaEsperado <= tempoAtual) {
+        if (dist <= distancia) {
             estado = 0;
 
             carrinho.parar();
             carrinho.fechar_reservatorio();
-
-            Serial.print("Retornou: ");
-            Serial.print(tempoVoltaEsperado);
-            Serial.print(" | tempoFFinal: ");
-            Serial.println(tempoAtual);
         }
-        Serial.println(tempoAtual);
-	}
+    }
 }

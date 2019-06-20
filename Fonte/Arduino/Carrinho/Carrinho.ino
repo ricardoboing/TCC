@@ -30,7 +30,7 @@ void esp_configure() {
     while(!antennaEsp.find("OK"));
 
     // Registra "no" iot no servidor
-    esp_data_send("CIPSTART=\"TCP\",\"192.168.25.32\",8081");
+    esp_data_send("CIPSTART=\"TCP\",\"192.168.25.36\",8081");
     delay(2000);
 
     // Fecha conexao com o servidor
@@ -71,13 +71,14 @@ void loop() {
             delay(2000);
             while (antennaEsp.available()) antennaEsp.read();
             
-            dist = get_sensor_distancia();
+            //dist = get_sensor_distancia();
 
+            tempoInicial = millis();
+            Serial.println("antes");
             carrinho.andar_sentido_sul();
 			carrinho.abrir_reservatorio();
-
+            Serial.println("depois");
 			estado = 1;
-            tempoInicial = millis();
         }
 	// Carrinho andando (sentido 1 - ida)
     } else if (estado == 1) {
@@ -89,16 +90,13 @@ void loop() {
             estado = 2;
 
             tempoVoltaEsperado = 2*tempoFinal - tempoInicial;
-
             
-            delay(intervaloEntreTempos);
+            //delay(intervaloEntreTempos);
         }
 	// Carrinho andando (sentido 2 - volta)
 	} else {
-        float distancia = get_sensor_distancia();
-		//unsigned long tempoAtual = millis();
-        //if (tempoVoltaEsperado <= tempoAtual) {
-        if (dist <= distancia) {
+        unsigned long tempoAtual = millis();
+        if (tempoVoltaEsperado <= tempoAtual) {
             estado = 0;
 
             carrinho.parar();

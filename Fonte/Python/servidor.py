@@ -3,11 +3,10 @@ import pygame
 
 from threading import Thread, Lock
 from bd.agendamento import *
-from bd.no_iot import *
 
-SERVER_HOST = "192.168.50.179"
-SERVER_INTERFACE_PORT = 8081
-SERVER_IOT_PORT = 8080
+SERVER_HOST = "192.168.25.36"
+SERVER_INTERFACE_PORT = 8080
+SERVER_IOT_PORT = 8081
 CLIENTE_IOT_PORT = 8080
 IOT_ADDRESS_LIST = []
 
@@ -32,6 +31,8 @@ def ativar_servidor_iot(mutex):
     try:
         while True:
             conexao, ip = serverSocket.accept()
+            print("\nIOT CONNECT -------\n")
+            print("IP: %s" %(ip[0]))
 
             # Um iot nao pode ser cadastrado em paralelo com
             # o gerenciamento de dados da camada de interface
@@ -40,9 +41,13 @@ def ativar_servidor_iot(mutex):
             # Cadastra o ip do iot, caso ainda nao esteja na lista
             if ip[0] not in IOT_ADDRESS_LIST:
                 IOT_ADDRESS_LIST.append(ip[0])
-            
+                print("IOT CADASTRADO")
+
             mutex.release()
 
+            print("\nIOT DISCONNECT -------\n")
+    except:
+        pass
     finally:
         conexao.close()
     serverSocket.close()
@@ -117,8 +122,7 @@ def ativar_servidor_interface(mutex, eventoAtual):
                 # Comando de alterar o volume do som precisa dos 3 bytes do volume
                 if comando != "a":
                     comando += ler_conteudo_conexao(conexao,3)
-
-                valorDeRetorno = som_configurar(comando)
+                    valorDeRetorno = som_configurar(comando)
 
             # GET ESTIMATIVA DE CONSUMO
             elif operacao == "h":
@@ -145,7 +149,6 @@ def ativar_servidor_interface(mutex, eventoAtual):
             conexao.sendall(valorDeRetorno.encode())
 
             print ("\nCLIENT DISCONNECT -------\n");
-            conexao.close()
     finally:
         conexao.close()
     serverSocket.close()
@@ -172,12 +175,12 @@ def som_configurar(comando):
     # ALTERAR VOLUME [, INICIAR SOM]
         volume = int(comando[1:])
         volume /= 100
-        
+
         pygame.mixer.music.set_volume(volume)
 
-        # INICIAR
-        if operacao == "b":
-            pygame.mixer.music.play(-1)
+    # INICIAR
+    if operacao == "b":
+        pygame.mixer.music.play(-1)
 
     # Sucesso/erro/falha nao implementados
     return "1"
@@ -195,9 +198,12 @@ def no_iot_enviar_comando():
 
     # O comando eh enviado para todos os dispositivos iot cadastrados
     for address in IOT_ADDRESS_LIST:
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
-            server.connect((address, CLIENTE_IOT_PORT))
-            server.sendall("a".encode())
-
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
+                server.connect((address, CLIENTE_IOT_PORT))
+                server.sendall("a".encode())
+        except:
+            print("Erro ao se conectar com iot. IP: %s" %(address))
+            pass
     # Sucesso/erro/falha nao implementados
     return "1"

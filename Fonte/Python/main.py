@@ -1,10 +1,9 @@
 from threading import Thread, Lock
 
-from servidor import ativar_servidor_interface, ativar_servidor_iot
-from porta_serial import porta_serial
+from servidor import ativar_servidor_interface, ativar_servidor_iot, no_iot_enviar_comando
 from classes.agendamento import *
 
-#import time
+import time
 #import socket
 
 '''
@@ -21,6 +20,21 @@ def teste(mutex):
 
 	print("oi")
 '''
+
+def cumprir_agendamento(mutex, eventoAtual):
+	while True:
+		mutex.acquire()
+
+		if eventoAtual.disparar_agora():
+			no_iot_enviar_comando()
+		mutex.release()
+
+		# Dorme ate alterar o minuto do relogio
+		# Ex:
+		# agora 19:30:40 e precisa acordar 19:31:00, entao: dorme 20s
+		proximoMinuto = 60-int(datetime.now().strftime("%S"))
+		time.sleep(proximoMinuto)
+
 if __name__ == "__main__":
 	eventoAtual = Evento()
 	eventoAtual.buscar_proximo_evento()
@@ -28,11 +42,14 @@ if __name__ == "__main__":
 	mutex = Lock()
 
 	listaDeNosIot = []
-	threadServidorInterface = Thread(target=ativar_servidor_interface, args=(mutex,eventoAtual))
 	threadServidorIot = Thread(target=ativar_servidor_iot, args=(mutex,))
+	threadServidorInterface = Thread(target=ativar_servidor_interface, args=(mutex,eventoAtual))
+	threadAgendamento = Thread(target=cumprir_agendamento, args=(mutex,eventoAtual))
 
 	threadServidorInterface.start()
 	threadServidorIot.start()
+	threadAgendamento.start()
 
-	threadServidorInterface.join()
 	threadServidorIot.join()
+	threadServidorInterface.join()
+	threadAgendamento.join()

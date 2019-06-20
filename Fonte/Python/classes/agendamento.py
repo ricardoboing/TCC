@@ -36,7 +36,7 @@ class Evento:
         self.tocarSom = False
         self.volumeSom = 0
         self.somTempoDuracaoSom = 0
-        self.listaDiaDaSemana = ["domingo", "segunda", "terca", "quarta", "quinta", "sexta", "sabado"]
+        self.listaDiaDaSemana = ["quinta", "sexta", "sabado", "domingo", "segunda", "terca", "quarta"]
 
     def buscar_proximo_evento(self):
         diaNumericoDaSemana = date.today().weekday()

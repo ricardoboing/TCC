@@ -22,7 +22,7 @@ void esp_configure() {
     // Configuracoes iniciais
     esp_data_send("RST");
     esp_data_send("CWMODE=1");
-    esp_data_send("CWJAP=\"GVT-DFDC\",\"S1F7586408\"");
+    esp_data_send("CWJAP=\"GVT-DFDC\",\"S1F7595521\"");
     
     // Mostra ip do "no" dentro da rede
     esp_data_send("CIFSR");
@@ -71,27 +71,21 @@ void loop() {
             delay(2000);
             while (antennaEsp.available()) antennaEsp.read();
             
-            //dist = get_sensor_distancia();
-
             tempoInicial = millis();
-            Serial.println("antes");
             carrinho.andar_sentido_sul();
 			carrinho.abrir_reservatorio();
-            Serial.println("depois");
-			estado = 1;
+            estado = 1;
         }
 	// Carrinho andando (sentido 1 - ida)
     } else if (estado == 1) {
         float distancia = get_sensor_distancia();
         
-        if (distancia < 10 && distancia > 0) {
+        if (distancia < 7 && distancia > 0) {
             carrinho.andar_sentido_norte();
             tempoFinal = millis();
             estado = 2;
 
             tempoVoltaEsperado = 2*tempoFinal - tempoInicial;
-            
-            //delay(intervaloEntreTempos);
         }
 	// Carrinho andando (sentido 2 - volta)
 	} else {

@@ -144,6 +144,11 @@ def bd_agendamento_select_all():
         retorno += horario
         retorno += "%s" %(nome)
 
+    print(len(data))
+
+    totalDeTuplas = formatar_digitos(len(data), 3)
+
+    retorno = totalDeTuplas + retorno
     return retorno
 
 def bd_agendamento_select(conexao):

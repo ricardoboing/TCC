@@ -4,8 +4,9 @@ import pygame
 from threading import Thread, Lock
 from bd.agendamento import *
 
-SERVER_HOST = "192.168.25.36"
-SERVER_INTERFACE_PORT = 8080
+#SERVER_HOST = "192.168.25.36"
+SERVER_HOST = "ricardoboing"
+SERVER_INTERFACE_PORT = 8086
 SERVER_IOT_PORT = 8081
 CLIENTE_IOT_PORT = 8080
 IOT_ADDRESS_LIST = []
@@ -147,6 +148,8 @@ def ativar_servidor_interface(mutex, eventoAtual):
             mutex.release()
 
             conexao.sendall(valorDeRetorno.encode())
+
+            print(valorDeRetorno.encode());
 
             print ("\nCLIENT DISCONNECT -------\n");
     finally:

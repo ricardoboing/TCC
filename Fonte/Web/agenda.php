@@ -21,7 +21,8 @@ include_once "include/head.php";
 		<section>
 			<table>
 				<?php
-					while (true) {
+					$numeroDeAgendamentos = intval($clienteServer->ler(3));
+					for ($c = 0; $c < $numeroDeAgendamentos; $c++) {
 						$id = $clienteServer->ler(10);
 						
 						if ($id == "") {

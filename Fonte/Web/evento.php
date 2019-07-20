@@ -7,7 +7,7 @@
 	$id = $_GET["id"];
 
 	$tipoDaPagina = "insert";
-	$title = "NOVO EVENTO";
+	$title = "NOVO AGENDAMENTO";
 
 	$semanaDomingo = "";
 	$semanaSegunda = "";
@@ -28,7 +28,7 @@
 
 	if ($id != "") {
 		$tipoDaPagina = "update";
-		$title = "EDITAR EVENTO";
+		$title = "EDITAR AGENDAMENTO";
 
 		$pacote = "d";
 		$pacote .= formatar_digitos($id, 10, "0");
